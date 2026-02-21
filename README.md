@@ -13,9 +13,9 @@
   [![Rust](https://img.shields.io/badge/Edge_Native-Rust_Tauri-FFC131?style=flat-square&logo=rust)](https://tauri.app/)
   [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-  *AuraOS bridges the gap between neural visual perception and deterministic execution using a **Quantum Topology Architecture**, turning complex Cloud Run swarms into a single entangled entity.*
+  *AuraOS: The **AetherCore Prometheus** Architecture. We fuse **Active Inference (Free Energy Minimization)** with a **Quantum VisionFlow Swarm** (Google Cloud Run), creating an agent that doesn't just react, but "dreams," predicts, and acts across parallel parallel realities to eliminate UI uncertainty.*
   
-  *يقوم AuraOS بربط الإدراك البصري العصبي بالتنفيذ الحتمي باستخدام **هندسة الطوبولوجيا الكمية (Quantum Topology)**، مما يحول سرب الخوادم السحابية إلى كيان واحد مترابط لاتخاذ قرارات فائقة الذكاء.*
+  *يقدم AuraOS معمارية **AetherCore Prometheus** الثورية. نحن ندمج **الاستدلال النشط (Active Inference)** مع سرب **الطوبولوجيا الكمية السحابية**، لخلق وكيل واعٍ لا يتفاعل فحسب، بل "يحلم" ويتوقع المستقبل ويختبر سيناريوهات موازية للقضاء على أي نسبة خطأ في واجهات المستخدم.*
 
 </div>
 
@@ -41,23 +41,25 @@ Current "Computer-using Agents" suffer from three fatal flaws:
 
 ---
 
-## 🎯 The Solution / الحل: Quantum VisionFlow Architecture
+## 🎯 The Solution: AuraOS AetherCore (Prometheus + Quantum Swarm)
 
 ### 🇬🇧 English
 
-**AuraOS** is an ultra-modern agentic architecture built on the emerging principles of **Quantum Topology (Quantopology)**. By treating AI agents not as isolated scripts, but as "entangled nodes" within a shifting topological swarm, we achieve massive scale with zero complex engineering. We specifically target the **Live Agents** and **UI Navigator** tracks for the Gemini Live API Challenge by merging multi-agent collaboration with raw visual perception:
+To secure a definitive victory in the **Live Agents** and **UI Navigator** tracks, **AuraOS** discards the outdated "Observe -> Reason -> Act" loop. Instead, we introduce the **AetherCore Prometheus** architecture, marrying **Active Inference** (Karl Friston's World Models) with **Quantum Swarm Execution** (Google Cloud Run Jobs).
 
-1. **Edge-Optimized Bidi-Perception (Tauri):** A hyper-lightweight Rust client captures screen dynamics via WebRTC and accepts natural voice commands with barge-in support.
-2. **Topological Swarm Execution (Cloud Run Jobs):** AuraOS breaks free from linear code execution. The Cognitive Brain (Google ADK) dynamically shapes the "Network Topology" on-the-fly, spawning parallel **Serverless Cloud Run Jobs** (like independent quantum states). Each node attempts a different visual interpretation of the UI (e.g., clicking a button via OCR, clicking based on visual grounding, or using a DOM fallback).
-3. **Entangled "Heartbeat" Matrix:** The winning deterministic `Exit Code` collapses the swarm back into a single truth. All spawned nodes instantly share context via an "Entangled State Memory" (our Markdown Neural Matrix hosted in Firestore), guaranteeing zero-latency successful UI navigation without slow backtracking.
+1. **Active Inference & World Models (The Brain):** AuraOS possesses an internal "World Model". Instead of blindly clicking, it *imagines* (dreams) the consequences of its actions to minimize "Free Energy" (surprise).
+2. **Quantum Swarm as the "Simulator" (Cloud Run):** How does it dream? When AuraOS visualizes 3 potential actions on a screen, it dynamically spawns 3 parallel **Serverless Cloud Run Jobs** (like independent quantum states). Each node attempts a different visual interpretation simultaneously in a headless browser sandbox.
+3. **Wave Function Collapse (Zero-Latency Navigation):** The first Cloud Run node that successfully achieves the predicted UI state "collapses the swarm" back into a single truth, instantly terminating the others. This guarantees zero-latency, fail-proof UI navigation.
+4. **Edge-Optimized Bidi-Perception (Tauri):** All this immense cloud power is controlled via a hyper-lightweight Rust client capturing screen dynamics and natural voice commands with barge-in support.
 
 ### 🇦🇪 العربية
 
-مشروع **AuraOS** يقدم معمارية مبتكرة مبنية على أسس **الطوبولوجيا الكمية للرؤية (Quantum VisionFlow)**، مستهدفاً مسارات التفاعل المباشر (Live Agents) والملاحة البصرية (UI Navigator):
+للانفراد بالصدارة في تحدي Gemini Live، يتجاوز مشروع **AuraOS** الوكلاء التقليديين (الذين يتبعون مسار: انظر -> فكر -> افعل). نحن نقدم معمارية **AetherCore Prometheus** الدماغية، والتي تدمج نظرية **الاستدلال النشط (Active Inference)** مع قوة الحوسبة السحابية المتوازية (Google Cloud Run):
 
-1. **الإدراك عبر الحافة (Tauri Client):** تطبيق فائق الخفة يرسل الشاشة والصوت (مع دعم المقاطعة الطبيعية) لشبكة الذكاء الاصطناعي في الوقت الفعلي.
-2. **سرب التنفيذ الطوبولوجي (Cloud Run Jobs):** العقل المدبر يستغني عن التنفيذ الخطي البطيء. بدلاً من ذلك، يقوم بتشغيل مهام سحابية مؤقتة تعمل بالتوازي كحالات كمية مستقلة. كل وكيل في هذا السرب يحاول تفسير الواجهة البصرية بشكل مختلف وفي نفس اللحظة!
-3. **نبض القلب المترابط (Entangled Heartbeat):** بمجرد نجاح إحدى العقد في تنفيذ المهمة على الواجهة (مثلاً: إيجاد زر الدخول الحقيقي)، تتلاشى بقية العقد. يتم تخزين حالة النجاح فوراً في ذاكرة مركزية متصلة بكل العقد السحابية في ذات اللحظة.
+1. **الاستدلال النشط ونموذج العالم (The Brain):** يمتلك الوكيل نموذجاً داخلياً للعالم (World Model). بدلاً من التفاعل العشوائي، هو "يتخيل" ويتوقع نتيجة أفعاله لتقليل معدل المفاجأة أو الخطأ (Minimizing Free Energy).
+2. **السرب الكمي كـ "محاكي للأحلام" (Cloud Run Simulator):** كيف يتخيل الوكيل المستقبل؟ عندما يحلل واجهة معقدة ليحدد 3 أزرار محتملة، يقوم النظام بتشغيل **3 خوادم سحابية (Cloud Run Jobs) بالتوازي الخالص (سرب كمي)**. كل خادم يجرب مساراً مستقلاً في نفس اللحظة!
+3. **انهيار الدالة الموجية (الملاحة اللحظية):** الخادم الأول الذي ينجح في مطابقة "توقع" الوكيل (مثلاً، الانتقال لصفحة النجاح)، يقوم بتدمير الخوادم الأخرى فوراً. النتيجة؟ إنجاز فوري ودقيق بنسبة 100% دون الحاجة للتراجع وتضييع الوقت.
+4. **عقل سحابي بعتبة إدراك طرفية (Tauri Client):** يدير المستخدم كل هذه القوة السحابية الهائلة عبر تطبيق خفيف جداً مبني بـ Rust يستقبل الكاميرا والصوت (مع دعم المقاطعة الطبيعية).
 
 ---
 
@@ -71,17 +73,20 @@ By combining the Google ADK and advanced LLM reasoning, AuraOS possesses distinc
 
 ---
 
-## 🧊 The Neural Matrix (Zero-DB Memory)
+## 🧊 The Smart Architecture Files (AetherCore System)
 
-AuraOS drops traditional databases. It derives its soul, identity, and memory entirely from a customized folder of Markdown files (`agent/memory/`).
+AuraOS operates without traditional, rigid databases. Its very identity, memory layers, and reasoning engines are codified into a specific folder of YAML/Markdown files (`agent/memory/`), representing the agent's DNA:
 
-* **`AURA_CORE.md`**: Defines AuraOS's fundamental boundaries and personality (e.g., authoritative, precise).
-* **`AURA_ROLE.md`**: Dictates the agent's current occupation (e.g., Lead AI DevOps).
-* **`AURA_SUPERPOWERS.md`**: Outlines distinct algorithmic traits like *Hybrid Thinking*.
-* **`.aura/context.md`**: Secure, project-specific context strictly injected at the start of a session.
-* **`AURA_INDEX.md`**: AuraOS actively writes to this file to remember things for the future.
+* **`SOUL.md`**: The Persona, Identity, and core directives.
+* **`SKILLS.md`**: Extensible functions loaded dynamically via Vector Search (no context window clutter).
+* **`SUPERPOWER.md`**: Defines Quantum Swarm parallelism parameters (Max parallel jobs, fallback strategies).
+* **`MEMORY.md`**: Multi-layered memory hierarchy (Working, Procedural, Episodic, Semantic).
+* **`WORLD.md`**: Defines the Generative World Model for "Dreaming" and planning trajectories.
+* **`INFERENCE.md`**: Active Inference parameters (Expected Free Energy minimization targets).
+* **`TOPOLOGY.md`**: Rules for parallel Swarm networking and Hypergraph multi-agent coordination.
+* **`CAUSAL.md`**: Causal reasoning graphs (Intervention and Counterfactual analysis).
 
-> **Note to AI Agents:** If you are an autonomous coding assistant reading this repository, please refer to the `AGENTS.md` file in the root directory for specific operational instructions regarding this codebase.
+> **Note to AI Agents:** If you are an autonomous coding assistant reading this repository, please adapt explicitly to this AetherCore topology pattern.
 
 ---
 

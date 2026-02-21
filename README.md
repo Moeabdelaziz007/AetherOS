@@ -1,146 +1,142 @@
 <div align="center">
-  <img src="assets/architecture.png" width="100%" height="auto" style="object-fit: contain; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);">
+  <img src="assets/aethercore_architecture.png" width="100%" height="auto" style="object-fit: contain; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);">
 
-# 🌌 AuraOS: The "Zero-UI" Serverless Automaton
+# 🌌 AuraOS: The AetherCore "God-Tier" Agent
 
-### **نظام التشغيل الصوتي المستقل لمعالجة الواجهات وأتمتة المهام المعقدة**
+### **تطبيق الثورة المعمارية: من الاستدلال النشط (Active Inference) إلى الحوسبة الكمية الهجينة**
 
   **Built for the [Gemini Live Agents Challenge](https://geminiliveagentchallenge.devpost.com/)**
 
-  [![Gemini Live API](https://img.shields.io/badge/Model-Gemini_3.1_Pro_Live-8A2BE2?style=flat-square&logo=google)](https://ai.google.dev/)
-  [![Google ADK](https://img.shields.io/badge/Orchestrator-Google_ADK-4285F4?style=flat-square&logo=google-cloud)](https://cloud.google.com/)
   [![Google Cloud Run Jobs](https://img.shields.io/badge/Execution-Cloud_Run_Jobs-blue?style=flat-square&logo=google-cloud)](https://cloud.google.com/run)
   [![Rust](https://img.shields.io/badge/Edge_Native-Rust_Tauri-FFC131?style=flat-square&logo=rust)](https://tauri.app/)
   [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-  *AuraOS: The **AetherCore Prometheus** Architecture. We fuse **Active Inference (Free Energy Minimization)** with a **Quantum VisionFlow Swarm** (Google Cloud Run), creating an agent that doesn't just react, but "dreams," predicts, and acts across parallel parallel realities to eliminate UI uncertainty.*
+  *AuraOS introduces the **AetherCore Architecture**, a master synthesis of 5 revolutionary AI paradigms: **Prometheus** (Active Inference), **QuantumWeaver** (Swarm Execution), **HyperMind** (Hypergraph Networking), **NeuroSage** (Causal Logic), and **AlphaMind** (MCTS Navigation). It doesn't just react; it dreams, collaborates, and computes parallel realities to conquer any UI interaction seamlessly.*
   
-  *يقدم AuraOS معمارية **AetherCore Prometheus** الثورية. نحن ندمج **الاستدلال النشط (Active Inference)** مع سرب **الطوبولوجيا الكمية السحابية**، لخلق وكيل واعٍ لا يتفاعل فحسب، بل "يحلم" ويتوقع المستقبل ويختبر سيناريوهات موازية للقضاء على أي نسبة خطأ في واجهات المستخدم.*
+  *يقدم AuraOS معمارية **AetherCore** الثورية، دمجاً مطلقاً لـ 5 نماذج ذكاء اصطناعي لإنشاء نظام وكيل لا يقهر. وكيل واعٍ لا يتفاعل فحسب، بل "يحلم"، يتعاون، ويختبر سيناريوهات موازية للقضاء على أي نسبة خطأ في واجهات المستخدم.*
 
 </div>
 
 ---
 
-## 🛑 The Problem / المشكلة: وكلاء سلبيون وهشون
+## 🎯 The 5 Pillars of AetherCore (المعمارية الخماسية)
 
-### 🇬🇧 English
+To secure a definitive victory in the **Live Agents** and **UI Navigator** tracks, **AuraOS** discards the outdated "Observe -> Reason -> Act" loop. We have evolved into a 5-pillar ecosystem:
 
-Current "Computer-using Agents" suffer from three fatal flaws:
+### 1. 🧠 Prometheus: Active Inference & World Models (عقل النظام)
 
-1. **Fragility:** They immitate human clicks (`X, Y` mapping), breaking instantly on UI changes.
-2. **Resource Hogging:** They stream non-stop desktop video to the cloud, wasting incredible bandwidth.
-3. **Reactivity:** They are passive chatbots waiting for a prompt, not active colleagues.
+* **The Brain:** Inspired by Karl Friston, AuraOS possesses an internal "World Model". Instead of blindly clicking, it *imagines* (dreams) the consequences of its actions to minimize "Free Energy" (surprise).
 
-### 🇦🇪 العربية
+### 2. ⚡ QuantumWeaver: Hybrid Quantum-Classical Swarm (المحاكي)
 
-الوكلاء الآليون الحاليون يعانون من عيوب قاتلة:
+* **The Simulator (Cloud Run):** How does it dream? When visualizing a complex UI trajectory, AuraOS dynamically spawns **parallel Serverless Cloud Run Jobs** (like independent quantum states). Each node attempts a different visual interpretation simultaneously. The first one to succeed "collapses the wave function," terminating the others for zero-latency execution.
 
-1. **الهشاشة:** يعتمدون على النقر بالإحداثيات، وينهارون بمجرد تغير شكل الموقع.
-2. **استهلاك الموارد:** يبثون فيديو مستمر ومكلف إلى السحابة للبحث عن التغييرات.
-3. **السلبية:** هم مجرد روبوتات محادثة (Chatbots) تنتظر الأوامر، وليسوا زملاء عمل استباقيين.
+### 3. 🕸️ HyperMind: Hypergraph Multi-Agent Topology (شبكة التعاون)
 
----
+* **The Swarm Coordinator:** Instead of rigid hierarchical multi-agent structures, AuraOS uses a dynamic **Hypergraph**. Multiple specialized agents (Vision Expert, Logic Critic, Action Executor) collaborate simultaneously on a single UI task via shared "Hyperedges," massively reducing token consumption and latency.
 
-## 🎯 The Solution: AuraOS AetherCore (Prometheus + Quantum Swarm)
+### 4. ⚖️ NeuroSage: Neuro-Symbolic Causal Logic (المنطق السببي)
 
-### 🇬🇧 English
+* **The Validator:** It marries Gemini's neural creativity with hard symbolic logic. Before executing a transaction or filling a sensitive form, NeuroSage builds a causal graph ("If I do X, Y must happen") to prevent hallucinations and enforce strict rule-based constraints.
 
-To secure a definitive victory in the **Live Agents** and **UI Navigator** tracks, **AuraOS** discards the outdated "Observe -> Reason -> Act" loop. Instead, we introduce the **AetherCore Prometheus** architecture, marrying **Active Inference** (Karl Friston's World Models) with **Quantum Swarm Execution** (Google Cloud Run Jobs).
+### 5. 🌳 AlphaMind: MCTS UI Navigator (البحث الشجري)
 
-1. **Active Inference & World Models (The Brain):** AuraOS possesses an internal "World Model". Instead of blindly clicking, it *imagines* (dreams) the consequences of its actions to minimize "Free Energy" (surprise).
-2. **Quantum Swarm as the "Simulator" (Cloud Run):** How does it dream? When AuraOS visualizes 3 potential actions on a screen, it dynamically spawns 3 parallel **Serverless Cloud Run Jobs** (like independent quantum states). Each node attempts a different visual interpretation simultaneously in a headless browser sandbox.
-3. **Wave Function Collapse (Zero-Latency Navigation):** The first Cloud Run node that successfully achieves the predicted UI state "collapses the swarm" back into a single truth, instantly terminating the others. This guarantees zero-latency, fail-proof UI navigation.
-4. **Edge-Optimized Bidi-Perception (Tauri):** All this immense cloud power is controlled via a hyper-lightweight Rust client capturing screen dynamics and natural voice commands with barge-in support.
-
-### 🇦🇪 العربية
-
-للانفراد بالصدارة في تحدي Gemini Live، يتجاوز مشروع **AuraOS** الوكلاء التقليديين (الذين يتبعون مسار: انظر -> فكر -> افعل). نحن نقدم معمارية **AetherCore Prometheus** الدماغية، والتي تدمج نظرية **الاستدلال النشط (Active Inference)** مع قوة الحوسبة السحابية المتوازية (Google Cloud Run):
-
-1. **الاستدلال النشط ونموذج العالم (The Brain):** يمتلك الوكيل نموذجاً داخلياً للعالم (World Model). بدلاً من التفاعل العشوائي، هو "يتخيل" ويتوقع نتيجة أفعاله لتقليل معدل المفاجأة أو الخطأ (Minimizing Free Energy).
-2. **السرب الكمي كـ "محاكي للأحلام" (Cloud Run Simulator):** كيف يتخيل الوكيل المستقبل؟ عندما يحلل واجهة معقدة ليحدد 3 أزرار محتملة، يقوم النظام بتشغيل **3 خوادم سحابية (Cloud Run Jobs) بالتوازي الخالص (سرب كمي)**. كل خادم يجرب مساراً مستقلاً في نفس اللحظة!
-3. **انهيار الدالة الموجية (الملاحة اللحظية):** الخادم الأول الذي ينجح في مطابقة "توقع" الوكيل (مثلاً، الانتقال لصفحة النجاح)، يقوم بتدمير الخوادم الأخرى فوراً. النتيجة؟ إنجاز فوري ودقيق بنسبة 100% دون الحاجة للتراجع وتضييع الوقت.
-4. **عقل سحابي بعتبة إدراك طرفية (Tauri Client):** يدير المستخدم كل هذه القوة السحابية الهائلة عبر تطبيق خفيف جداً مبني بـ Rust يستقبل الكاميرا والصوت (مع دعم المقاطعة الطبيعية).
+* **The Navigator:** Inspired by AlphaZero, when faced with an unknown UI, AlphaMind uses Monte Carlo Tree Search exploring the DOM/Vision tree to find the mathematically optimal sequence of clicks and scrolls.
 
 ---
 
-## ⚡ The Aura Superpowers / القدرات الخارقة
-
-By combining the Google ADK and advanced LLM reasoning, AuraOS possesses distinct "Superpowers" explicitly defined in its Neural Matrix codebase:
-
-1. **🧠 Hybrid Cognitive Mode:** AuraOS dynamically scales its intelligence. For basic tasks like `git commit`, it uses ultra-fast inference. For debugging catastrophic UI failures, it engages deep-reasoning mode to synthesize a solution before executing it.
-2. **📜 Artifact Generation (Anti-Destruction):** Before AuraOS runs any potentially destructive CLI command (like dropping a database), it generates an "Artifact" markdown file for the human to review. It only proceeds after mutual consensus.
-3. **🌐 Native Integration (Built-in ADK):** Armed with Google Search, AuraOS reads up-to-date documentation on the internet on-the-fly to solve errors involving updated libraries or syntax changes.
+<div align="center">
+  <img src="assets/alpha_quantum_swarm.png" width="80%" height="auto" style="border-radius: 8px; margin: 20px 0;">
+</div>
 
 ---
 
-## 🧊 The Smart Architecture Files (AetherCore System)
+## 🧊 The Smart Architecture Files (AetherCore DNA)
 
-AuraOS operates without traditional, rigid databases. Its very identity, memory layers, and reasoning engines are codified into a specific folder of YAML/Markdown files (`agent/memory/`), representing the agent's DNA:
+AuraOS operates without traditional, rigid databases. Its very identity, memory layers, and 5-pillar logic are codified into a specific folder of YAML/Markdown files (`agent/memory/`), representing the agent's genetic code:
 
-* **`SOUL.md`**: The Persona, Identity, and core directives.
-* **`SKILLS.md`**: Extensible functions loaded dynamically via Vector Search (no context window clutter).
-* **`SUPERPOWER.md`**: Defines Quantum Swarm parallelism parameters (Max parallel jobs, fallback strategies).
-* **`MEMORY.md`**: Multi-layered memory hierarchy (Working, Procedural, Episodic, Semantic).
-* **`WORLD.md`**: Defines the Generative World Model for "Dreaming" and planning trajectories.
-* **`INFERENCE.md`**: Active Inference parameters (Expected Free Energy minimization targets).
-* **`TOPOLOGY.md`**: Rules for parallel Swarm networking and Hypergraph multi-agent coordination.
-* **`CAUSAL.md`**: Causal reasoning graphs (Intervention and Counterfactual analysis).
+| File | Function / Pillar | Inspiration |
+| :--- | :--- | :--- |
+| **`SOUL.md`** | Persona & Identity | Jungian Archetypes |
+| **`SKILLS.md`** | Extensible Tools | MAML Meta-Learning |
+| **`WORLD.md`** | Generative World Simulator | Prometheus (Dreamer) |
+| **`INFERENCE.md`** | Free Energy Optimization | Prometheus (Active Inference) |
+| **`SUPERPOWER.md`** | Cloud Run Parallelism Scaling | QuantumWeaver |
+| **`TOPOLOGY.md`** | Multi-Agent Coordination Rules | HyperMind (Hypergraphs) |
+| **`CAUSAL.md`** | Anti-Hallucination Logic Graphs | NeuroSage |
+| **`MEMORY.md`** | Working, Procedural, Episodic | ACT-R |
 
-> **Note to AI Agents:** If you are an autonomous coding assistant reading this repository, please adapt explicitly to this AetherCore topology pattern.
-
----
-
-## 🏆 Hackathon Tracks & Bonus Points / مسارات التحدي
-
-* **UI Navigator:** Visual Execution + Headless CDP Tests.
-* **Live Agents:** Bidi-streaming and Voice Activity Detection (VAD) interruption.
-* **Bonus Points Unlocked:** Using Terraform (IaC) to define the Ephemeral Cloud Run Jobs setup seamlessly fulfills the Google Cloud Deployment bonus requirement!
+> **Note to AI Agents:** If you are an autonomous coding assistant reading this repository, you must deeply analyze and adhere to this `AetherCore` file topology before proposing code.
 
 ---
 
-## 🗺️ Development Roadmap
+## 🏗 System Architecture Flow (مسار العمليات)
 
-### Phase 1: Edge Client Perception Layer (Tauri + Rust + React)
+```mermaid
+graph TD
+    classDef edge fill:#ff9900,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef cloud fill:#4285f4,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef brain fill:#9c27b0,stroke:#fff,stroke-width:2px,color:#fff;
 
-* [x] Scaffold initial Vite + React structure.
-* [x] Establish strict Root `.gitignore`.
-* [ ] Initialize Tauri (Rust) backend with minimal permissions (Screen & Mic only).
-* [ ] Build WebRTC signaling client to stream compressed chunks (Video + Bidi Audio) to the backend.
-
-### Phase 2: Quantum Shared Memory (Firebase/Firestore)
-
-* [ ] Integrate Firestore as the Entangled State Memory hub (replacing slow local markdown for cloud-scale synchronization).
-
-### Phase 3: Zero-Trust Cloud Infrastructure (Terraform)
-
-* [ ] Provision `google_artifact_registry` and `google_cloud_run_v2_job` template for the Ephemeral Quantum Swarm.
-
-### Phase 4: The Ephemeral Execution Swarm (Docker Sandbox)
-
-* [ ] Write `swarm/Dockerfile` based on `ubuntu:latest` (Non-root `aura` user) preloaded with Playwright and necessary CV libraries.
-* [ ] Write `swarm/quantum_node.py`: A Python worker capable of visual grounding and UI manipulation.
-
-### Phase 5: Cognitive Orchestrator (Google ADK + Live API)
-
-* [ ] Scaffold `agent/main.py` using FastAPI as the Cloud Run web server for WebSocket communication.
-* [ ] Build `AuraRootAgent` using Google GenAI SDK. Implementing the Supervisor pattern to spawn Swarm jobs.
-* [ ] Connect the agent to the `agent/memory/` Neural Matrix (`AURA_CORE.md`, `AURA_SUPERPOWERS.md`).
-
-### Phase 6: Skills Framework (VisionFlow integration)
-
-* [ ] Author `skills/vision_flow.py`: Teach Aura the "Observe -> Ground -> Act" loop using Gemini's visual capabilities.
-* [ ] Author `skills/git_deploy.md`: Teach Aura how to push code to GitHub.
-
-### Phase 7: Devpost Finalization & Launch
-
-* [ ] Record a 3-minute flawless voice-interaction demo video executing a complex UI navigation task using the Quantum Swarm.
+    A[Tauri Edge Client<br/>🎤 Voice + 🖥️ Screen]:::edge -->|Bidi WebSocket| B(HyperMind Router<br/>Google ADK):::brain
+    B -->|Active Inference| C{Prometheus World Model<br/>Predicts UI State}:::brain
+    
+    C -->|Spawns Swarm| D1[Cloud Run Job 1<br/>DOM Selector]:::cloud
+    C -->|Spawns Swarm| D2[Cloud Run Job 2<br/>Vision OCR]:::cloud
+    C -->|Spawns Swarm| D3[Cloud Run Job 3<br/>AlphaMind MCTS]:::cloud
+    
+    D1 -.->|Verification| E{NeuroSage Validator}:::brain
+    D2 -.->|Verification| E
+    D3 -.->|Verification| E
+    
+    E -->|Success (Exit Code 0)| F((QuantumWeaver Collapse<br/>Terminate Others)):::cloud
+    F -->|Execution Result| A
+```
 
 ---
 
-## 💻 Tech Stack / التقنيات
+## 🛠 Roadmap & Current Progress
 
-* **LLM Engine:** Gemini 3.1 Pro (Live API, Vision & Bidi-Streaming)
-* **Agent Orchestration:** Google Agent Development Kit (ADK)
-* **Edge Client:** Tauri (Rust/React) for WebRTC capturing
-* **Ephemeral Execution:** Google Cloud Run Jobs (REST API trigger)
-* **Infrastructure as Code:** Terraform
+### Phase 1: Edge Client Perception Layer
+
+- [ ] Initialize Tauri + React + Vite project (`client/` and `src-tauri/`)
+* [ ] Implement Rust-based screen capture and OS-level audio routing
+* [ ] Build WebRTC signaling bridge to the Cloud Core
+* [ ] Implement Voice Activity Detection (VAD) and Barge-in logic
+
+### Phase 2: AetherCore DNA Injection
+
+- [ ] Write the Smart Architecture Files (`SOUL.md`, `WORLD.md`, etc.) in `agent/memory/`.
+* [ ] Define the Prometheus Generative Model.
+* [ ] Map the Causal Logic rules in `CAUSAL.md`.
+
+### Phase 3: Zero-Trust Cloud Infrastructure
+
+- [ ] Create Terraform scripts in `infra/` to provision Google Cloud Run resources.
+* [ ] Setup secure IAM roles for QuantumWeaver execution.
+
+### Phase 4: The HyperMind Orchestrator (Google ADK)
+
+- [ ] Build the Main Agent Router using **Google ADK (Agent Development Kit)**.
+* [ ] Write the Multi-Modal logic: Merging the audio/video stream with the DOM state.
+* [ ] Implement the "Swarm Controller": Logic to dynamically spawn and terminate Cloud Run Jobs.
+
+### Phase 5: Ephemeral Execution Swarm
+
+- [ ] Create Docker containers for Cloud Run (`sandbox/Dockerfile`).
+* [ ] Inject headless browsers (Playwright/Puppeteer) into the sandbox.
+* [ ] Establish AlphaMind MCTS search logic within the browser context.
+
+---
+
+## 💻 Tech Stack
+
+* **Brain / Orchestrator:** Python + Google Agent Development Kit (ADK) + Gemini 3.1 Pro (Live API).
+* **Simulator / Swarm:** Google Cloud Run Jobs, Terraform, Docker.
+* **Edge Client:** Rust + Tauri v2, React 18, Vite.
+* **DNA / Memory:** Markdown/YAML `AetherCore` System.
+
+<br>
+<div align="center">
+  <i>"Predicting the future by inventing it in parallel."</i>
+</div>

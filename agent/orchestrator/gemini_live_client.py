@@ -2,8 +2,14 @@ import asyncio
 import json
 import os
 import base64
-import websockets
 from typing import Any, Dict, Optional, AsyncGenerator
+
+# Optional websockets import; allow repository tools to run without it
+try:
+    import websockets  # type: ignore
+except Exception:  # pragma: no cover
+    websockets = None  # type: ignore
+
 from .memory_parser import AuraNavigator
 
 class GeminiLiveClient:

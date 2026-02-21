@@ -1,10 +1,19 @@
 import mmap
 import os
-import yaml
 import hashlib
 import asyncio
 from dataclasses import dataclass
 from typing import Any, Optional, Dict
+
+# Optional YAML import with graceful fallback (parses to empty dicts if missing)
+try:
+    import yaml  # type: ignore
+except Exception:  # pragma: no cover
+    class _YamlStub:
+        @staticmethod
+        def safe_load(_):
+            return {}
+    yaml = _YamlStub()  # type: ignore
 
 @dataclass
 class DNABelief:

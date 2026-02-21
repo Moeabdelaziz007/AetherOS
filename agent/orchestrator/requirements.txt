@@ -2,8 +2,7 @@ google-generativeai
 google-cloud-aiplatform
 python-dotenv
 pydantic
-mmap
-asyncio
+PyYAML
 websockets
 # Required for AetherCore ADK functionality (conceptual/mocked if private, or specific packages if public)
 # google-adk (assuming current dev environment availability)

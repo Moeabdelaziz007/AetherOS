@@ -1,7 +1,14 @@
 import asyncio
 import json
-import websockets
+import os
 from typing import Any
+
+# Optional websockets import (graceful offline mode if missing)
+try:
+    import websockets  # type: ignore
+except Exception:  # pragma: no cover
+    websockets = None  # type: ignore
+
 from .memory_parser import AuraNavigator
 from .cognitive_router import HyperMindRouter
 from .gemini_live_client import GeminiLiveClient
@@ -40,16 +47,23 @@ class AetherCoreOrchestrator:
         remote_addr = websocket.remote_address
         print(f"🛰️ Synaptic Bridge: Connection established from {remote_addr}")
         
-        # Initialize Gemini Live Session
-        gemini = GeminiLiveClient(self.bridge, self.api_key)
-        await gemini.connect()
+        # Initialize Gemini Live Session (optional)
+        gemini = None
+        if self.api_key and websockets is not None:
+            gemini = GeminiLiveClient(self.bridge, self.api_key)
+            await gemini.connect()
 
-        async def listen_to_gemini():
-            async for response in gemini.listen():
-                # Route AI voice/text back to Edge
-                await websocket.send(json.dumps(response))
+            async def listen_to_gemini():
+                async for response in gemini.listen():
+                    # Route AI voice/text back to Edge
+                    await websocket.send(json.dumps(response))
 
-        asyncio.create_task(listen_to_gemini())
+            asyncio.create_task(listen_to_gemini())
+        else:
+            if not self.api_key:
+                print("📴 Offline mode: GEMINI_API_KEY not set. Skipping Gemini Live connection.")
+            elif websockets is None:
+                print("📴 Offline mode: websockets package not available. Skipping Gemini Live connection.")
 
         try:
             async for message in websocket:
@@ -78,9 +92,11 @@ class AetherCoreOrchestrator:
                                     print(f"⚠️ Perceptual Drift Detected: {drift}ms. Dropping stale frame.")
                                     continue
 
-                            await gemini.stream_input(jpeg_payload, mime_type="image/jpeg")
+                            if gemini is not None:
+                                await gemini.stream_input(jpeg_payload, mime_type="image/jpeg")
                         elif header == 0x02: # Audio Chunk
-                            await gemini.stream_input(payload, mime_type="audio/pcm")
+                            if gemini is not None:
+                                await gemini.stream_input(payload, mime_type="audio/pcm")
                     else:
                         data = json.loads(message)
                         # Gating Logic (Active Inference)
@@ -90,11 +106,15 @@ class AetherCoreOrchestrator:
                     print(f"⚠️ Neural Anomaly: {e}")
         
         finally:
-            await gemini.close()
+            if gemini is not None:
+                await gemini.close()
             print(f"💀 Synaptic Bridge: Connection severed for {remote_addr}")
 
     async def run_server(self):
         await self.boot_sequence()
+        if websockets is None:
+            print("❌ Cannot start WebSocket server: websockets package not installed. Run: pip install -r agent/orchestrator/requirements.txt")
+            return
         print(f"🛰️ Synaptic Bridge Listening on ws://{self.host}:{self.port}...")
         async with websockets.serve(self.handle_optic_nerve, self.host, self.port):
             await asyncio.Future()  # Run forever

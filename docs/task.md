@@ -21,13 +21,13 @@
 - [x] **Step 3.2:** Google ADK Integration.
 - [x] **Step 3.3:** Cognitive Orchestrator Implementation (`agent/orchestrator/`).
 - [x] **Step 3.4:** DNA Access Layer (Memory-Mapped Files).
-- [/] **Step 3.5:** The Synaptic Bridge (Optic Nerve API Contract).
+- [x] **Step 3.5:** The Synaptic Bridge (Optic Nerve API Contract).
 
 ## 🛰️ Phase 4: Peripheral Senses (الحواس المحيطية - Edge Client)
 
-- [ ] **Step 4.1:** Rust + Tauri v2 Environment Setup.
-- [ ] **Step 4.2:** Zero-Latency Screen & Audio Capture Engine.
-- [ ] **Step 4.3:** Sensory Data Bridge (Edge ↔ Orchestrator).
+- [x] **Step 4.1:** Rust + Tauri v2 Environment Setup.
+- [x] **Step 4.2:** Zero-Latency Screen & Audio Capture Engine.
+- [/] **Step 4.3:** Sensory Data Bridge (Edge ↔ Orchestrator).
 
 ## ☁️ Phase 5: Evolutionary Sandbox (بيئة التطور - DevOps)
 

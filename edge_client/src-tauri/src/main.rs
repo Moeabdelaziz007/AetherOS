@@ -1,8 +1,11 @@
 // 🔌 The Optic Nerve: Rust-Python Synaptic Bridge
-// Version: 0.1.0
+// Version: 0.1.1
 // Pillar: HyperMind (Perception)
 
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+mod vision;
+mod audio;
 
 use tauri::{AppHandle, Manager};
 use tokio::sync::mpsc;
@@ -10,6 +13,9 @@ use futures_util::{StreamExt, SinkExt};
 use tokio_tungstenite::{connect_async, tungstenite::protocol::Message};
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
+
+use vision::VisionSensor;
+use audio::AudioSensor;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct BrainCommand {
@@ -23,23 +29,46 @@ struct SynapticBridge {
     tx: mpsc::UnboundedSender<Message>,
 }
 
-#[tauri::command]
-async fn stream_sensory_data(state: tauri::State<'_, SynapticBridge>, data: Vec<u8>) -> Result<(), String> {
-    // Send binary sensory data (Optic/Aural)
-    state.tx.send(Message::Binary(data)).map_err(|e| e.to_string())
-}
-
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
             let (tx, mut rx) = mpsc::unbounded_channel::<Message>();
-            
+            let tx_vision = tx.clone();
+            let tx_audio = tx.clone();
+
             // Register Synaptic Bridge State
             app.manage(SynapticBridge { tx });
 
-            let handle = app.handle().clone();
+            let _handle = app.handle().clone();
 
-            // Spawn the Optic Nerve (Async WebSocket Task)
+            // 👁️ Visual Sensory Loop
+            tauri::async_runtime::spawn(async move {
+                if let Ok(mut sensor) = VisionSensor::new() {
+                    loop {
+                        if let Ok(frame) = sensor.capture_frame_compressed().await {
+                            let mut payload = vec![0x01]; // Header: Visual Delta
+                            payload.extend(frame);
+                            let _ = tx_vision.send(Message::Binary(payload));
+                        }
+                        tokio::time::sleep(Duration::from_millis(200)).await; // ~5 FPS
+                    }
+                }
+            });
+
+            // 👂 Audio Sensory Loop
+            let (atx, mut arx) = mpsc::unbounded_channel::<Vec<u8>>();
+            let audio_sensor = AudioSensor::new(atx);
+            if let Ok(_stream) = audio_sensor.start_capture() {
+                tauri::async_runtime::spawn(async move {
+                    while let Some(chunk) = arx.recv().await {
+                        let mut payload = vec![0x02]; // Header: Audio Chunk
+                        payload.extend(chunk);
+                        let _ = tx_audio.send(Message::Binary(payload));
+                    }
+                });
+            }
+
+            // 🛰️ Synaptic Bridge (WebSocket Client)
             tauri::async_runtime::spawn(async move {
                 let addr = "ws://127.0.0.1:8000";
                 println!("🛰️ AuraOS: Establishing Synaptic Bridge to {}...", addr);
@@ -53,19 +82,14 @@ fn main() {
                                 tokio::select! {
                                     // Send messages from Rust to Python
                                     Some(msg) = rx.recv() => {
-                                        if let Err(e) = ws_stream.send(msg).await {
-                                            eprintln!("⚠️ Synaptic Error: {}", e);
+                                        if let Err(_) = ws_stream.send(msg).await {
                                             break;
                                         }
                                     }
                                     // Receive commands from Python Brain
                                     Some(Ok(msg)) = ws_stream.next() => {
                                         if let Message::Text(text) = msg {
-                                            if let Ok(cmd) = serde_json::from_str::<BrainCommand>(&text) {
-                                                println!("🧠 Brain Command: {:?}", cmd.cmd);
-                                                // Handle commands (Veto, Action, etc.)
-                                                handle.emit("brain-signal", cmd).unwrap();
-                                            }
+                                            println!("🧠 Brain Command: {}", text);
                                         }
                                     }
                                 }

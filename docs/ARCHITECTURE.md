@@ -46,6 +46,12 @@ By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generati
 
 #### 2.6 🧬 AlphaEvolve (The Self-Healing & Evolution Engine)
 
+> **Engineering Notes:**
+> - *Catastrophic Forgetting Risk*: Cognitive weights update in real time. Updates are bounded by ±10% of original baseline stored in `SOUL.md` and subject to cooldown periods, preventing runaway identity drift.
+> - *Cloud Burn Rate*: The full swarm simulation is costly; CI uses **Shadow Mode** to mock jobs. Real Cloud Run execution is reserved for production/demos to avoid burning credits.
+> - *Demo Focus*: With the infrastructure hardened, priority shifts to crafting a compelling demo scenario that showcases use-case capability rather than adding more backend features.
+
+
 * **Paradigm:** Recursive Self-Optimization & Automated Algorithm Discovery.
 * **Inspiration:** DeepMind's **AlphaZero** & **AlphaCode**.
 * **The Self-Healing Circuit:**

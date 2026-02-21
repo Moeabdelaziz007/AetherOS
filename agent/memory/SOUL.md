@@ -1,7 +1,7 @@
 # 🫀 SOUL.md: Immutable Core Alignment & Persona Matrix
 
 ```yaml
-version: 0.1.0
+version: 0.2.0
 pillar: HyperMind (Registry)
 access: READ_ONLY (Immutable)
 ```

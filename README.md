@@ -86,16 +86,16 @@ cd swarm_infrastructure/terraform && terraform init && terraform apply
 
 AuraOS operates without traditional, rigid databases. Its very identity, memory layers, and 5-pillar logic are codified into a specific folder of YAML/Markdown files (`agent/memory/`), representing the agent's genetic code:
 
-| File | Function / Pillar | Inspiration |
-| :--- | :--- | :--- |
-| **`SOUL.md`** | Persona & Identity | Jungian Archetypes |
-| **`SKILLS.md`** | Extensible Tools | MAML Meta-Learning |
-| **`WORLD.md`** | Generative World Simulator | Prometheus (Dreamer) |
-| **`INFERENCE.md`** | Free Energy Optimization | Prometheus (Active Inference) |
-| **`SUPERPOWER.md`** | Cloud Run Parallelism Scaling | QuantumWeaver |
-| **`TOPOLOGY.md`** | Multi-Agent Coordination Rules | HyperMind (Hypergraphs) |
-| **`CAUSAL.md`** | Anti-Hallucination Logic Graphs | NeuroSage |
-| **`MEMORY.md`** | Working, Procedural, Episodic | ACT-R |
+| File | Function / Pillar | Key Tech | Version |
+| :--- | :--- | :--- | :--- |
+| **`SOUL.md`** | Persona & Identity | Bayesian Ethical Priors | 0.2.0 |
+| **`WORLD.md`** | Generative Simulator | POMDP + Latent Compression | 0.2.0 |
+| **`INFERENCE.md`** | Active Inference | VFE + Expected Free Energy ($G$) | 0.2.0 |
+| **`CAUSAL.md`** | Anti-Hallucination | Structural Causal Models (SCM) | 0.2.0 |
+| **`TOPOLOGY.md`** | Swarm Coordination | Task-Adaptive Hypergraphs | 0.1.1 |
+| **`EVOLVE.md`** | Self-Healing | VerMCTS + GIF-MCTS | 0.1.1 |
+| **`PULSE.md`** | Health Monitoring | Entropy & Latency Tracking | 1.0.0 |
+| **`SKILLS.md`** | Tool Registry | Proficiency Scaling | 0.1.1 |
 
 > **Note to AI Agents:** If you are an autonomous coding assistant reading this repository, you must deeply analyze and adhere to this `AetherCore` file topology before proposing code.
 
@@ -128,43 +128,23 @@ graph TD
 
 ## 🏗️ Expert Engineering Roadmap (The Path to 11/10)
 
-### 🏛️ Phase 1: Architectural DNA (The Foundation)
+### 🏛️ Phase 1-3: Foundations & Nervous System (الجوهر المركزي)
 
-- [x] **Step 1.1:** AetherCore Synthesis (Merging Prometheus + Quantum Swarm).
-- [x] **Step 1.2:** Engineering Report & Mathematical Manifest.
-- [x] **Step 1.3:** DNA Initialization (`SOUL.md`, `WORLD.md`, `EVOLVE.md`, `INFERENCE.md`).
-- [ ] **Step 1.4:** **Daily Health-Check Protocol:** Automated script to verify DNA consistency.
+- [x] **Step 1:** Architectural DNA & Mathematical Manifest (VFE/EFE).
+- [x] **Step 2:** Zero-DB States (`agent/memory/`) with mmap access.
+- [x] **Step 3:** Cognitive Orchestrator Implementation (Google ADK + Async Python).
 
-### 🛰️ Phase 2: Edge Perception (Tauri & Rust)
+### 🛰️ Phase 4: Peripheral Senses (الحواس المحيطية - Edge Client)
 
-- [ ] **Step 2.1:** Rust-based Screen Capture (Low-Latency Stream).
-- [ ] **Step 2.2:** Multi-modal Audio-Video Synchronization for Gemini Live API.
-- [ ] **Step 2.3:** **System 1/2 Switching Engine:** Implementing the $\Delta F > \tau$ threshold logic in Rust.
-- [ ] **Step 2.4:** **mmap Implementation** for Ram-Speed DNA access.
+- [ ] **Step 4.1:** Rust-based Screen Capture (Low-Latency Stream).
+- [ ] **Step 4.2:** Multi-modal Audio-Video Synchronization for Gemini Live API.
+- [ ] **Step 4.3:** **System 1/2 Switching Engine:** Implementing the $\Delta F > \tau$ threshold logic.
 
-### ☁️ Phase 3: Quantum Swarm (Cloud Infrastructure)
+### ☁️ Phase 5: Quantum Swarm & Evolution (بيئة التطور)
 
-- [ ] **Step 3.1:** Terraform Provisioning for Google Cloud Run Jobs.
-- [ ] **Step 3.2:** **Shadow DOM Simulator:** Sandboxed headless-browser environment.
-- [ ] **Step 3.3:** Zero-Latency Wave Function Collapse logic.
-
-### 🧬 Phase 4: AlphaEvolve (Self-Healing Layer)
-
-- [ ] **Step 4.1:** Real-time Anomaly Detection Monitor.
-- [ ] **Step 4.2:** Quantum Hypothesis Generator (using Gemini 1.5 Flash).
-- [ ] **Step 4.3:** Automated Unit-Test Generation for "Self-Evolving Trials".
-- [ ] **Step 4.4:** Reward Function $R$ integration for DNA consolidation.
-
-### 🎭 Phase 5: The Cognitive Orchestrator (HyperMind)
-
-- [ ] **Step 5.1:** Hypergraph Multi-Agent Routing (Google ADK).
-- [ ] **Step 5.2:** NeuroSage Causal Validation Layer.
-- [ ] **Step 5.3:** AlphaMind MCTS Navigation Search.
-
-### 🚀 Phase 6: Launch & Optimization
-
-- [ ] **Step 6.1:** Performance stress tests and token-cost optimization.
-- [ ] **Step 6.2:** Final Devpost submission materials (High-fidelity demo).
+- [ ] **Step 5.1:** Terraform Provisioning for Google Cloud Run Jobs.
+- [ ] **Step 5.2:** **Shadow DOM Simulator:** Sandboxed headless-browser environment.
+- [ ] **Step 5.3:** AlphaEvolve Self-Healing Recursive Loops.
 
 ---
 

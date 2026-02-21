@@ -13,14 +13,14 @@
 - [x] **Step 2.2:** Persona Fixation (`SOUL.md`).
 - [x] **Step 2.3:** World Modeling (`WORLD.md`).
 - [x] **Step 2.4:** Inference & Evolution Protocols (`INFERENCE.md`, `EVOLVE.md`).
-- [ ] **Step 2.5:** Skills & Topology Definition (`SKILLS.md`, `TOPOLOGY.md`).
+- [x] **Step 2.5:** Skills & Topology Definition (`SKILLS.md`, `TOPOLOGY.md`).
 
 ## 🧠 Phase 3: The Nervous System (الجهاز العصبي - Backend)
 
-- [ ] **Step 3.1:** Python Environment & Dependency Locking.
-- [ ] **Step 3.2:** Google ADK Integration.
-- [ ] **Step 3.3:** Cognitive Orchestrator Implementation (`agent/orchestrator/`).
-- [ ] **Step 3.4:** DNA Access Layer (Memory-Mapped Files).
+- [x] **Step 3.1:** Python Environment & Dependency Locking.
+- [x] **Step 3.2:** Google ADK Integration.
+- [x] **Step 3.3:** Cognitive Orchestrator Implementation (`agent/orchestrator/`).
+- [x] **Step 3.4:** DNA Access Layer (Memory-Mapped Files).
 
 ## 🛰️ Phase 4: Peripheral Senses (الحواس المحيطية - Edge Client)
 
@@ -35,4 +35,5 @@
 - [ ] **Step 5.3:** AlphaEvolve Sandbox Environment Setup.
 
 ---
-*Status: Phase 1 & 2 Complete. Moving to Phase 3: Nervous System Backend.*
+---
+*Status: Phase 1, 2, & 3 Baseline Complete. Transitioning to Phase 4: Sensory bridge.*

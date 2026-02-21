@@ -1,35 +1,45 @@
-# 🌍 WORLD.md: Generative World Simulator & State Schema
+# 🌍 WORLD.md: Generative World Simulator (Latent POMDP)
 
 ```yaml
-version: 0.1.1
+version: 0.2.0
 pillar: Prometheus (World Model)
-math_model: Partially_Observable_Markov_Decision_Process (POMDP)
+math_model: Latent_POMDP
+compression: Variational_Autoencoder_Style
 ```
 
-## � Generative Model Specification ($m$)
+## 💎 Latent Space Compression ($z$)
 
-The world is modeled via the following categorical matrices (A, B, C, D):
+To prevent **State Space Explosion**, mathematical inference does not operate on raw DOM/Pixels. It operates on a compressed latent vector $z_t \in \mathbb{R}^n$ where $n \ll \text{dim}(o_t)$.
 
-| Matrix | Name | Functional Definition |
+* **Encoder ($E_\phi$):** $z_t \approx q_\phi(z_t | o_t)$. Maps raw UI observations (pixels/text) to a deterministic low-dimensional manifold.
+* **Decoder ($D_\theta$):** $\hat{o}_t \approx p_\theta(o_t | z_t)$. Used by System 2 to "imagine" and visualize predicted outcomes.
+
+## 📐 Latent-space Categorical Matrices
+
+Matrices now map transitions and likelihoods within the compressed space:
+
+| Matrix | Mapping | functional_definition |
 | :--- | :--- | :--- |
-| **A** | Likelihood | $P(o_t \| s_t)$: Observation probability given state. |
-| **B** | Transition | $P(s_{t+1} \| s_t, a_t)$: State change given action. |
-| **C** | Preferences | $P(o)$: Prior preferences over outcomes. |
-| **D** | Initial Prior | $P(s_1)$: Initial belief about the UI state. |
+| **A** | $P(z_t \| s_t)$ | Likelihood: Maps hidden beliefs to latent coordinates. |
+| **B** | $P(s_{t+1} \| s_t, a_t)$ | Transition: The "Physics" of the UI in latent space. |
+| **C** | $P(z^*)$ | Preference: Target "Reward" coordinates in latent space. |
+| **D** | $P(s_1)$ | Initial Prior: Starting belief on cold boot. |
 
 ## 🛰️ UI State Representation (Contract)
 
-The Edge Client streams state $o_t$. WORLD.md computes the hidden state $s_t$:
+The Edge Client streams $o_t$. The Internal Encoder consumes it:
 
 ```yaml
-state_contract:
+latent_contract:
   perception_id: UUID
-  modality: [VISUAL, DOM, AUDIO]
-  content:
-    visual_hash: SHA-256
-    dom_entropy: float (Complexity score)
-    active_node: string (XPath/ID)
+  raw_dim: [width, height, dom_nodes]
+  latent_vector_z: [float1, float2, ... floatN] # Size N=128
+  compression_fidelity: float [0, 1]
+  anomaly_signal: float # Residual error (o - Decoder(z))
 ```
+
+---
+*WORLD.md: The world is too big to remember; we only remember its essence (z).*
 
 ## 🛠️ Belief Update Protocol
 
@@ -42,9 +52,6 @@ state_contract:
 *WORLD.md is the probabilistic arena where AlphaMind plays its games.*
 
 ## 🌳 Action Space Mapping
-
-* **Navigation:** [SCROLL, CLICK, HOVER, INPUT]
-* **Reasoning:** [ALPHA_MCTS_SEARCH, CAUSAL_CHECK, SWARM_SIM]
 
 ---
 *WORLD.md allows the agent to "dream" of the UI state before the Edge Client even renders it.*

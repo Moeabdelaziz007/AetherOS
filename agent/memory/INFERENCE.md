@@ -1,53 +1,49 @@
 # 🧠 INFERENCE.md: Active Inference & Gating Logic
 
 ```yaml
-version: 0.1.1
+version: 0.2.0
 pillar: Prometheus (Cognitive Engine)
-math_model: Variational_Free_Energy (VFE) + Expected_Free_Energy (EFE)
+math_model: VFE + EFE (Active Inference)
 ```
 
-## 📐 The Objective Function
+## 📐 Expected Free Energy ($G$)
 
-AuraOS minimizes total Free Energy $F$.
+Planning in AuraOS is the selection of a policy $\pi$ that minimizes the *Expected* Free Energy $G(\pi)$:
 
-### 1. Variational Free Energy (Perception)
+$$G(\pi, \tau) = \underbrace{E_{q(o, s | \pi)} [ \ln q(s | \pi) - \ln p(o, s | \pi) ]}_{\text{Total Loss}}$$
 
-$F \approx \underbrace{D_{KL}[q(s) \| p(s | o)]}_{\text{Inaccuracy}} + \underbrace{D_{KL}[q(s) \| p(s)]}_{\text{Complexity}}$
-*Goal: Update internal beliefs to match observations.*
+Calculated by the Orchestrator as:
+$G \approx \text{Complexity} - \underbrace{\text{Epistemic Value}}_{\text{Discovery}} - \underbrace{\text{Pragmatic Value}}_{\text{Utility}}$
 
-### 2. Expected Free Energy (Planning)
+## ⚙️ Orchestrator Cognitive Weights
 
-For a policy $\pi$, we compute $G(\pi)$:
-$G(\pi) \approx \underbrace{E_{q(o, s | \pi)} [\ln q(s | \pi) - \ln p(o, s | \pi)]}_{\text{Epistemic + Pragmatic Value}}$
+These weights determine the "curiosity" vs "compliance" of the agent:
 
-* **Epistemic Value:** Information gain (reducing uncertainty in WORLD.md).
-* **Pragmatic Value:** Preference satisfaction (achieving goals in SOUL.md).
+```yaml
+cognitive_weights:
+  pragmatic_utility (pref): 0.85 # Drive to reach SOUL goals
+  epistemic_curiosity (info): 0.65 # Drive to explore unknown UI elements
+  novelty_bias: 0.25 # Preference for new states
+  surprise_threshold (tau): 0.15 # System 1 -> 2 Switch
 
-## 📏 Parameters
+policy_selection:
+  algorithm: Dirichlet_Sampling
+  temperature: 0.05 # Low temperature = Deterministic
+```
 
-| Parameter | Symbol | Value | Description |
-| :--- | :--- | :--- | :--- |
-| **Surprise Threshold** | $\tau$ | 0.15 | Trigger System 2 if Prediction Error > $\tau$ |
-| **Target Energy** | $F_{target}$ | < 0.05 | Desired state equilibrium |
-| **Precision (γ)** | $\gamma$ | 1.0 | Belief confidence weighting |
-| **Search Depth** | $d$ | 5 | AlphaMind MCTS steps |
+## 📏 System 1/2 Gating Protocol
 
-## 🕹️ System 1/2 Gating Protocol (The Switch)
+### 🏎️ System 1 (Reflexive)
 
-### 🏎️ System 1 (Reflexive Mode)
+* **Trigger:** Prediction Error $\Delta F < \tau$.
+* **Inference:** $q(s) \to a_{direct}$.
+* **Latency:** < 150ms.
 
-* **Trigger:** Confidence > 0.85 AND $\Delta F < \tau$.
-* **Action:** Direct LLM Inference. Exploits high-probability heuristics.
-* **Latency Goal:** < 200ms.
+### 🧘 System 2 (Reflective)
 
-### 🧘 System 2 (Reflective Mode)
-
-* **Trigger:** $\Delta F > \tau$ (High Surprise / Novelty).
-* **Action:**
-    1. **Epistemic Search:** Trigger AlphaMind MCTS to minimize $G(\pi)$.
-    2. **Swarm Simulation:** QuantumWeaver tests parallel hypotheses.
-    3. **Wavefront Collapse:** Converge on policy $\pi^*$ with lowest $G$.
-* **Latency Goal:** Accuracy-first (Strategic).
+* **Trigger:** $\Delta F \ge \tau$ OR Explicit User Query.
+* **Search:** AlphaMind MCTS search on latent manifold $z$.
+* **Loop:** GIF-MCTS (Identify -> Fix -> Verify).
 
 ---
-> "The agent exists to minimize surprise and maximize preference."
+*Inference is a battle between what the agent knows and what it needs to find out.*

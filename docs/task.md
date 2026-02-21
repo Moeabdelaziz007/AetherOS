@@ -21,6 +21,7 @@
 - [x] **Step 3.2:** Google ADK Integration.
 - [x] **Step 3.3:** Cognitive Orchestrator Implementation (`agent/orchestrator/`).
 - [x] **Step 3.4:** DNA Access Layer (Memory-Mapped Files).
+- [/] **Step 3.5:** The Synaptic Bridge (Optic Nerve API Contract).
 
 ## 🛰️ Phase 4: Peripheral Senses (الحواس المحيطية - Edge Client)
 
@@ -36,4 +37,4 @@
 
 ---
 ---
-*Status: Phase 1, 2, & 3 Baseline Complete. Transitioning to Phase 4: Sensory bridge.*
+*Status: Phase 3.5 In-Progress. Engineering the Optic Nerve (Rust Networking).*

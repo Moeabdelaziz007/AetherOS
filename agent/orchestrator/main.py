@@ -2,7 +2,7 @@ import asyncio
 import json
 import websockets
 from typing import Any
-from .memory_parser import MemoryParser
+from .memory_parser import PersistentMemoryBridge
 from .cognitive_router import HyperMindRouter
 
 class AetherCoreOrchestrator:
@@ -13,15 +13,15 @@ class AetherCoreOrchestrator:
     def __init__(self, host: str = "127.0.0.1", port: int = 8000):
         self.host = host
         self.port = port
-        self.parser = MemoryParser()
-        self.router = HyperMindRouter(self.parser)
+        self.bridge = PersistentMemoryBridge()
+        self.router = HyperMindRouter(self.bridge)
         self.is_running = False
 
     async def boot_sequence(self):
         """Initializes DNA and validates Persona logic."""
         print("🪐 AuraOS: AetherCore Prometheus Booting...")
-        dna = self.parser.load_dna()
-        print(f"🧬 DNA Sequence Verified: {dna.soul.get('version', 'Unknown')}")
+        dna = await self.bridge.load_dna_async()
+        print(f"🧬 DNA Sequence Verified: {dna.version}")
         self.is_running = True
 
     async def handle_optic_nerve(self, websocket):

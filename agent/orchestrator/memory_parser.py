@@ -1,68 +1,96 @@
 import mmap
 import os
 import yaml
+import hashlib
+import asyncio
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any, Optional, Dict
 
 @dataclass
 class DNABelief:
     soul: dict[str, Any]
     world: dict[str, Any]
     inference: dict[str, Any]
+    version: str
 
-class MemoryParser:
+class PersistentMemoryBridge:
     """
-    Zero-Latency DNA Parser using Memory-Mapped Files.
-    Designed for AetherCore's prompt-speed inference.
+    Priority 0 Refactor: Zero-Latency DNA Bridge.
+    Keeps mmaps open and provides non-blocking async refreshes.
     """
     def __init__(self, memory_path: str = "agent/memory/"):
         self.memory_path = memory_path
+        self._mmaps: Dict[str, mmap.mmap] = {}
+        self._file_handles: Dict[str, Any] = {}
+        self._hashes: Dict[str, str] = {}
         self.dna_cache: Optional[DNABelief] = None
+        self._lock = asyncio.Lock()
 
-    def _read_file_fast(self, filename: str) -> str:
-        """Reads file using mmap for kernel-level speed."""
-        path = os.path.join(self.memory_path, filename)
-        if not os.path.exists(path):
-            raise FileNotFoundError(f"DNA File {filename} not found.")
-
-        with open(path, "r+b") as f:
-            # Memory map the file
+    def _get_mmap(self, filename: str) -> mmap.mmap:
+        """Returns or creates a persistent mmap for a DNA file."""
+        if filename not in self._mmaps:
+            path = os.path.join(self.memory_path, filename)
+            f = open(path, "r+b")
             mm = mmap.mmap(f.fileno(), 0)
-            content = mm.read().decode("utf-8")
-            mm.close()
-            return content
+            self._file_handles[filename] = f
+            self._mmaps[filename] = mm
+        return self._mmaps[filename]
 
-    def _extract_yaml(self, content: str) -> dict[str, Any]:
-        """Extracts YAML frontmatter/blocks from the Markdown DNA."""
-        try:
-            # Simple extractor for YAML code blocks or frontmatter
+    def _calculate_hash(self, data: bytes) -> str:
+        return hashlib.md5(data).hexdigest()
+
+    async def load_dna_async(self, force: bool = False) -> DNABelief:
+        """Loads and parses DNA without blocking the event loop."""
+        async with self._lock:
+            needs_update = False
+            raw_contents = {}
+
+            for dna_file in ["SOUL.md", "WORLD.md", "INFERENCE.md"]:
+                mm = self._get_mmap(dna_file)
+                mm.seek(0)
+                content_bytes = mm.read()
+                current_hash = self._calculate_hash(content_bytes)
+
+                if force or current_hash != self._hashes.get(dna_file):
+                    self._hashes[dna_file] = current_hash
+                    raw_contents[dna_file] = content_bytes.decode("utf-8")
+                    needs_update = True
+
+            if needs_update:
+                # Move blocking YAML parsing to a background thread
+                parsed = await asyncio.to_thread(self._parse_blocks, raw_contents)
+                
+                self.dna_cache = DNABelief(
+                    soul=parsed.get("SOUL.md", {}),
+                    world=parsed.get("WORLD.md", {}),
+                    inference=parsed.get("INFERENCE.md", {}),
+                    version=parsed.get("SOUL.md", {}).get("version", "0.0.0")
+                )
+            
+            return self.dna_cache
+
+    def _parse_blocks(self, raw_data: Dict[str, str]) -> Dict[str, Dict[str, Any]]:
+        """Synchronous YAML extractor."""
+        results = {}
+        for filename, content in raw_data.items():
             if "```yaml" in content:
                 block = content.split("```yaml")[1].split("```")[0]
-                return yaml.safe_load(block) or {}
-            return {}
-        except Exception as e:
-            print(f"Error parsing DNA schema: {e}")
-            return {}
+                results[filename] = yaml.safe_load(block) or {}
+            else:
+                results[filename] = {}
+        return results
 
-    def load_dna(self) -> DNABelief:
-        """Synchronizes DNA files into high-speed memory objects."""
-        soul_raw = self._read_file_fast("SOUL.md")
-        world_raw = self._read_file_fast("WORLD.md")
-        inference_raw = self._read_file_fast("INFERENCE.md")
-
-        self.dna_cache = DNABelief(
-            soul=self._extract_yaml(soul_raw),
-            world=self._extract_yaml(world_raw),
-            inference=self._extract_yaml(inference_raw)
-        )
-        return self.dna_cache
-
-    def get_inference_weights(self) -> dict[str, float]:
-        if not self.dna_cache:
-            self.load_dna()
-        return self.dna_cache.inference.get("cognitive_weights", {})
+    def close(self):
+        """Cleanup mmaps and file handles on system shutdown."""
+        for mm in self._mmaps.values():
+            mm.close()
+        for f in self._file_handles.values():
+            f.close()
 
 if __name__ == "__main__":
-    parser = MemoryParser()
-    dna = parser.load_dna()
-    print(f"AetherCore DNA Loaded. Soul Version: {dna.soul.get('version')}")
+    # Test boot
+    bridge = PersistentMemoryBridge()
+    async def test():
+        dna = await bridge.load_dna_async()
+        print(f"⚡ Persistent DNA Bridge Active (v{dna.version})")
+    asyncio.run(test())

@@ -1,47 +1,67 @@
-import asyncio
-import time
-from typing import Any
-from .memory_parser import MemoryParser
+import math
+from typing import Any, Dict, List
+from .memory_parser import PersistentMemoryBridge
 
 class HyperMindRouter:
     """
-    The Cognitive Nerve Center. 
-    Implements Active Inference gating (System 1 vs System 2).
+    Priority 1 Refactor: Active Inference Cognitive Gating.
+    Implements VFE and EFE (G) logic (Prometheus Pillar).
     """
-    def __init__(self, parser: MemoryParser):
-        self.parser = parser
-        self.dna = self.parser.load_dna()
-        self.tau = self.dna.inference.get("cognitive_weights", {}).get("surprise_threshold", 0.15)
+    def __init__(self, bridge: PersistentMemoryBridge):
+        self.bridge = bridge
 
-    async def calculate_free_energy(self, state_context: dict[str, Any]) -> float:
+    async def calculate_vfe(self, context: Dict[str, Any]) -> float:
         """
-        Mock calculation of Variational Free Energy (F).
-        In production: Compare Predicted Belief (WORLD.md) vs Actual Edge Perception.
+        Variational Free Energy (F) = Complexity - Accuracy.
+        Determines System 1 vs System 2 gating.
         """
-        # Simulate surprise if context has high entropy or unknown flags
-        anomaly_signal = state_context.get("anomaly", 0.0)
-        return float(anomaly_signal)
-
-    async def route_action(self, state_context: dict[str, Any]) -> str:
-        """
-        Decision Function:
-        Action = System 1 if F < Tau else System 2
-        """
-        f_score = await self.calculate_free_energy(state_context)
+        dna = await self.bridge.load_dna_async()
         
-        print(f"🧠 Cognitive Routing: F={f_score:.4f}, Tau={self.tau}")
+        # Accuracy: How well our internal WORLD.md predicts current sensory anomaly
+        # In this scale, higher anomaly = lower accuracy = higher surprise
+        surprise_signal = float(context.get("anomaly", 0.0))
+        
+        # Complexity: The cost of updating beliefs (simulated as entropy bias)
+        complexity_bias = 0.05 
+        
+        vfe = complexity_bias + surprise_signal
+        return vfe
 
-        if f_score < self.tau:
-            return self._execute_system_1()
-        else:
-            return await self._execute_system_2()
+    async def calculate_efe(self, context: Dict[str, Any]) -> float:
+        """
+        Expected Free Energy (G) = Epistemic Value + Pragmatic Value.
+        Determines the 'Curiosity' vs 'Compliance' of the response.
+        """
+        dna = await self.bridge.load_dna_async()
+        weights = dna.inference.get("cognitive_weights", {})
+        
+        # 1. Epistemic Value (Discovery): Driven by curiosity weights
+        epistemic = weights.get("epistemic_curiosity (info)", 0.5) * context.get("novelty", 0.1)
+        
+        # 2. Pragmatic Value (Utility): Driven by pragmatic utility weights
+        pragmatic = weights.get("pragmatic_utility (pref)", 0.5) * context.get("goal_alignment", 1.0)
+        
+        # G (EFE) = Complexity (Fixed) - Epistemic - Pragmatic
+        # We minimize G to select the optimal policy
+        g_score = 1.0 - (epistemic + pragmatic)
+        return g_score
 
-    def _execute_system_1(self) -> str:
-        """Reflexive mode: Direct stream to Gemini."""
+    async def route_action(self, context: Dict[str, Any]) -> str:
+        """
+        The Gating Logic Ceremony:
+        1. Calculate F (VFE).
+        2. If F > Tau: Engage System 2 (Reflective Search).
+        3. Else: Engage System 1 (Direct Reflex).
+        """
+        dna = await self.bridge.load_dna_async()
+        tau = dna.inference.get("cognitive_weights", {}).get("surprise_threshold (tau)", 0.15)
+        
+        f_score = await self.calculate_vfe(context)
+        
+        print(f"🧠 AetherCore Inference: F={f_score:.4f}, Tau={tau}")
+
+        if f_score >= tau:
+            print("🧘 VFE Breached! Engaging System 2 (Neural Swarm)...")
+            return "SYSTEM_2_SWARM"
+        
         return "SYSTEM_1_REFLEX"
-
-    async def _execute_system_2(self) -> str:
-        """Reflective mode: Swarm & MCTS."""
-        # This would trigger QuantumWeaver (Cloud Run)
-        print("🧘 High Free Energy! Engaging System 2 (AlphaMind MCTS)...")
-        return "SYSTEM_2_SWARM"

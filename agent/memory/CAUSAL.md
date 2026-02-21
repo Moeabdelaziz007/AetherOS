@@ -14,23 +14,20 @@ AuraOS reasons over a Structural Causal Model $M = \langle S, U, F \rangle$:
 * $U$: Unobserved background variables.
 * $F$: Functional relationships (e.g., $f_{transaction} = \text{Balance} > \text{Cost}$).
 
-## 🛡️ Structural Guardians (Interventions)
-
-NeuroSage uses the **do-calculus** operator $P(y | do(x))$ to simulate deterministic interventions:
-
-```yaml
-causal_interventions:
-  EXECUTE_UI_ACTION:
-    nodes: [s_focus, s_reflex, s_trust]
+  SHELL_EXECUTE:
+    nodes: [s_terminal, s_os_state, s_safety]
     logic: |
-      P(s_reflex | do(execute_ui_action))
-      Condition: VFE < tau AND trust_verified(SOUL.md)
-  TRIGGER_QUANTUM_SWARM:
-    nodes: [s_complexity, s_reflection, s_discovery]
+      P(s_os_state | do(shell_execute))
+      Block if: command.contains(['rm -rf', 'mkfs', 'dd']) AND user_override == FALSE
+  FILESYSTEM_MANAGE:
+    nodes: [s_data_integrity, s_storage, s_gate]
     logic: |
-      P(s_discovery | do(trigger_quantum_swarm))
-      Condition: VFE >= tau OR explicit_query == TRUE
-```
+      P(s_data_integrity | do(filesystem_manage))
+      Condition: path.is_within_sandbox() OR s_gate == 1.0
+  KNOWLEDGE_SEARCH:
+    nodes: [s_epistemic, s_accuracy]
+    logic: |
+      P(s_accuracy | do(knowledge_search))
 
 ## 🔍 Counterfactual Reasoning
 

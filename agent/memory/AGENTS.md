@@ -17,7 +17,7 @@ graph TD
     Gemini -- functionCall --> Router[HyperMindRouter]
     Router -- F < Tau --> System1[System 1: Reflexive Bridge]
     Router -- F >= Tau --> System2[System 2: Quantum Swarm]
-    System1 -- JSON Cmd --> Edge
+    System1 -- ClawHub/Native --> OS[Local OS / Filesystem]
     System2 -- Simulation --> Router
 ```
 

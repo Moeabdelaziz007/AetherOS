@@ -71,5 +71,66 @@ function_declaration:
     required: [latent_state_z, objective]
 ```
 
+### 🖥️ `shell_execute` (System 1/2)
+
+Standardized bash execution for OS-level automation (ClawHub compatible).
+
+```yaml
+function_declaration:
+  name: shell_execute
+  description: Executes a bash command in a persistent shell session.
+  parameters:
+    type: object
+    properties:
+      command:
+        type: string
+        description: The bash command to execute (e.g., 'ls -la', 'python script.py').
+    required: [command]
+```
+
+### 📁 `filesystem_manage` (System 1)
+
+Atomic file operations with path validation.
+
+```yaml
+function_declaration:
+  name: filesystem_manage
+  description: Manages local file system operations.
+  parameters:
+    type: object
+    properties:
+      operation:
+        type: string
+        enum: [READ, WRITE, APPEND, LIST, DELETE, SEARCH]
+        description: The file operation to perform.
+      path:
+        type: string
+        description: Absolute path to the target file/directory.
+      content:
+        type: string
+        description: Data to write or append (optional).
+    required: [operation, path]
+```
+
+### 🔍 `knowledge_search` (System 2)
+
+Web-scale information retrieval for fact-checking and documentation.
+
+```yaml
+function_declaration:
+  name: knowledge_search
+  description: Performs a web search to retrieve real-time information or documentation.
+  parameters:
+    type: object
+    properties:
+      query:
+        type: string
+        description: The search query to execute.
+      domain_bias:
+        type: string
+        description: Optional domain to prioritize (e.g., 'docs.python.org').
+    required: [query]
+```
+
 ---
 *SKILLS.md is the executable muscle of the AetherCore.*

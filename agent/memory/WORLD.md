@@ -61,10 +61,18 @@ action_quantization:
     tool: execute_ui_action
     latency_target: <150ms
     vfe_cost: low
-  - id: A_SWARM
-    tool: trigger_quantum_swarm
-    latency_target: <5000ms
-    vfe_cost: high (Precision-driven)
+  - id: A_SHELL
+    tool: shell_execute
+    latency_target: <300ms
+    vfe_cost: medium
+  - id: A_FILE
+    tool: filesystem_manage
+    latency_target: <100ms
+    vfe_cost: low
+  - id: A_SEARCH
+    tool: knowledge_search
+    latency_target: <2000ms
+    vfe_cost: low
 ```
 
 ---

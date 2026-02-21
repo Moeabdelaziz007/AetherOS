@@ -29,6 +29,17 @@ struct SynapticBridge {
     tx: mpsc::UnboundedSender<Message>,
 }
 
+#[tauri::command]
+async fn stream_sensory_data(
+    _app: AppHandle,
+    state: tauri::State<'_, SynapticBridge>,
+    command: BrainCommand,
+) -> Result<(), String> {
+    let payload = serde_json::to_string(&command).map_err(|e| e.to_string())?;
+    state.tx.send(Message::Text(payload)).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
 fn main() {
     tauri::Builder::default()
         .setup(|app| {

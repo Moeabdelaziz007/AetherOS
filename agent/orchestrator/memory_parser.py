@@ -11,6 +11,13 @@ class DNABelief:
     soul: dict[str, Any]
     world: dict[str, Any]
     inference: dict[str, Any]
+    agents: dict[str, Any]
+    causal: dict[str, Any]
+    evolve: dict[str, Any]
+    pulse: dict[str, Any]
+    skills: dict[str, Any]
+    topology: dict[str, Any]
+    memory: dict[str, Any]
     version: str
 
 class PersistentMemoryBridge:
@@ -25,6 +32,11 @@ class PersistentMemoryBridge:
         self._hashes: Dict[str, str] = {}
         self.dna_cache: Optional[DNABelief] = None
         self._lock = asyncio.Lock()
+        self.dna_files = [
+            "SOUL.md", "WORLD.md", "INFERENCE.md", "AGENTS.md", 
+            "CAUSAL.md", "EVOLVE.md", "PULSE.md", "SKILLS.md", 
+            "TOPOLOGY.md", "MEMORY.md"
+        ]
 
     def _get_mmap(self, filename: str) -> mmap.mmap:
         """Returns or creates a persistent mmap for a DNA file."""
@@ -45,7 +57,7 @@ class PersistentMemoryBridge:
             needs_update = False
             raw_contents = {}
 
-            for dna_file in ["SOUL.md", "WORLD.md", "INFERENCE.md"]:
+            for dna_file in self.dna_files:
                 mm = self._get_mmap(dna_file)
                 mm.seek(0)
                 content_bytes = mm.read()
@@ -64,6 +76,13 @@ class PersistentMemoryBridge:
                     soul=parsed.get("SOUL.md", {}),
                     world=parsed.get("WORLD.md", {}),
                     inference=parsed.get("INFERENCE.md", {}),
+                    agents=parsed.get("AGENTS.md", {}),
+                    causal=parsed.get("CAUSAL.md", {}),
+                    evolve=parsed.get("EVOLVE.md", {}),
+                    pulse=parsed.get("PULSE.md", {}),
+                    skills=parsed.get("SKILLS.md", {}),
+                    topology=parsed.get("TOPOLOGY.md", {}),
+                    memory=parsed.get("MEMORY.md", {}),
                     version=parsed.get("SOUL.md", {}).get("version", "0.0.0")
                 )
             

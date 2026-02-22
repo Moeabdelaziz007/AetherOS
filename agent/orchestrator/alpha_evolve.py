@@ -283,7 +283,13 @@ class AlphaEvolve:
             else:
                 print(f"🚫 Sandbox: Patch failed validation. {check['stderr']}")
                 anomaly["status"] = "HEALING_FAILED"
-                self.monitor.log_anomaly(**anomaly)
+                # Filter keys for log_anomaly which doesn't accept 'status' or 'timestamp'
+                self.monitor.log_anomaly(
+                    component=anomaly.get("component", "AlphaEvolve"),
+                    error_type=anomaly.get("error_type", "HealingFailure"),
+                    message=f"Healing failed for {component_file}: {check['stderr']}",
+                    stack_trace=anomaly.get("stack_trace")
+                )
             
             await self.sandbox.cleanup_snapshot()
         

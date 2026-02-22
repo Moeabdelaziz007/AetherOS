@@ -22,7 +22,7 @@ class GeminiLiveClient:
     def __init__(self, bridge: AetherNavigator, api_key: str):
         self.bridge = bridge
         self.api_key = api_key
-        self.url = "wss://generativelanguage.googleapis.com/ws/google.genai.v1alpha.GenerativeService.BidiGenerateContent"
+        self.url = "wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent"
         self.ws = None
         self.is_ready = False
 

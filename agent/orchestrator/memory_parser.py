@@ -114,8 +114,11 @@ class AuraNavigator:
         results = {}
         for filename, content in raw_data.items():
             if "```yaml" in content:
-                block = content.split("```yaml")[1].split("```")[0]
-                results[filename] = yaml.safe_load(block) or {}
+                try:
+                    block = content.split("```yaml")[1].split("```")[0]
+                    results[filename] = yaml.safe_load(block) or {}
+                except Exception:
+                    results[filename] = {}
             else:
                 results[filename] = {}
         return results
@@ -142,8 +145,11 @@ class AuraNavigator:
                 raw = content_bytes.decode("utf-8")
                 parsed = {}
                 if "```yaml" in raw:
-                    block = raw.split("```yaml")[1].split("```")[0]
-                    parsed = yaml.safe_load(block) or {}
+                    try:
+                        block = raw.split("```yaml")[1].split("```")[0]
+                        parsed = yaml.safe_load(block) or {}
+                    except Exception:
+                        parsed = {}
                 self.nexus_cache = parsed.get("synapses", [])
                 needs_update = True
 

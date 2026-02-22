@@ -73,9 +73,9 @@ class HeuristicSandbox:
     Beta-Test: AlphaMind Heuristic Sandbox (Phase 6.3).
     Executes isolated code validation (Build/Test) with process isolation.
     """
-    def __init__(self, workspace_root: str = "/Users/cryptojoker710/Desktop/AuraOS"):
+    def __init__(self, workspace_root: str = "/Users/cryptojoker710/Desktop/AetherOS"):
         self.workspace_root = workspace_root
-        self.sandbox_path = "/tmp/aura_sandbox"
+        self.sandbox_path = "/tmp/aether_sandbox"
 
     async def create_snapshot(self):
         """Creates a shallow copy of the workspace for isolated testing."""
@@ -157,7 +157,7 @@ class AlphaMindGenerator:
             return None
 
         prompt = f"""
-        AuraOS Self-Healing Request (AlphaEvolve v0.1.1)
+        AetherOS Self-Healing Request (AlphaEvolve v0.1.1)
         
         Anomaly Detected in: {anomaly.get('component')}
         Error Type: {anomaly.get('error_type')}
@@ -197,7 +197,7 @@ class DnaCommitter:
     Beta-Test: Autonomous DNA Consolidation (Phase 6.5).
     Safely commits verified patches to the production codebase.
     """
-    def __init__(self, workspace_root: str = "/Users/cryptojoker710/Desktop/AuraOS"):
+    def __init__(self, workspace_root: str = "/Users/cryptojoker710/Desktop/AetherOS"):
         self.workspace_root = workspace_root
 
     def commit(self, relative_path: str, new_content: str) -> bool:

@@ -27,7 +27,7 @@ A skill is automatically promoted from **System 2** to **System 1** when:
 3. `last_success_rate` ≥ 0.95
 4. `avg_latency_ms` < 150
 
-Skills promoted to System 1 are moved to the **Native-Aura-Skills** section for reflexive execution.
+Skills promoted to System 1 are moved to the **Native-Aether-Skills** section for reflexive execution.
 
 ## 📐 Gating Mathematics ($F$ & $G$)
 

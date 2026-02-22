@@ -43,8 +43,8 @@ async fn stream_sensory_data(
 }
 
 fn get_bridge_url() -> String {
-    std::env::var("AURA_BRIDGE_URL").unwrap_or_else(|_| {
-        println!("⚠️ Warning: AURA_BRIDGE_URL not set. Defaulting to insecure localhost.");
+    std::env::var("AETHER_BRIDGE_URL").unwrap_or_else(|_| {
+        println!("⚠️ Warning: AETHER_BRIDGE_URL not set. Defaulting to insecure localhost.");
         "ws://127.0.0.1:8000".to_string()
     })
 }
@@ -95,7 +95,7 @@ fn main() {
             // 🛰️ Synaptic Bridge (WebSocket Client)
             tauri::async_runtime::spawn(async move {
                 let addr = get_bridge_url();
-                println!("🛰️ AuraOS: Establishing Synaptic Bridge to {}...", addr);
+                println!("🛰️ AetherOS: Establishing Synaptic Bridge to {}...", addr);
 
                 loop {
                     match connect_async(&addr).await {
@@ -152,12 +152,12 @@ mod tests {
     fn test_get_bridge_url_default() {
         let _lock = ENV_LOCK.lock().unwrap();
 
-        let original = std::env::var("AURA_BRIDGE_URL");
-        std::env::remove_var("AURA_BRIDGE_URL");
+        let original = std::env::var("AETHER_BRIDGE_URL");
+        std::env::remove_var("AETHER_BRIDGE_URL");
         assert_eq!(get_bridge_url(), "ws://127.0.0.1:8000");
 
         if let Ok(val) = original {
-            std::env::set_var("AURA_BRIDGE_URL", val);
+            std::env::set_var("AETHER_BRIDGE_URL", val);
         }
     }
 
@@ -165,14 +165,14 @@ mod tests {
     fn test_get_bridge_url_env_set() {
         let _lock = ENV_LOCK.lock().unwrap();
 
-        let original = std::env::var("AURA_BRIDGE_URL");
-        std::env::set_var("AURA_BRIDGE_URL", "wss://example.com:9000");
+        let original = std::env::var("AETHER_BRIDGE_URL");
+        std::env::set_var("AETHER_BRIDGE_URL", "wss://example.com:9000");
         assert_eq!(get_bridge_url(), "wss://example.com:9000");
 
         if let Ok(val) = original {
-            std::env::set_var("AURA_BRIDGE_URL", val);
+            std::env::set_var("AETHER_BRIDGE_URL", val);
         } else {
-            std::env::remove_var("AURA_BRIDGE_URL");
+            std::env::remove_var("AETHER_BRIDGE_URL");
         }
     }
 }

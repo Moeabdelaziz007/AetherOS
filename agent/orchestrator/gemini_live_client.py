@@ -9,17 +9,17 @@ try:
 except Exception:  # pragma: no cover
     websockets = None  # type: ignore
 
-from .memory_parser import AuraNavigator
+from .memory_parser import AetherNavigator
 
 class GeminiLiveClient:
     """
-    The Multimodal Soul of AuraOS.
+    The Multimodal Soul of AetherOS.
     Handles real-time BidiGenerateContent streams with Gemini 3.1 Pro.
     """
     MAX_RETRIES = 5
     RETRY_DELAY = 5  # Base delay in seconds for exponential backoff
     
-    def __init__(self, bridge: AuraNavigator, api_key: str):
+    def __init__(self, bridge: AetherNavigator, api_key: str):
         self.bridge = bridge
         self.api_key = api_key
         self.url = "wss://generativelanguage.googleapis.com/ws/google.genai.v1alpha.GenerativeService.BidiGenerateContent"
@@ -67,7 +67,7 @@ class GeminiLiveClient:
         
         # 2. Construct Setup Message
         spatial_instruction = (
-            "You are AuraOS, an AI Agent controlling a user's computer. "
+            "You are AetherOS, an AI Agent controlling a user's computer. "
             "You can see the screen. To click on an element, respond with the exact coordinates "
             "in the JSON format: {\"point\": [y, x]} where y and x are integers between 0 and 1000 "
             "representing relative screen coordinates (y is top-to-bottom, x is left-to-right). "

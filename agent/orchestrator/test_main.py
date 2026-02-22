@@ -57,7 +57,7 @@ class TestAetherCoreOrchestrator(unittest.IsolatedAsyncioTestCase):
         self.mock_router_instance = self.mock_router_cls.return_value
         self.mock_router_instance.route_action = AsyncMock(return_value="SYSTEM_1_REFLEX")
 
-        self.mock_navigator_cls = patch('agent.orchestrator.main.AuraNavigator').start()
+        self.mock_navigator_cls = patch('agent.orchestrator.main.AetherNavigator').start()
         self.mock_navigator_instance = self.mock_navigator_cls.return_value
         self.mock_navigator_instance.load_dna_async = AsyncMock(return_value=MagicMock(version="1.0.0"))
         self.mock_navigator_instance.close = AsyncMock()

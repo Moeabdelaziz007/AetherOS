@@ -8,7 +8,7 @@ model: Structural_Causal_Model (SCM)
 
 ## 📐 The Causal Graph (DAG)
 
-AuraOS reasons over a Structural Causal Model $M = \langle S, U, F \rangle$:
+AetherOS reasons over a Structural Causal Model $M = \langle S, U, F \rangle$:
 
 * $S$: Set of UI state variables (e.g., `is_authenticated`, `button_clickable`).
 * $U$: Unobserved background variables.

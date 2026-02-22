@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from typing import Any, Dict
 from pydantic import BaseModel, Field, ValidationError
-from .memory_parser import AuraNavigator
+from .memory_parser import AetherNavigator
 from .cognitive_router import HyperMindRouter
 from .gemini_live_client import GeminiLiveClient
 from .alpha_evolve import monitor, evolve_engine
@@ -27,14 +27,14 @@ class SynapticMessage(BaseModel):
 
 class AetherCoreOrchestrator:
     """
-    The main asynchronous event loop for AuraOS.
+    The main asynchronous event loop for AetherOS.
     Bridges the Edge Client (Sensory) via WebSockets to the DNA Brain.
     """
     def __init__(self, host: str = "127.0.0.1", port: int = 8000, drift_threshold_ms: float = 500.0):
         self.host = host
         self.port = port
         self.drift_threshold_ms = drift_threshold_ms
-        self.bridge = AuraNavigator()
+        self.bridge = AetherNavigator()
         self.router = HyperMindRouter(self.bridge)
         self.is_running = False
         self.api_key = os.getenv("GEMINI_API_KEY")
@@ -43,7 +43,7 @@ class AetherCoreOrchestrator:
 
     async def boot_sequence(self):
         """Initializes DNA and validates Persona logic."""
-        print("🪐 AuraOS: AetherCore Prometheus Booting...")
+        print("🪐 AetherOS: AetherCore Prometheus Booting...")
         dna = await self.bridge.load_dna_async()
         print(f"🧬 DNA Sequence Verified: {dna.version}")
         self.is_running = True

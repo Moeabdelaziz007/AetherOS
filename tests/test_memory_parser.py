@@ -1,9 +1,9 @@
 import unittest
-from agent.orchestrator.memory_parser import AuraNavigator
+from agent.orchestrator.memory_parser import AetherNavigator
 
 class TestMemoryParser(unittest.TestCase):
     def test_parse_blocks_multiple_yaml(self):
-        navigator = AuraNavigator()
+        navigator = AetherNavigator()
         # Mock content with multiple YAML blocks
         content = """
 # Header

@@ -14,7 +14,7 @@ resource "google_cloud_run_v2_job" "swarm_node" {
   template {
     template {
       containers {
-        image = "gcr.io/${var.project_id}/auraos-swarm-node:latest"
+        image = "gcr.io/${var.project_id}/aetheros-swarm-node:latest"
         
         resources {
           limits = {
@@ -25,7 +25,7 @@ resource "google_cloud_run_v2_job" "swarm_node" {
 
         # Environment Variables for Cognitive State Handover
         env {
-          name  = "AURA_DNA_VERSION"
+          name  = "AETHER_DNA_VERSION"
           value = "0.2.0"
         }
       }
@@ -42,8 +42,8 @@ resource "google_cloud_run_v2_job" "swarm_node" {
 
 # 🛡️ Least-Privilege Service Account
 resource "google_service_account" "swarm_sa" {
-  account_id   = "auraos-swarm-worker"
-  display_name = "AuraOS Swarm Worker"
+  account_id   = "aetheros-swarm-worker"
+  display_name = "AetherOS Swarm Worker"
 }
 
 # IAM: Only allow Cloud Run Job execution permissions

@@ -1,13 +1,13 @@
 import asyncio
 from typing import Any, Dict, List
-from .memory_parser import AuraNavigator
+from .memory_parser import AetherNavigator
 
 class HyperMindRouter:
     """
     Priority 1 Refactor: Active Inference Cognitive Gating.
     Implements VFE and EFE (G) logic (Prometheus Pillar).
     """
-    def __init__(self, bridge: AuraNavigator):
+    def __init__(self, bridge: AetherNavigator):
         self.bridge = bridge
 
     async def calculate_vfe(self, context: Dict[str, Any], dna: Any = None) -> float:
@@ -107,11 +107,11 @@ class HyperMindRouter:
         bias += lr * (-feedback)
         dna.inference["complexity_bias"] = min(max(bias, 0.0), 1.0)
 
-        # record timestamp; note: do NOT write to disk until AuraEvolve batch run
+        # record timestamp; note: do NOT write to disk until AetherEvolve batch run
         dna.inference["cognitive_last_update"] = now
         self.bridge.dna_cache = dna
 
-        # NOTE: actual file persistence should be handled offline by AuraEvolve
+        # NOTE: actual file persistence should be handled offline by AetherEvolve
         # during idle periods (`Cognitive Sleep`).
 
     async def route_action(self, context: Dict[str, Any]) -> str:
@@ -124,7 +124,7 @@ class HyperMindRouter:
         dna = await self.bridge.load_dna_async()
         tau = dna.inference.get("cognitive_weights", {}).get("surprise_threshold (tau)", 0.15)
         
-        # pre-route enrichment: consult Aura-Nexus for similar memories
+        # pre-route enrichment: consult Aether-Nexus for similar memories
         try:
             hits = await self.bridge.search_nexus(context)
             context["nexus_hits"] = hits

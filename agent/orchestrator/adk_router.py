@@ -13,7 +13,7 @@ class ADKRouter:
     """
     
     def __init__(self, bridge):
-        """Initialize with bridge reference to AuraNavigator."""
+        """Initialize with bridge reference to AetherNavigator."""
         self.bridge = bridge
     
     async def route_action(self, context: Dict[str, Any]) -> Dict[str, Any]:

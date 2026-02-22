@@ -19,7 +19,7 @@ Cognitive weights adapt dynamically based on feedback signals:
 
 ## 📐 Expected Free Energy ($G$)
 
-Planning in AuraOS is the selection of a policy $\pi$ that minimizes the *Expected* Free Energy $G(\pi)$:
+Planning in AetherOS is the selection of a policy $\pi$ that minimizes the *Expected* Free Energy $G(\pi)$:
 
 $$G(\pi, \tau) = \underbrace{E_{q(o, s | \pi)} [ \ln q(s | \pi) - \ln p(o, s | \pi) ]}_{\text{Total Loss}}$$
 

@@ -1,4 +1,4 @@
-# 🗺️ AuraOS: The 5-Phase Engineering Roadmap
+# 🗺️ AetherOS: The 5-Phase Engineering Roadmap
 
 ## 🏛️ Phase 1: The Foundation (الرؤية التأسيسية)
 
@@ -23,7 +23,7 @@
 - [x] **Step 3.4:** DNA Access Layer (Memory-Mapped Files).
 - [x] **Step 3.5:** The Synaptic Bridge (Optic Nerve API Contract).
 - [x] **Step 3.6:** Active Pulse Monitor (Zombie Defibrillator).
-- [x] **Step 3.7:** Add `AuraNavigator` abstraction with Nexus search.
+- [x] **Step 3.7:** Add `AetherNavigator` abstraction with Nexus search.
 - [x] **Step 3.8:** Create `NEXUS.md` & `HEARTBEAT.md` DNA files.
 - [x] **Step 3.9:** Implement weight learning and WebSocket resilience.
 
@@ -60,16 +60,16 @@
 
 ## ✅ Phase 9: Full Micro-Testing (الاختبار الجزئي الشامل)
 
-- [x] **Step 9.1:** Unit Test `AuraNavigator` for Zero-Latency DNA updates.
+- [x] **Step 9.1:** Unit Test `AetherNavigator` for Zero-Latency DNA updates.
 - [x] **Step 9.2:** Validate `HyperMindRouter` Gating (VFE/EFE) trajectories.
 - [x] **Step 9.3:** Rust Peripheral Audit & Sensory Contract standardization.
 
-## 🕸️ Phase 10: Aura-Nexus Synthesis (دمج الذاكرة العصبية)
+## 🕸️ Phase 10: Aether-Nexus Synthesis (دمج الذاكرة العصبية)
 
 - [x] **Step 10.1:** Forge the `NEXUS.md` Multimodal Knowledge Graph.
-- [x] **Step 10.2:** Upgrade Memory Parser to `AuraNavigator` with Node Search.
-- [x] **Step 10.3:** Implement `Aura-Consolidation` في `EVOLVE.md`.
-- [x] **Step 10.4:** "The Aura Touch" - Polish README and Identity (Expert Setup).
+- [x] **Step 10.2:** Upgrade Memory Parser to `AetherNavigator` with Node Search.
+- [x] **Step 10.3:** Implement `Aether-Consolidation` في `EVOLVE.md`.
+- [x] **Step 10.4:** "The Aether Touch" - Polish README and Identity (Expert Setup).
 
 ## 🛡️ Phase 11: Deep Hardening & Global Launch (التحصين المعماري والإطلاق العالمي)
 

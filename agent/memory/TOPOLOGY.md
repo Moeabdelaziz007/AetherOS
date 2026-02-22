@@ -8,7 +8,7 @@ graph_type: Task_Adaptive_Hypergraph
 
 ## 🧬 Task-Adaptive Hyperedges
 
-AuraOS dynamically optimizes its communication topology. Hyperedges only instantiate when high-entropy events occur:
+AetherOS dynamically optimizes its communication topology. Hyperedges only instantiate when high-entropy events occur:
 
 | Hyperedge ID | Trigger Context | Resident Agents | Data Slot |
 | :--- | :--- | :--- | :--- |

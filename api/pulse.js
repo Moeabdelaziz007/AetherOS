@@ -25,11 +25,11 @@ export default function handler(req, res) {
 
       <rect width="100%" height="100%" fill="url(#bg)" rx="8" ry="8" stroke="#333" stroke-width="1"/>
 
-      <text x="20" y="30" font-family="monospace" font-size="14" fill="#888" letter-spacing="2">AURA_OS // TELEMETRY</text>
+      <text x="20" y="30" font-family="monospace" font-size="14" fill="#888" letter-spacing="2">AETHER_OS // TELEMETRY</text>
       <line x1="20" y1="40" x2="380" y2="40" stroke="#00ff00" stroke-width="1" filter="url(#glow)"/>
 
       <text x="20" y="70" font-family="monospace" font-size="12" fill="#fff">Cognitive State : <tspan fill="#00ff00" filter="url(#glow)">[ ${currentState} ]</tspan></text>
-      <text x="20" y="100" font-family="monospace" font-size="12" fill="#fff">Aura-Nexus Links: <tspan fill="#00ff00">${synapses}</tspan></text>
+      <text x="20" y="100" font-family="monospace" font-size="12" fill="#fff">Aether-Nexus Links: <tspan fill="#00ff00">${synapses}</tspan></text>
       <text x="20" y="130" font-family="monospace" font-size="12" fill="#fff">Free Energy (ΔF): <tspan fill="#00ff00">${freeEnergy}</tspan></text>
       <text x="20" y="160" font-family="monospace" font-size="12" fill="#fff">Swarm Executions: <tspan fill="#00ff00">${nanoAgents}</tspan></text>
 

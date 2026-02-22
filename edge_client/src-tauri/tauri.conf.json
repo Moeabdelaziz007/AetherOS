@@ -1,8 +1,8 @@
 {
     "$schema": "../node_modules/@tauri-apps/cli/schema.json",
-    "productName": "AuraEdge",
+    "productName": "AetherEdge",
     "version": "0.1.0",
-    "identifier": "com.aura.edge",
+    "identifier": "com.aether.edge",
     "build": {
         "beforeDevCommand": "",
         "beforeBuildCommand": "",
@@ -12,7 +12,7 @@
     "app": {
         "windows": [
             {
-                "title": "Aura Edge",
+                "title": "Aether Edge",
                 "width": 800,
                 "height": 600
             }

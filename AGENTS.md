@@ -5,7 +5,7 @@
 ## 🗺️ Project Directory Mapping (Neural Interface)
 
 ```text
-AuraOS/
+AetherOS/
 ├── README.md               <-- The Manifesto (Human-focused)
 ├── AGENTS.md               <-- THIS FILE (Agent-focused context)
 ├── docs/
@@ -48,4 +48,4 @@ AuraOS/
 | **Agent ↔ UI** | Shadow DOM Simulation | MEDIUM (Safety First) |
 
 ---
-*Identity Hash: `AuraOS-AetherCore-v0.1.0-Prometheus`*
+*Identity Hash: `AetherOS-AetherCore-v0.1.0-Prometheus`*

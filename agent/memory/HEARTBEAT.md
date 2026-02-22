@@ -27,7 +27,7 @@ The cardiac oscillator drives the system with the following parameters:
 ## 🧬 بروتوكول تنشيط التطور
 
 عند اكتشاف خطأ أو مفاجأة (Delta F ≥ τ) تُرسل إشارة "Pain Signal" إلى
-`EVOLVE.md` و`Aura-Navigator`.
+`EVOLVE.md` و`Aether-Navigator`.
 
 ```yaml
 evolution_trigger:
@@ -92,7 +92,7 @@ Each heartbeat performs the following operations:
 heartbeat_cycle:
   1. collect_metrics:
       - neural_latency
-      - aura_entropy
+      - aether_entropy
       - context_pressure
       - swarm_efficiency
   2. update_synapses:

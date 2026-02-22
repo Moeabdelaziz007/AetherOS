@@ -8,7 +8,7 @@ import asyncio
 import json
 import time
 
-from agent.orchestrator.memory_parser import AuraNavigator
+from agent.orchestrator.memory_parser import AetherNavigator
 from agent.orchestrator.cognitive_router import HyperMindRouter
 
 # stub visual deltas as simple contexts
@@ -19,7 +19,7 @@ SCENARIO_FRAMES = [
 ]
 
 async def run_mission():
-    navigator = AuraNavigator()
+    navigator = AetherNavigator()
     router = HyperMindRouter(navigator)
 
     print("Starting flight booking mission...")

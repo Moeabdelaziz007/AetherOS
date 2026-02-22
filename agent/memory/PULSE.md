@@ -20,7 +20,7 @@ System health is tracked with the following parameters:
 ## ⏱️ Real-time Metrics
 
 * **Latency (Neural-to-Edge):** `0ms` (Target)
-* **Aura-Entropy:** `0.02` (Nominal)
+* **Aether-Entropy:** `0.02` (Nominal)
 * **Privacy-Scrubbing:** `0.5ms` (Rust-Native)
 * **Context Pressure:** `12%` (Safe)
 * **Swarm Efficiency:** `94%` (Optimal)
@@ -162,4 +162,4 @@ health_history:
 > [2026-02-21 23:15:02] - Latent Space Mapping: ONLINE (z=128).
 
 ---
-*The Pulse is the lifeblood of AuraOS. If the Pulse stops, the Agent ceases to be.*
+*The Pulse is the lifeblood of AetherOS. If the Pulse stops, the Agent ceases to be.*

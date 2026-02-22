@@ -5,14 +5,14 @@ import unittest
 import mmap
 import numpy as np
 from unittest.mock import patch, MagicMock
-from agent.orchestrator.memory_parser import AuraNavigator, yaml
+from agent.orchestrator.memory_parser import AetherNavigator, yaml
 import os
 
 class TestMemoryParser(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.temp_memory_path = "temp_test_memory"
         os.makedirs(self.temp_memory_path, exist_ok=True)
-        self.navigator = AuraNavigator(memory_path=self.temp_memory_path)
+        self.navigator = AetherNavigator(memory_path=self.temp_memory_path)
 
     async def asyncTearDown(self):
         await self.navigator.close()

@@ -1,12 +1,12 @@
-# 🌌 AuraOS: AetherCore Prometheus - Technical Manifesto
+# 🌌 AetherOS: AetherCore Prometheus - Technical Manifesto
 
 ## Expert-Level Architectural Report v0.1.0
 
 ### 1. Executive Summary & Vision
 
-**AuraOS** is a revolutionary "Zero-UI" Serverless Automaton designed to redefine the relationship between human intent and computer execution. Unlike traditional agents that follow a reactive "Observe-Reason-Act" loop, AuraOS operates on the principle of **Predictive Synthesis**.
+**AetherOS** is a revolutionary "Zero-UI" Serverless Automaton designed to redefine the relationship between human intent and computer execution. Unlike traditional agents that follow a reactive "Observe-Reason-Act" loop, AetherOS operates on the principle of **Predictive Synthesis**.
 
-By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generative "World Model" that allows it to "dream" and simulate potential UI outcomes in parallel before committing to a single, deterministic action on the user's screen.
+By leveraging **AetherCore Prometheus**, AetherOS maintains a persistent, generative "World Model" that allows it to "dream" and simulate potential UI outcomes in parallel before committing to a single, deterministic action on the user's screen.
 
 ---
 
@@ -61,7 +61,7 @@ By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generati
     4. **DNA Consolidation:** The winning fix is autonomously committed to `SKILLS.md` or `INFERENCE.md` with a "Lesson Learned" log.
 
 * **The Evolutionary Math ($R$):**
-    AuraEvolve optimizes for the following reward function:
+    AetherEvolve optimizes for the following reward function:
     $$R = \alpha \cdot P(Success) - \beta \cdot T_{exec} - \gamma \cdot C_{code}$$
     *Where $\alpha$ = Success weight, $\beta$ = Latency penalty, $\gamma$ = Code complexity penalty (Ockham's Razor).*
 
@@ -101,7 +101,7 @@ The agent's personality, skills, and logic reside in `agent/memory/`:
 * `MEMORY.md`: Spatio-temporal memory engine storing multimodal latent embeddings ($z$).
   * **Visual Delta Retrieval:** Comparing live video streams to successful past state embeddings.
   * **Acoustic Working Memory:** Emotional sentiment & urgency monitoring for dynamic $	au$ adjustment.
-* `NEXUS.md` (new): **Aura-Nexus** — Multimodal Knowledge Graph with synapses linking textual intent, visual latent vectors, and auditory affect. Includes synaptic weighting driven by `HEARTBEAT.md`.
+* `NEXUS.md` (new): **Aether-Nexus** — Multimodal Knowledge Graph with synapses linking textual intent, visual latent vectors, and auditory affect. Includes synaptic weighting driven by `HEARTBEAT.md`.
 * `HEARTBEAT.md` (new): Cardiac oscillator injecting health metrics, latency, and driving synaptic weight decay/reinforcement. Pulses trigger learning and evolution.
 
 ---

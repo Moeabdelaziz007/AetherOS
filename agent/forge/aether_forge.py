@@ -1,29 +1,81 @@
 """
-🌌 AetherOS — Aether Forge Core (v2.1.0)
-Pillar: Prometheus / QuantumWeaver
-Role: The Ephemeral Agent Compiler & Executor
+🌌 AetherOS — Aether Forge Core (v2.0 - Hardened)
+The Ephemeral Agent Compiler & Quantum Swarm Executor
 
-"Manus clicks buttons. AetherOS dissolves them."
+This module implements the 4-phase Aether Forge Protocol:
+Deconstruct -> Synthesize -> Deploy -> Harvest.
 """
 
 import asyncio
 import json
 import time
 import hashlib
-import httpx
 import os
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Protocol, Type
+from typing import Any, Dict, List, Optional, Tuple, Callable, Awaitable, Type, Protocol
 from pathlib import Path
 
-# Setup Clinical Logging (Interface Dissolver Voice)
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | 🔮 Forge | %(levelname)s | %(message)s")
+import httpx
+from .executors import CoinGeckoExecutor, GitHubExecutor, WeatherExecutor
+
+# ─────────────────────────────────────────────
+# TELEMETRY & LOGGING (القياسات والتسجيل)
+# ─────────────────────────────────────────────
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | 🔮 Forge | %(levelname)s | %(message)s",
+    datefmt="%H:%M:%S"
+)
 logger = logging.getLogger("AetherForge")
 
 # ─────────────────────────────────────────────
-from .executors import CoinGeckoExecutor, GitHubExecutor, WeatherExecutor
+# STRICT DATA CONTRACTS (عقود البيانات الصارمة)
+# ─────────────────────────────────────────────
+
+@dataclass(frozen=True)
+class NanoAgent:
+    """A single-purpose, ephemeral agent. Born. Executes. Dies."""
+    id: str
+    intent: str
+    service: str
+    born_at: float = field(default_factory=time.time)
+    energy_credits: int = 100
+
+@dataclass
+class ForgeResult:
+    """The crystallized payload returned after agent self-destruction."""
+    success: bool
+    data: Optional[Dict[str, Any]]
+    service: str
+    execution_ms: float
+    agent_id: str
+    dna_crystallized: bool
+    error: Optional[str] = None
+
+    def display(self) -> str:
+        status_icon = "✅" if self.success else "❌"
+        line = "━" * 60
+        payload = json.dumps(self.data, indent=2, ensure_ascii=False) if self.success else f"Error: {self.error}"
+        return (
+            f"\n{line}\n"
+            f"{status_icon} AETHER FORGE: DISVOLVED SUCCESSFULLY\n"
+            f"{line}\n"
+            f"🎯 Service    : {self.service.upper()}\n"
+            f"⚡ Speed      : {self.execution_ms:.2f}ms\n"
+            f"🧬 DNA Status : {'Crystallized (System 1 Active)' if self.dna_crystallized else 'Volatile'}\n"
+            f"💥 Agent ID   : {self.agent_id} (Terminated)\n"
+            f"{'─' * 60}\n"
+            f"{payload}\n"
+            f"{line}\n"
+        )
+
+class NanoExecutor(Protocol):
+    """Protocol for API-native executors (The Synaptic Bonds)."""
+    async def execute(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        ...
 
 # ─────────────────────────────────────────────
 # 🎭 AGENT PARLIAMENT — Democratic Consensus
@@ -42,96 +94,97 @@ class AgentParliament:
     Implements a mini-simulation to verify the highest confidence path.
     """
     async def deliberate(self, proposals: List[AgentProposal]) -> AgentProposal:
+        if not proposals:
+            raise ValueError("Parliament cannot deliberate on empty proposals.")
+        
         logger.info(f"Parliament convened with {len(proposals)} proposals.")
-        # In MVP, we simply take the highest confidence. 
-        # In V2, this triggers parallel SimulationArena runs.
+        # Winner based on confidence score (System 1 consensus)
         winner = max(proposals, key=lambda x: x.confidence)
-        logger.info(f"Parliament Winner: Agent [{winner.agent_id}] via '{winner.reasoning}'")
+        logger.info(f"Parliament Winner: Agent [{winner.agent_id}] -> {winner.reasoning}")
         return winner
 
 # ─────────────────────────────────────────────
-# 🧠 AETHER NEXUS — Digital Darwinism Hub
+# 🧠 AETHER NEXUS — Global Synaptic Record
 # ─────────────────────────────────────────────
 
 class AetherNexus:
     """
-    Persistent Knowledge Graph for API DNA.
-    Implements Temporal Memory Tides & Evolutionary Pruning.
+    Darwinian Persistent Memory.
+    Credits = Reliability. 0 Credits = Dissolution.
     """
     def __init__(self, path: str = "agent/memory/nexus_dna.json"):
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self._dna: Dict[str, Any] = self._load()
+        self._graph: Dict[str, Any] = self._load()
 
     def _load(self) -> Dict[str, Any]:
         if self.path.exists():
             try:
                 return json.loads(self.path.read_text())
             except json.JSONDecodeError:
-                logger.error("Failed to decode NEXUS DNA. Initializing new graph.")
+                logger.warning("NEXUS DNA corrupted. Initializing blank slate.")
         return {}
 
-    def _save(self):
-        self.path.write_text(json.dumps(self._dna, indent=2, ensure_ascii=False))
+    def _save(self) -> None:
+        self.path.write_text(json.dumps(self._graph, indent=2, ensure_ascii=False))
 
     def recall(self, service: str) -> Optional[Dict[str, Any]]:
-        """System 1: Rapid synaptic recall."""
-        entry = self._dna.get(service)
-        if entry and entry.get("energy_credits", 0) > 20:
-            logger.info(f"Recall: [{service}] DNA matches stability threshold ({entry['energy_credits']}).")
-            return entry.get("pattern")
+        """Rapid Synaptic Recall (System 1)."""
+        node = self._graph.get(service)
+        if node and node.get("energy_credits", 0) >= 25:
+            logger.info(f"System 1 Activated: DNA fingerprint found for [{service}]")
+            return node.get("api_pattern")
         return None
 
-    def engrave(self, service: str, pattern: Dict[str, Any], success: bool):
-        """Update synaptic weights based on success/failure outcome."""
-        entry = self._dna.setdefault(service, {
+    def engrave(self, service: str, pattern: Dict[str, Any], success: bool, error_type: Optional[str] = None) -> None:
+        """Update genetic fingerprint based on success/failure outcome."""
+        node = self._graph.setdefault(service, {
             "service": service,
-            "pattern": pattern,
+            "api_pattern": pattern,
             "energy_credits": 50,
             "success_count": 0,
             "created_at": datetime.now().isoformat()
         })
         
-        # Digital Darwinism: Evolutionary Pressure
-        delta = 15 if success else -25
-        entry["energy_credits"] = max(0, min(100, entry["energy_credits"] + delta))
-        
+        # Smart Darwinian Penalties
         if success:
-            entry["success_count"] += 1
-            entry["last_success"] = datetime.now().isoformat()
-            entry["pattern"] = pattern 
-            
-        if entry["energy_credits"] <= 0:
-            logger.warning(f"Purge: [{service}] failed Digital Darwinism. Synapse dissolved.")
-            del self._dna[service]
+            delta = +15
+            node["success_count"] += 1
+            node["api_pattern"] = pattern
+            node["last_success"] = datetime.now().isoformat()
+        else:
+            # Harsh penalty for breaking API changes (404), soft for transient errors
+            delta = -35 if error_type == "HTTPStatusError" else -15
+
+        node["energy_credits"] = max(0, min(100, node["energy_credits"] + delta))
+
+        if node["energy_credits"] <= 0:
+            logger.warning(f"Darwinian Purge: [{service}] synapse dissolved due to failure.")
+            del self._graph[service]
         
         self._save()
 
-    def tidal_prune(self):
-        """Low Tide: Prune weak synaptic connections (<10 credits)."""
-        pruned = [k for k, v in self._dna.items() if v.get("energy_credits", 0) < 10]
-        for k in pruned:
-            logger.info(f"Low Tide: Pruning weak synapse [{k}].")
-            del self._dna[k]
+    def tidal_prune(self) -> int:
+        """Low Tide: Dissolve weak synapses below 15% energy."""
+        initial = len(self._graph)
+        dead = [k for k, v in self._graph.items() if v.get("energy_credits", 0) < 15]
+        for k in dead:
+            del self._graph[k]
         self._save()
-        return len(pruned)
+        return len(dead)
 
 class TemporalMemoryTides:
-    """
-    REM Sleep for AetherOS.
-    Periodically prunes weak synapses and crystallizes strong ones.
-    """
+    """Sleep cycles for AetherOS to consolidate memory."""
     def __init__(self, nexus: AetherNexus):
         self.nexus = nexus
 
-    async def sleep_cycle(self):
-        """Execute a Low Tide pruning cycle."""
+    async def sleep(self):
         logger.info("🌊 Low Tide initiated. Pruning weak synapses...")
-        pruned_count = self.nexus.tidal_prune()
-        logger.info(f"🌊 Low Tide complete. {pruned_count} synapses dissolved.")
+        count = self.nexus.tidal_prune()
+        logger.info(f"🌊 Low Tide complete. {count} synapses dissolved.")
 
 # ─────────────────────────────────────────────
-# 🔮 THE FORGE CORE
+# 🔮 AETHER FORGE — Core Orchestrator
 # ─────────────────────────────────────────────
 
 class AetherForge:
@@ -141,188 +194,105 @@ class AetherForge:
         "coingecko": CoinGeckoExecutor,
         "github": GitHubExecutor,
         "weather": WeatherExecutor
-    }
-    
-    TEMPLATES = {
-        "coingecko": {"base": "https://api.coingecko.com/api/v3", "auth": None},
-        "github": {"base": "https://api.github.com", "auth": "Bearer"},
-        "weather": {"base": "https://api.openweathermap.org", "auth": "API_KEY"}
     }
 
     def __init__(self):
         self.nexus = AetherNexus()
         self.parliament = AgentParliament()
         self.tides = TemporalMemoryTides(self.nexus)
+        
+        self.agents_forged = 0
+        self.total_latency_saved = 0.0 # Hypothetical vs UI (15s baseline)
 
-    async def rest(self):
-        """Trigger a manual memory rest (Low Tide)."""
-        await self.tides.sleep_cycle()
-
-    async def execute(self, intent_data: Dict[str, Any]) -> ForgeResult:
-        """The 4-Phase Forge Cycle: Deconstruct -> Synthesize -> Deploy -> Harvest."""
-        start_time = time.time()
+    async def forge_and_deploy(self, intent_data: Dict[str, Any]) -> ForgeResult:
+        """Execute the 4-Phase Forge Loop."""
+        t0 = time.time()
         service = intent_data.get("service", "unknown").lower()
         
-        # 1. Deconstruct & Recall (System 1)
+        # Phase 1: Deconstruct & Recall
         cached_pattern = self.nexus.recall(service)
-        crystallized = cached_pattern is not None
+        is_crystallized = cached_pattern is not None
         
-        # 2. Synthesize & Parliament
-        # In a real scenario, we might spawn multiple agent proposals here.
-        # For MVP, we simulate a single high-confidence proposal.
+        # Phase 2: Synthesize & Deliberate
+        agent_id = hashlib.md5(f"{service}{time.time()}".encode()).hexdigest()[:8]
         proposal = AgentProposal(
-            agent_id=hashlib.md5(str(time.time()).encode()).hexdigest()[:8],
-            action=f"Execute {service} query",
-            confidence=0.95 if crystallized else 0.70,
-            reasoning="Pattern matches crystallized DNA" if crystallized else "Synthesizing new API bridge"
+            agent_id=agent_id,
+            action=f"Synapse execution for {service}",
+            confidence=0.98 if is_crystallized else 0.75,
+            reasoning="Pattern matches crystallized DNA" if is_crystallized else "First-principles synthesis"
         )
         
-        winning_proposal = await self.parliament.deliberate([proposal])
+        # Parliament check
+        winner = await self.parliament.deliberate([proposal])
+        self.agents_forged += 1
         
-        # 3. Deploy & Execution
+        # Phase 3: Deploy & Execution
         executor_cls = self.REGISTRY.get(service)
         if not executor_cls:
-            return ForgeResult(False, None, service, 0, winning_proposal.agent_id, False, f"Unsupported service: {service}")
+            return self._fail(service, f"Service [{service}] is not bound to a Synaptic Executor.", t0, agent_id)
 
         executor = executor_cls()
         try:
+            logger.info(f"Nano-Agent {agent_id} deployed to API Edge...")
             data = await executor.execute(intent_data.get("params", {}))
-            execution_ms = (time.time() - start_time) * 1000
+            ms = (time.time() - t0) * 1000
             
-            # 4. Harvest & Engrave
+            # Phase 4: Harvest & Engrave
             self.nexus.engrave(service, intent_data.get("params", {}), True)
+            self.total_latency_saved += max(0, 15000 - ms)
             
-            return ForgeResult(
-                success=True,
-                data=data,
-                service=service,
-                execution_ms=execution_ms,
-                agent_id=winning_proposal.agent_id,
-                dna_crystallized=crystallized
-            )
-        except Exception as e:
-            logger.error(f"Forge Failure: {str(e)}")
-            self.nexus.engrave(service, {}, False)
-            return ForgeResult(False, None, service, 0, winning_proposal.agent_id, False, str(e))
-
-# ─────────────────────────────────────────────
-# 🧬 CORE PROTOCOLS & DATA STRUCTURES
-# ─────────────────────────────────────────────
-# ... (rest of code) ...
-
-class AetherForge:
-    """The main orchestration hub for Aether Forge Protocol."""
-    
-    REGISTRY: Dict[str, Type[NanoExecutor]] = {
-        "coingecko": CoinGeckoExecutor,
-        "github": GitHubExecutor,
-        "weather": WeatherExecutor
-    }
-    
-    # Static Templates for MVP (Mock Archaeology)
-    TEMPLATES = {
-        "coingecko": {"base": "https://api.coingecko.com/api/v3", "auth": None},
-        "github": {"base": "https://api.github.com", "auth": "Bearer"},
-        "weather": {"base": "https://api.openweathermap.org", "auth": "API_KEY"}
-    }
-
-    def __init__(self):
-        self.nexus = AetherNexus()
-        self.stats = {"forged": 0, "ms_saved": 0}
-
-    def _deconstruct(self, intent: str) -> tuple[str, Dict[str, Any]]:
-        """Deconstruct intent into Service + Params. Uses logical keyword matching (MVP)."""
-        intent = intent.lower()
-        if any(w in intent for w in ["price", "bitcoin", "crypto", "eth"]):
-            coins = []
-            if "btc" in intent or "bitcoin" in intent: coins.append("bitcoin")
-            if "eth" in intent or "ethereum" in intent: coins.append("ethereum")
-            if not coins: coins = ["bitcoin", "ethereum", "solana"]
-            return "coingecko", {"coins": coins}
-        
-        if any(w in intent for w in ["github", "repo", "code"]):
-            return "github", {"query": intent.replace("github", "").strip()}
+            return ForgeResult(True, data, service, ms, agent_id, is_crystallized)
             
-        return "coingecko", {"coins": ["bitcoin"]}
-
-    async def forge(self, intent: str) -> ForgeResult:
-        start_time = time.time()
-        logger.info(f"Synthesizing Nano-Agent for intent: '{intent}'")
-        
-        # 1. Deconstruction
-        service_name, params = self._deconstruct(intent)
-        
-        # 2. Nexus Recall (System 1)
-        pattern = self.nexus.recall(service_name) or self.TEMPLATES.get(service_name)
-        
-        if not pattern:
-            return ForgeResult(False, None, service_name, 0, "null", False, "Service pattern unavailable.")
-
-        # 3. Agent Synthesis
-        agent_id = hashlib.md5(f"{intent}{time.time()}".encode()).hexdigest()[:8]
-        agent = NanoAgent(id=agent_id, intent=intent, service=service_name, params=params)
-        self.stats["forged"] += 1
-        
-        # 4. Deployment & Execution
-        executor_cls = self.REGISTRY.get(service_name)
-        if not executor_cls:
-            return ForgeResult(False, None, service_name, 0, agent_id, False, f"No executor registered for {service_name}")
-        
-        executor = executor_cls()
-        try:
-            data = await executor.execute(params)
-            success = True
-            error = None
+        except httpx.HTTPStatusError as e:
+            logger.error(f"API Protocol Fault: {e}")
+            self.nexus.engrave(service, {}, False, "HTTPStatusError")
+            return self._fail(service, str(e), t0, agent_id)
         except Exception as e:
-            logger.error(f"Execution Failure [Agent #{agent_id}]: {e}")
-            data = None
-            success = False
-            error = str(e)
+            logger.error(f"General Execution Fault: {e}")
+            self.nexus.engrave(service, {}, False, "GeneralFault")
+            return self._fail(service, str(e), t0, agent_id)
 
-        ms_latency = (time.time() - start_time) * 1000
-        
-        # 5. Harvesting & Crystallization
-        self.nexus.engrave(service_name, pattern, success)
-        
-        if success:
-            self.stats["ms_saved"] += max(0, 15000 - ms_latency) # Baseline vs 15s UI navigation
+    async def swarm_execute(self, intents: List[Dict[str, Any]]) -> List[ForgeResult]:
+        """Deploy a Quantum Swarm (Parallel Execution)."""
+        logger.info(f"🌀 Initiating Quantum Swarm: {len(intents)} agents deploying...")
+        tasks = [self.forge_and_deploy(intent) for intent in intents]
+        return await asyncio.gather(*tasks)
 
-        logger.info(f"Agent #{agent_id} dissolved. Latency: {ms_latency:.2f}ms. Total Forge Savings: {self.stats['ms_saved']/1000:.1f}s")
-        
-        return ForgeResult(
-            success=success,
-            data=data,
-            service=service_name,
-            execution_ms=ms_latency,
-            agent_id=agent_id,
-            dna_crystallized=success,
-            error=error
-        )
+    def _fail(self, service: str, error: str, start_time: float, agent_id: str) -> ForgeResult:
+        ms = (time.time() - start_time) * 1000
+        return ForgeResult(False, None, service, ms, agent_id, False, error)
 
 # ─────────────────────────────────────────────
-# 🧪 DEMO SUITE
+# DEMO EXECUTION
 # ─────────────────────────────────────────────
 
-async def demo():
+async def run_demo():
+    print("\n" + "━"*60)
+    print("🌌 AETHER OS: THE FORGE PROTOCOL (HARDENED v2.0)")
+    print("   Manus clicks buttons. AetherOS dissolves them.")
+    print("━"*60 + "\n")
+
     forge = AetherForge()
-    print("\n" + " ✨ " * 15)
-    print("      AETHER OS: FORGE PROTOCOL DEMO")
-    print(" ✨ " * 15)
 
-    # Test Case 1: Crypto
-    res = await forge.forge("Check Bitcoin and Ethereum prices")
-    print(res.display())
+    # 1. Single Intent
+    print("🔬 [Test 1: Single Intent]")
+    intent1 = {"service": "coingecko", "params": {"coins": ["bitcoin"], "currencies": ["usd"]}}
+    res1 = await forge.forge_and_deploy(intent1)
+    print(res1.display())
 
-    await asyncio.sleep(1)
+    # 2. Quantum Swarm (Parallel)
+    print("\n🌀 [Test 2: Quantum Swarm Execution]")
+    swarm = [
+        {"service": "github", "params": {"query": "AetherOS", "limit": 2}},
+        {"service": "coingecko", "params": {"coins": ["ethereum"], "currencies": ["usd"]}}
+    ]
+    results = await forge.swarm_execute(swarm)
+    for r in results:
+        print(r.display())
 
-    # Test Case 2: GitHub
-    res = await forge.forge("Find AetherOS on github")
-    print(res.display())
-
-    # Test Case 3: System 1 Trigger
-    print("\n[Triggering System 1 Recall]")
-    res = await forge.forge("BTC price update")
-    print(res.display())
+    # 3. Temporal Tides
+    print("\n🌊 [Test 3: Temporal Memory Tides]")
+    await forge.tides.sleep()
 
 if __name__ == "__main__":
-    asyncio.run(demo())
+    asyncio.run(run_demo())

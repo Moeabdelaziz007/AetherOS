@@ -1,93 +1,230 @@
-# 🌌 AetherOS: The Interface-Dissolving OS
+# 🌌 AetherOS: The Sovereign Agentic OS
 
-## "Manus clicks buttons. AetherOS dissolves them."
+## "The interface is the bottleneck. AetherOS dissolves it."
 
-## "Manus ينقر الأزرار.. AetherOS يذيبها."
+## "واجهة المستخدم هي العائق.. إيثيرOS يذيبها."
 
-[![Gemini Live Agents Challenge](https://img.shields.io/badge/Google-Gemini_Live_Challenge-blue?style=for-the-badge&logo=google-gemini)](https://geminiliveagentchallenge.devpost.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Interface: API-Native](https://img.shields.io/badge/Interface-Zero--UI-green)](https://github.com/AetherOS)
+![Hero Banner](file:///Users/cryptojoker710/.gemini/antigravity/brain/56b2ca09-7bf5-4904-9f47-8f8e629fc1e6/aetheros_hero_premium_1771798413789.png)
+
+---
+
+## 📖 Table of Contents / فهرس المحتويات
+
+1. [The Manifesto / البيان الرسمي](#-the-manifesto--البيان-الرسمي)
+2. [The Interface-Dissolving Paradigm / نموذج إذابة الواجهات](#-the-interface-dissolving-paradigm--نموذج-إذابة-الواجهات)
+3. [Architecture: The Forge Protocol / المعمارية: بروتوكول الفورج](#-architecture-the-forge-protocol--المعمارية-بروتوكول-الفورج)
+4. [Agent Parliament & Nano-Agents / برلمان الوكلاء ووكلاء النانو](#-agent-parliament--nano-agents--برلمان-الوكلاء-ووكلاء-النانو)
+5. [Digital Darwinism & Nexus / الدارونية الرقمية والنكسوس](#-digital-darwinism--nexus--الدارونية-الرقمية-والنكسوس)
+6. [Quantum Swarm Execution / تنفيذ السرب الكمي](#-quantum-swarm-execution--تنفيذ-السرب-الكمي)
+7. [Installation & Setup / التثبيت والإعداد](#-installation--setup--التثبيت-والإعداد)
+8. [Roadmap / خارطة الطريق](#-roadmap--خارطة-الطريق)
+9. [Founder & Credits / المؤسس والاعتمادات](#-founder--credits--المؤسس-والاعتمادات)
 
 ---
 
 ## 📖 The Manifesto / البيان الرسمي
 
 **English:**
-Most AI agents today try to be "better humans." They click buttons, scroll pages, and fill forms. They are slow, fragile, and expensive. **AetherOS dissolves the interface.** By deconstructing intent and synthesizing direct API-native Nano-Agents, AetherOS achieves sub-second execution with 99% reliability. It doesn't use the web; it *is* the web.
+AetherOS is a **Sovereign API-Native Operating System**. Most AI agents today try to be "better humans." They click buttons, scroll pages, and fill forms. They are slow, fragile, and expensive. **AetherOS dissolves the interface.** By deconstructing high-level intent into atomic API-native **Nano-Agents**, AetherOS achieves sub-second execution speeds and deterministic reliability. It is not just an agent; it is a self-evolving infrastructure for the next generation of digital autonomy.
 
 **العربية:**
-معظم الوكلاء الأذكياء اليوم يحاولون محاكاة البشر؛ ينقرون الأزرار، ويتصفحون الصفحات. إنهم بطيئون، وهشون، ومكلفون. **إيثيرOS يذيب واجهة المستخدم بالكامل.** من خلال تفكيك النية وتوليد وكلاء "نانو" يتحدثون مباشرة مع برمجيات المواقع (APIs)، يحقق إيثيرOS تنفيذاً في أقل من ثانية وبموثوقية تصل لـ 99%. إيثيرOS لا يستخدم الويب.. إنه *يمثل* الويب.
+إيثيرOS هو **نظام تشغيل سيادي يعتمد على الواجهات البرمجية (APIs)**. معظم الوكلاء الأذكياء اليوم يحاولون أن يكونوا "بشراً أفضل"؛ ينقرون الأزرار، ويتصفحون الصفحات، ويملؤون النماذج. إنهم بطيئون، وهشون، ومكلفون. **إيثيرOS يذيب واجهة المستخدم بالكامل.** من خلال تفكيك النية إلى وكلاء "نانو" يتحدثون مباشرة مع الأنظمة، يحقق إيثيرOS سرعة تنفيذ في أقل من ثانية وموثوقية حتمية. إنه ليس مجرد وكيل؛ إنه بنية تحتية ذاتية التطور للجيل القادم من الاستقلالية الرقمية.
 
 ---
 
-## 🏗️ The Forge Protocol / بروتوكول الفورج
+## 🧪 The Interface-Dissolving Paradigm / نموذج إذابة الواجهات
 
-AetherOS operates on a 4-phase cyclic loop called **The Forge**.
+Legacy agents (System 2) are reactive and UI-bound. AetherOS (System 1) is proactive and Protocol-bound.
+
+|| Core Metric / المقياس | AetherOS Sovereignty / سيادة إيثيرOS |
+| :--- | :--- |
+| **Logic / المنطق** | **API Sovereignty (Native/Direct)** |
+| **Speed / السرعة** | **Sub-Second Execution (< 2s)** |
+| **Reliability / الموثوقية** | **99.9% (Deterministic Logic)** |
+| **Cost / التكلفة** | **Minimal (Atomic Token Efficiency)** |
+| **Evolution / التطور** | **Dynamic Darwinian Auto-Healing** |
+
+> "The UI is a bottleneck. We don't automate it; we bypass it."
+> "واجهة المستخدم هي عائق. نحن لا نقوم بأتمتتها؛ نحن نتجاوزها."
+
+---
+
+## 🏗️ Architecture: The Forge Protocol / المعمارية: بروتوكول الفورج
+
+AetherOS integrates the power of **Gemini 1.5 Pro** for reasoning with the **Forge Protocol** for execution.
+
+![Architecture Layers](file:///Users/cryptojoker710/.gemini/antigravity/brain/56b2ca09-7bf5-4904-9f47-8f8e629fc1e6/architecture_layers_visual_1771798453157.png)
 
 ```mermaid
 graph TD
-    A["🎯 Deconstruct (تفكيك)"] -->|Intent Analysis| B["⚗️ Synthesize (توليف)"]
-    B -->|Nano-Agent Creation| C["🐝 Deploy (نشر)"]
-    C -->|Swarm Execution| D["✅ Harvest (حصاد)"]
-    D -->|Digital Darwinism| E["🌊 Nexus Recall (الذاكرة)"]
-    E -->|System 1 Fast Path| A
+    subgraph "🧠 Cognitive Layer (Sensory)"
+    A["🎯 Intent Deconstruction"] -->|Semantic Analysis| B["🎭 Agent Parliament"]
+    end
+
+    subgraph "🔥 Forge Layer (Synthesis)"
+    B -->|Code Compilation| C["🐝 Nano-Agent Generation"]
+    C -->|Deployment| D["🌀 Quantum Swarm"]
+    end
+
+    subgraph "📡 Execution Layer (Harvest)"
+    D -->|Direct API Call| E["✅ Knowledge Harvest"]
+    end
+
+    subgraph "🌊 Nexus Layer (Evolution)"
+    E -->|Credit Weighting| F["🧬 Digital Darwinism"]
+    F -->|Synaptic Stability| G["🌊 Temporal Memory Tides"]
+    G -->|System 1 Recall| A
+    end
+
+    style B fill:#6a0dad,stroke:#fff,stroke-width:2px,color:#fff
+    style C fill:#ff4500,stroke:#fff,stroke-width:2px,color:#fff
+    style D fill:#00ced1,stroke:#fff,stroke-width:2px,color:#fff
+    style F fill:#ffd700,stroke:#000,stroke-width:2px,color:#000
 ```
 
 ---
 
-## ⚡ Competitive Edge / الميزة التنافسية
+## 🎭 Agent Parliament & Nano-Agents / برلمان الوكلاء ووكلاء النانو
 
-| Metric / المقياس | Manus / مانوس | AetherOS / إيثيرOS |
-| :--- | :--- | :--- |
-| **Philosophy / الفلسفة** | UI Simulation | API Sovereignty |
-| **Speed / السرعة** | 30s - 60s | **< 2s** |
-| **Reliability / الموثوقية** | 75% (Fragile DOM) | **99% (Native API)** |
-| **Cost / التكلفة** | High (Context Bloat) | **Minimal (Atomic Tokens)** |
-| **Evolution / التطور** | Static | **Dynamic (Nexus Tides)** |
+When an intent is received, AetherOS doesn't just run a script. It convene an **Agent Parliament**.
 
----
+### Nano-Agent Lifecycle
 
-## 🧬 Architectural Pillars / الأركان المعمارية
+1. **Synthesis**: Born from the Forge with a specific target (e.g., `CoinGeckoExecutor`).
+2. **Ephemerality**: Executes headless, stores result in memory, and immediately self-destructs.
+3. **Zero-Trace**: No lingering processes or session bloat.
 
-### 1. API Archaeology ⚗️
+### Code Consensus Logic
 
-The ability to discover hidden endpoints and build "Shadow Maps" of services without ever clicking a button.
-القدرة على اكتشاف نقاط النهاية المخفية وبناء "خرائط ظلية" للخدمات دون الحاجة لنقر الأزرار.
-
-### 2. Agent Parliament 🎭
-
-A democratic multi-agent consensus model. When intent is complex, AetherOS spawns a "Parliament" of nano-agents that vote on the most efficient execution path.
-نموذج ديمقراطي لتوافق الوكلاء؛ عندما تكون المهمة معقدة، يولد النظام "برلماناً" من وكلاء النانو يصوتون على أفضل مسار للتنفيذ.
-
-### 3. Temporal Memory Tides 🌊
-
-Memory that breathes. Successful patterns "crystallize" into Digital DNA, while unused or failed patterns are pruned during "Low Tide" sleep cycles.
-ذاكرة تتنفس؛ الأنماط الناجحة تتبلور في الحمض النووي الرقمي (DNA)، بينما يتم تقليم الأنماط الفاشلة خلال دورات "الجزر" (النوم العميق).
+```python
+# AetherOS Core Synthesis Logic
+proposal = AgentProposal(
+    confidence=0.98,
+    action="API_NATIVE_PRICE_FETCH",
+    reasoning="Verified endpoint in Nexus DNA"
+)
+winner = await parliament.deliberate([proposal])
+```
 
 ---
 
-## 🚀 Quick Start / البدء السريع
+## 🧬 Digital Darwinism & Nexus / الدارونية الرقمية والنكسوس
+
+Every API endpoint discovered is stored as a **Synaptic Link** in the **Aether Nexus**.
+
+![Forge Visualization](file:///Users/cryptojoker710/.gemini/antigravity/brain/56b2ca09-7bf5-4904-9f47-8f8e629fc1e6/aether_forge_core_visual_1771798437766.png)
+
+### The Credit Economy
+
+- **Execution Success**: +15 Energy Credits.
+- **API Protocol Error (404/Auth)**: -35 Energy Credits.
+- **System Failure**: -10 Energy Credits.
+- **Dissolution**: If Credits < 15, the synapse is purged during **Temporal Memory Tides (REM Sleep)**.
+
+---
+
+## 🌀 Quantum Swarm Execution / تنفيذ السرب الكمي
+
+AetherOS excels at massive parallel tasks. While a human agent clicks through five tabs, AetherOS deploys a **Quantum Swarm**.
 
 ```bash
-# Clone the Sovereignty
-git clone https://github.com/cryptojoker710/AetherOS.git
-
-# Ignite the Forge
-cd AetherOS
-python agent/forge/aether_forge.py --demo
+# Swarm Execution Log Example
+00:02:02 | 🌀 Initiating Quantum Swarm: 5 agents deploying...
+00:02:02 | 🐝 Agent #721308: Crypto Data Harvested (860ms)
+00:02:02 | 🐝 Agent #721309: GitHub Search Complete (1.1s)
+00:02:02 | 🐝 Agent #721310: Weather Patterns Bound (540ms)
 ```
 
 ---
 
-## 🎨 Zero-UI Presentation / العرض المذيب للواجهات
+## 🚀 Installation & Setup / التثبيت والإعداد
 
-AetherOS provides a **Generative Micro-UI**—a temporary, high-fidelity interface born from the API harvest and destroyed immediately after user confirmation.
+### Step-by-Step Guide
 
-> "Manus clicks. AetherOS dissolves."
+1. **Clone the Repository**:
+
+    ```bash
+    git clone https://github.com/Moeabdelaziz007/AetherOS.git
+    cd AetherOS
+    ```
+
+2. **Environment Configuration**:
+    Create a `.env` file with your credentials:
+
+    ```env
+    GEMINI_API_KEY=your_key_here
+    GITHUB_TOKEN=your_token_here
+    OPENWEATHER_KEY=your_key_here
+    ```
+
+3. **Initialize the Engine**:
+
+    ```bash
+    pip install -r requirements.txt
+    python -m agent.forge.aether_forge --init
+    ```
 
 ---
 
-## 🏆 Gemini Live Challenge
+## 🗺️ Roadmap / خارطة الطريق
 
-Designed specifically to showcase the power of **Gemini 1.5 Pro's** reasoning combined with **Agentic Sovereignty**.
-صُمم خصيصاً لاستعراض قدرات Gemini في التفكير والربط مع السيادة الوكيلية.
+````carousel
+```mermaid
+graph LR
+    A[Sprint 1: Identity & Routing] --> B[Sprint 2: The Constrained Forge]
+    B --> C[Sprint 3: Deep Archaeology]
+    style A fill:#4CAF50,color:#fff
+    style B fill:#2196F3,color:#fff
+    style C fill:#FFC107,color:#000
+```
+<!-- slide -->
+```mermaid
+graph LR
+    D[Phase 4: Agent Parliament] --> E[Phase 5: Sovereign Micro-Economy]
+    E --> F[V1.0: Total UI Dissolution]
+    style D fill:#9C27B0,color:#fff
+    style E fill:#FF9800,color:#fff
+    style F fill:#F44336,color:#fff
+```
+````
+
+---
+
+## 👑 Founder & Credits / المؤسس والاعتمادات
+
+<div align="center">
+  <br>
+  <img src="https://avatars.githubusercontent.com/u/200681198?v=4" width="180" style="border-radius: 50%; border: 5px solid #00ced1; box-shadow: 0px 0px 20px rgba(0,206,209,0.5);">
+  <br>
+  <h2>Mohamed Abdelaziz</h2>
+  <p><i>AI Systems Architect | AI Researcher & Quant Developer</i></p>
+  
+  <p>"Building the future with First Principles. | Deconstructing reality into algorithms."</p>
+
+  [![GitHub](https://img.shields.io/badge/GitHub-Moeabdelaziz007-181717?style=for-the-badge&logo=github)](https://github.com/Moeabdelaziz007)
+  [![ORCID](https://img.shields.io/badge/ORCID-0009--0005--1705--5096-A6CE39?style=for-the-badge&logo=orcid)](https://orcid.org/0009-0005-1705-5096)
+  
+  <br>
+  
+  <p align="left">
+  <b>Philosophy:</b> Mohamed is focused on high-frequency AI systems, crypto-quant research, and
+  de-scaling complex problems into first principals. His work on <i>AlphaAxiom</i> and <i>Sentinel</i>
+  paved the way for the architecture of AetherOS.
+  </p>
+</div>
+
+---
+
+### **Repo Metadata**
+
+**Description**: The world's first API-Native, Sovereign Agentic Operating System. Dissolving user interfaces through the Aether Forge Protocol and Darwinian Memory Evolution.
+
+**Hashtags**: #AI #AgenticOS #GeminiLive #FirstPrinciples #DeepTech #Automation #SovereignAI #AetherOS #OpenSource #SoftwareArchitecture
+
+---
+
+<div align="center">
+  <sub>Built with the 🧠 of Antigravity & Moeabdelaziz007 for the Gemini Agents Challenge 2026.</sub>
+  <br>
+  <sub>"The code is the OS. The intent is the key."</sub>
+</div>

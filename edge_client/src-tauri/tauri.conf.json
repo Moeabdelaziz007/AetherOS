@@ -1,0 +1,21 @@
+{
+    "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+    "productName": "AuraEdge",
+    "version": "0.1.0",
+    "identifier": "com.aura.edge",
+    "build": {
+        "beforeDevCommand": "",
+        "beforeBuildCommand": "",
+        "devUrl": "http://localhost:5173",
+        "frontendDist": "../dist"
+    },
+    "app": {
+        "windows": [
+            {
+                "title": "Aura Edge",
+                "width": 800,
+                "height": 600
+            }
+        ]
+    }
+}

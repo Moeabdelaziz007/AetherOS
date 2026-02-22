@@ -6,6 +6,7 @@
 
 mod vision;
 mod audio;
+mod action;
 
 use tauri::{AppHandle, Manager};
 use tokio::sync::mpsc;
@@ -16,6 +17,7 @@ use std::time::Duration;
 
 use vision::VisionSensor;
 use audio::AudioSensor;
+use action::{ActionExecutor, UIAction};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct BrainCommand {
@@ -54,14 +56,14 @@ fn main() {
 
             // 👁️ Visual Sensory Loop (Unblocked v0.1.1)
             let (vtx, mut vrx) = mpsc::channel::<Vec<u8>>(2); // Backpressure Capacity: 2
-            tauri::async_runtime::spawn(async move {
+            std::thread::spawn(move || {
                 if let Ok(sensor) = VisionSensor::new() {
-                    sensor.start_stream(vtx).await;
+                    sensor.start_stream(vtx);
                 }
             });
 
             // Pipe vision to WS
-            let tx_vision_bridge = tx.clone();
+            let tx_vision_bridge = tx_vision.clone();
             tauri::async_runtime::spawn(async move {
                 while let Some(frame) = vrx.recv().await {
                     let mut payload = vec![0x01]; 
@@ -105,6 +107,13 @@ fn main() {
                                     Some(Ok(msg)) = ws_stream.next() => {
                                         if let Message::Text(text) = msg {
                                             println!("🧠 Brain Command: {}", text);
+                                            // Handle UI action execution
+                                            if let Ok(ui_action) = serde_json::from_str::<UIAction>(&text) {
+                                                // Execute UI actions on a blocking thread to avoid blocking the async loop
+                                                tokio::task::spawn_blocking(move || {
+                                                    ActionExecutor::execute(&ui_action);
+                                                });
+                                            }
                                         }
                                     }
                                 }

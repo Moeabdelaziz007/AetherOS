@@ -15,14 +15,18 @@ serde_json = "1.0"
 tokio = { version = "1.0", features = ["full"] }
 tokio-tungstenite = "0.21"
 futures-util = "0.3"
-scrap = "0.3.3"
+scrap = "0.5.0"
 cpal = "0.15.3"
+regex = "1.10"
+lazy_static = "1.4"
 image = "0.24"
 bytemuck = "1.14"
+enigo = "0.1"
 
 [lib]
 name = "aura_edge_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
+path = "src/lib.rs"
 
 [profile.release]
 panic = "abort"

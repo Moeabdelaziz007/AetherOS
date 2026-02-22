@@ -1,14 +1,14 @@
 // 🖼️ vision_sensor.rs: Zero-Copy Native Screen Capture (V2 - Unblocked)
 // Pillar: Peripheral Senses (Eyes)
 
-use scrap::{Display, Capturer};
+use image::{codecs::jpeg::JpegEncoder, ImageBuffer, Rgba};
+use lazy_static::lazy_static;
+use regex::Regex;
+use scrap::{Capturer, Display};
 use std::io::ErrorKind;
 use std::time::Duration;
-use tokio::time::sleep;
-use image::{ImageBuffer, Rgba, codeck::jpeg::JpegEncoder};
 use tokio::sync::mpsc;
-use regex::Regex;
-use lazy_static::lazy_static;
+// removed tokio sleep
 
 pub struct VisionSensor {
     capturer: Capturer,
@@ -22,7 +22,7 @@ impl VisionSensor {
         let width = display.width();
         let height = display.height();
         let capturer = Capturer::new(display).map_err(|e| e.to_string())?;
-        
+
         Ok(Self {
             capturer,
             width,
@@ -31,56 +31,46 @@ impl VisionSensor {
     }
 
     /// Primary Sensory Loop with Backpressure Management
-    pub async fn start_stream(mut self, tx: mpsc::Sender<Vec<u8>>) {
+    pub fn start_stream(mut self, tx: mpsc::Sender<Vec<u8>>) {
         loop {
             match self.capturer.frame() {
                 Ok(frame) => {
-                    // Vision: Direct Buffer Access
-                    let frame_data = frame.to_vec(); // Required for thread handover
+                    let frame_data = frame.to_vec();
                     let width = self.width as u32;
                     let height = self.height as u32;
                     let tx_clone = tx.clone();
 
-                    // Priority 2: Offload CPU-heavy JPEG encoding to a blocking thread
-                    tokio::task::spawn_blocking(move || {
-                        // REVERSE ENG #1: Zero-Trust Edge Scrubbing
-                        // In a real scenario, this would use a TinyML model or OCR regex
-                        let mut scrubber = ZeroTrustScrubber::new();
+                    std::thread::spawn(move || {
+                        let scrubber = ZeroTrustScrubber::new();
                         let scrubbed_data = scrubber.scrub_pii(&frame_data, width, height);
 
                         let mut buffer = Vec::new();
                         let mut encoder = JpegEncoder::new_with_quality(&mut buffer, 75);
-                        
-                        let img_buffer: ImageBuffer<Rgba<u8>, Vec<u8>> = 
+
+                        let img_buffer: ImageBuffer<Rgba<u8>, Vec<u8>> =
                             ImageBuffer::from_raw(width, height, scrubbed_data)
-                            .expect("Failed to cast frame to ImageBuffer");
+                                .expect("Failed to cast frame to ImageBuffer");
 
                         if encoder.encode_image(&img_buffer).is_ok() {
-                            // REVERSE ENG #3: Hybrid Accessibility Bundle
-                            // Attach O(1) UI metadata here (simulated)
-                            let metadata = b"{\"nodes\": []}"; // Placeholder for accessibility tree
-                            
+                            let metadata = b"{\"nodes\": []}";
+
                             let mut packet = Vec::new();
                             packet.extend_from_slice(&(metadata.len() as u32).to_le_bytes());
                             packet.extend_from_slice(metadata);
                             packet.extend_from_slice(&buffer);
 
-                            match tx_clone.try_send(packet) {
-                                Ok(_) => (), 
-                                Err(_) => {}
-                            }
+                            let _ = tx_clone.blocking_send(packet);
                         }
                     });
 
-                    // Target ~10 FPS adaptive (AetherCore standard)
-                    sleep(Duration::from_millis(100)).await;
+                    std::thread::sleep(Duration::from_millis(100));
                 }
                 Err(ref e) if e.kind() == ErrorKind::WouldBlock => {
-                    sleep(Duration::from_millis(16)).await;
+                    std::thread::sleep(Duration::from_millis(16));
                 }
                 Err(e) => {
                     eprintln!("⚠️ Vision Sensor Anomaly: {}", e);
-                    sleep(Duration::from_secs(2)).await;
+                    std::thread::sleep(Duration::from_secs(2));
                 }
             }
         }
@@ -100,12 +90,12 @@ lazy_static! {
     static ref CREDIT_CARD_RE: Regex = Regex::new(
         r"\b(?:\d[ -]*?){13,16}\b"
     ).expect("Invalid credit card regex");
-    
+
     // Email pattern: Matches standard email formats
     static ref EMAIL_RE: Regex = Regex::new(
         r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
     ).expect("Invalid email regex");
-    
+
     // Password field pattern: Detects common password field indicators in UI
     static ref PASSWORD_FIELD_RE: Regex = Regex::new(
         r"(?i)(password|passwd|pwd|pass|secret|pin)\s*[:=]"
@@ -120,7 +110,7 @@ impl ZeroTrustScrubber {
             password_field_pattern: PASSWORD_FIELD_RE.clone(),
         }
     }
-    
+
     /// Redacts sensitive UI areas (Passwords, Credit Cards, Emails) at the Edge
     ///
     /// Args:
@@ -132,44 +122,43 @@ impl ZeroTrustScrubber {
     ///     Scrubbed RGBA frame data with sensitive regions redacted
     fn scrub_pii(&self, data: &[u8], w: u32, h: u32) -> Vec<u8> {
         // PERFORMANCE: In-place bit manipulation or block-copy masking
-        
+
         // Convert RGBA data to a mutable vector for in-place modification
         let mut scrubbed_data = data.to_vec();
         let bytes_per_pixel = 4; // RGBA = 4 bytes per pixel
-        let total_pixels = (w * h) as usize;
-        
+
         // Simple heuristic: Scan for patterns that might indicate PII
         // In a real implementation, this would use OCR or ML-based detection
-        
+
         // Redact regions that look like they might contain sensitive data
         // This is a simplified implementation - production would use proper OCR/ML
-        
+
         // Example: Redact bottom-right corner (often where password fields are)
         let redact_height = 100.min(h) as usize;
         let redact_width = 400.min(w) as usize;
         let start_y = (h as usize).saturating_sub(redact_height);
         let start_x = (w as usize).saturating_sub(redact_width);
-        
+
         // Apply redaction (black out the region)
         for y in start_y..h as usize {
             for x in start_x..w as usize {
                 let pixel_offset = (y * w as usize + x) * bytes_per_pixel;
                 if pixel_offset + bytes_per_pixel <= scrubbed_data.len() {
                     // Set pixel to black (R=0, G=0, B=0, A=255)
-                    scrubbed_data[pixel_offset] = 0;     // R
+                    scrubbed_data[pixel_offset] = 0; // R
                     scrubbed_data[pixel_offset + 1] = 0; // G
                     scrubbed_data[pixel_offset + 2] = 0; // B
                     scrubbed_data[pixel_offset + 3] = 255; // A
                 }
             }
         }
-        
+
         // Note: In a production implementation, this would:
         // 1. Use OCR to detect text in the frame
         // 2. Apply regex patterns to detected text
         // 3. Redact only the regions containing matched PII
         // 4. Use TinyML models for more sophisticated detection
-        
+
         scrubbed_data
     }
 }

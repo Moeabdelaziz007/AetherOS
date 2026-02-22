@@ -8,7 +8,7 @@ model: Multimodal_Episodic_Latent_Embeddings
 
 ## 🎞️ Episodic Memory (Latent Stream)
 
-AuraOS does not store raw binary blobs. It persists "Multimodal Latent Embeddings" ($z_{episodic}$) that unify disparate sensory streams into a single vector of experience.
+AetherOS does not store raw binary blobs. It persists "Multimodal Latent Embeddings" ($z_{episodic}$) that unify disparate sensory streams into a single vector of experience.
 
 ### 🧬 Structure of an Event ($E$)
 
@@ -45,7 +45,7 @@ Memory retrieval is triggered by **Cognitive Gravity**:
 
 ## 🧹 Memory Consolidation & Folding [REVERSE ENG #2]
 
-To prevent **Context Window Collapse** in Gemini 3.1 Pro, AuraOS executes the **Folding Protocol**:
+To prevent **Context Window Collapse** in Gemini 3.1 Pro, AetherOS executes the **Folding Protocol**:
 
 1. **Trigger:** Task completion signal from `HEARTBEAT.md` OR Context Pressure > 80%.
 2. **Extraction:** The agent generates a "Semantic Vector Summary" ($S_{summary}$) of the task trajectory.

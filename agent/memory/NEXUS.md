@@ -2,7 +2,7 @@
 
 ```yaml
 version: 0.1.0
-pillar: Aura-Nexus (Graph Memory)
+pillar: Aether-Nexus (Graph Memory)
 model: Multimodal_Knowledge_Graph
 ```
 
@@ -35,7 +35,7 @@ new_strength = old_strength * decay_factor + reward_signal
 
 حيث يُستمد الـ`reward_signal` من نتائج تنفيذ الإجراءات المرتبطة بالعقدة.
 
-## 🔍 استعلامات Aura-Navigator
+## 🔍 استعلامات Aether-Navigator
 
 يستطيع الـNavigator البحث في Nexus عن الرؤوس الثلاث الأقرب لنيّة حالية عن طريق
 معيار تشابه (cosine similarity) على المتجهات.

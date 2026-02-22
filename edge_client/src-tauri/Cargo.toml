@@ -1,7 +1,7 @@
 [package]
-name = "aura-edge"
+name = "aether-edge"
 version = "0.1.0"
-description = "AuraOS Edge Client - The Optic Nerve"
+description = "AetherOS Edge Client - The Optic Nerve"
 authors = ["AetherCore Architect"]
 edition = "2021"
 
@@ -28,7 +28,7 @@ rten-tensor = "0.24.0"
 rten-imageproc = "0.24.0"
 
 [lib]
-name = "aura_edge_lib"
+name = "aether_edge_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 path = "src/lib.rs"
 

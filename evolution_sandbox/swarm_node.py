@@ -39,8 +39,8 @@ class QuantumWeaverNode:
             # In production: This selects actions from SKILLS.md to minimize G
             try:
                 # rudimentary EFE approximation using SKILLS
-                # Use AURA_SKILLS_PATH environment variable if set, otherwise use relative path
-                skills_path = pathlib.Path(os.getenv("AURA_SKILLS_PATH", "agent/memory/SKILLS.md"))
+                # Use AETHER_SKILLS_PATH environment variable if set, otherwise use relative path
+                skills_path = pathlib.Path(os.getenv("AETHER_SKILLS_PATH", "agent/memory/SKILLS.md"))
                 
                 # If relative path doesn't exist, try to resolve from current file location
                 if not skills_path.exists():

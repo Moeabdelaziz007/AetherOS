@@ -8,7 +8,7 @@ role: Sovereign_Developer_Interface
 
 ## 📡 Sensory-Cognitive Data Flow
 
-This is the "Pipeline of Consciousness" in AuraOS. Follow this sequence for all system modifications:
+This is the "Pipeline of Consciousness" in AetherOS. Follow this sequence for all system modifications:
 
 ```mermaid
 graph TD
@@ -30,7 +30,7 @@ To maintain **Zero-Latency** and **Deterministic Agency**, any agent (Human or A
    - Use `asyncio.to_thread` for legacy sync libraries or `spawn_blocking` in Rust.
 
 2. **Memory Consistency:**
-   - The `AuraNavigator` uses `mmap`. Do not unmap or close file descriptors during runtime.
+   - The `AetherNavigator` uses `mmap`. Do not unmap or close file descriptors during runtime.
    - DNA updates must be incremental and hash-verified.
 
 3. **Causal Integrity:**
@@ -42,7 +42,7 @@ To maintain **Zero-Latency** and **Deterministic Agency**, any agent (Human or A
 
 ## 🧪 Intelligence Protocol
 
-AuraOS is a **Self-Evolving System**. Modifications should prioritize:
+AetherOS is a **Self-Evolving System**. Modifications should prioritize:
 
 - **Entropy Reduction:** Reducing $F$ (Variational Free Energy) over time.
 - **Epistemic Value:** Expanding the Action Space through autonomous discovery in the `Evolution Sandbox`.

@@ -13,7 +13,7 @@ from agent.orchestrator.main import AetherCoreOrchestrator, GeminiLiveClient
 class TestOrchestrator(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
         # Mock dependencies before creating orchestrator
-        with patch('agent.orchestrator.main.AuraNavigator') as MockNav:
+        with patch('agent.orchestrator.main.AetherNavigator') as MockNav:
             self.mock_nav = MockNav.return_value
             self.mock_nav.load_dna_async = AsyncMock()
             self.mock_nav.load_dna_async.return_value = MagicMock(version="0.0.0")

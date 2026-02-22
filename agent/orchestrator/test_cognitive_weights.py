@@ -3,12 +3,12 @@ import unittest
 from unittest.mock import MagicMock, patch
 import asyncio
 from agent.orchestrator.cognitive_router import HyperMindRouter
-from agent.orchestrator.memory_parser import DNABelief, AuraNavigator
+from agent.orchestrator.memory_parser import DNABelief, AetherNavigator
 
 class TestCognitiveRouter(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
-        # Create a mock for AuraNavigator
-        self.mock_bridge = MagicMock(spec=AuraNavigator)
+        # Create a mock for AetherNavigator
+        self.mock_bridge = MagicMock(spec=AetherNavigator)
         self.router = HyperMindRouter(self.mock_bridge)
 
         # Create a dummy DNA object

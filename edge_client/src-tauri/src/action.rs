@@ -67,11 +67,11 @@ mod tests {
 
     #[test]
     fn test_deserialize_type_action() {
-        let json_payload = r#"{"action": "TYPE", "text": "AuraOS Devpost"}"#;
+        let json_payload = r#"{"action": "TYPE", "text": "AetherOS Devpost"}"#;
         let action: UIAction = serde_json::from_str(json_payload).unwrap();
 
         assert_eq!(action.action, "TYPE");
-        assert_eq!(action.text, Some("AuraOS Devpost".to_string()));
+        assert_eq!(action.text, Some("AetherOS Devpost".to_string()));
         assert_eq!(action.x, None);
         assert_eq!(action.y, None);
     }

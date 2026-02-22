@@ -1,6 +1,6 @@
 # Strategic Plan: AlphaEvolve & Roadmap 2.0
 
-Upgrade AuraOS from a static agent to a self-healing, expert-grade OS with recursive optimization.
+Upgrade AetherOS from a static agent to a self-healing, expert-grade OS with recursive optimization.
 
 ## Proposed Changes
 
@@ -25,7 +25,7 @@ Upgrade AuraOS from a static agent to a self-healing, expert-grade OS with recur
 * Define the Multimodal Graph Schema with synapses linking text, visual-latent and auditory-affect.
 * Implement synaptic weighting decays/strengthens tied to HEARTBEAT cycles.
 
-### [REFAC] `agent/orchestrator/memory_parser.py` -> AuraNavigator
+### [REFAC] `agent/orchestrator/memory_parser.py` -> AetherNavigator
 * Rename and add Nexus search API (search_nexus).
 * Used by Gemini Live and HyperMindRouter before gating.
 
@@ -33,8 +33,8 @@ Upgrade AuraOS from a static agent to a self-healing, expert-grade OS with recur
 * Maintain low-latency health metrics and trigger pulse-based weight updates.
 
 ### [IMPROVE] [EVOLVE.md]
-* Add Aura-Consolidation rules linking working memory to permanent synapses.
-* Promote frequently used skills to Native-Aura-Skills.
+* Add Aether-Consolidation rules linking working memory to permanent synapses.
+* Promote frequently used skills to Native-Aether-Skills.
 
 ## Verification Plan
 

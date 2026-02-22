@@ -1,5 +1,5 @@
 """
-Test script for HyperMindRouter and AuraNavigator.
+Test script for HyperMindRouter and AetherNavigator.
 
 Run this script as a module from the project root:
     python -m agent.orchestrator.test_router
@@ -7,14 +7,14 @@ Run this script as a module from the project root:
 
 import asyncio
 
-from .memory_parser import AuraNavigator
+from .memory_parser import AetherNavigator
 from .cognitive_router import HyperMindRouter
 
 async def main():
-    bridge = AuraNavigator()
+    bridge = AetherNavigator()
     router = HyperMindRouter(bridge)
     
-    print("🔬 Testing HyperMindRouter Gating Logic and AuraNavigator...")
+    print("🔬 Testing HyperMindRouter Gating Logic and AetherNavigator...")
     
     # Test Case 1: Low Anomaly (Reflexive)
     print("\nCase 1: Low Anomaly (Expected outcome: SYSTEM_1_REFLEX)")

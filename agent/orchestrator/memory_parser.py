@@ -51,10 +51,10 @@ class VectorEncoder:
             return np.zeros(384, dtype="float32")
         return self.model.encode(text, convert_to_numpy=True).astype("float32")
 
-class AuraNavigator:
+class AetherNavigator:
     """
-    Priority 0 Refactor: AuraNavigator (formerly PersistentMemoryBridge).
-    Navigates the DNA and the new Aura-Nexus graph in zero latency.
+    Priority 0 Refactor: AetherNavigator (formerly PersistentMemoryBridge).
+    Navigates the DNA and the new Aether-Nexus graph in zero latency.
     """
     def __init__(self, memory_path: str = "agent/memory/"):
         self.memory_path = memory_path
@@ -198,11 +198,11 @@ class AuraNavigator:
         self.dna_cache = None
         self.nexus_cache = None
         
-        print("✅ AuraNavigator: All resources released")
+        print("✅ AetherNavigator: All resources released")
 
     # --- Nexus helpers --------------------------------------------------
     async def load_nexus_async(self, force: bool = False) -> list[Dict[str, Any]]:
-        """Loads the Aura-Nexus graph from NEXUS.md."""
+        """Loads the Aether-Nexus graph from NEXUS.md."""
         async with self._lock:
             needs_update = False
             mm = await self._get_mmap_async(self.nexus_file)
@@ -278,10 +278,10 @@ class AuraNavigator:
 
 if __name__ == "__main__":
     # Quick sanity check
-    navigator = AuraNavigator()
+    navigator = AetherNavigator()
     async def test():
         dna = await navigator.load_dna_async()
-        print(f"⚡ AuraNavigator Active (v{dna.version})")
+        print(f"⚡ AetherNavigator Active (v{dna.version})")
         nexus = await navigator.load_nexus_async()
         print(f"🔗 Nexus nodes: {len(nexus)}")
     asyncio.run(test())

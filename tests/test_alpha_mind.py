@@ -34,12 +34,12 @@ class TestAlphaMindParser(unittest.TestCase):
         self.assertEqual(result["y"], 540) # 1080 * 0.50 = 540
 
     def test_type_extraction(self):
-        gemini_response = '{"text": "AuraOS Hackathon"}'
+        gemini_response = '{"text": "AetherOS Hackathon"}'
         result = parse_gemini_spatial(gemini_response, 1920, 1080)
         
         self.assertIsNotNone(result)
         self.assertEqual(result["action"], "TYPE")
-        self.assertEqual(result["text"], "AuraOS Hackathon")
+        self.assertEqual(result["text"], "AetherOS Hackathon")
 
 if __name__ == "__main__":
     unittest.main()

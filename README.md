@@ -1,8 +1,8 @@
-# 🌌 AuraOS: The Sovereign Agentic OS & Multimodal Knowledge Graph
+# 🌌 AetherOS: The Sovereign Agentic OS & Multimodal Knowledge Graph
 
-# 🌌 AuraOS: نظام التشغيل الذكي المستقل ومخطط المعرفة متعدد الوسائط
+# 🌌 AetherOS: نظام التشغيل الذكي المستقل ومخطط المعرفة متعدد الوسائط
 
-## نظام أورا: نظام التشغيل السيادي للوكلاء وشبكة المعرفة متعددة الوسائط
+## نظام إيثر: نظام التشغيل السيادي للوكلاء وشبكة المعرفة متعددة الوسائط
 
 <div align="center">
   <img src="assets/aethercore_architecture.png" alt="AetherCore Architecture 5 Pillars Diagram | مخطط أعمدة AetherCore الخمسة" width="100%" height="auto" style="object-fit: contain; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);">
@@ -31,11 +31,11 @@
   </p>
 
   <p>
-    <i>AuraOS is a paradigm shift. It discards stateless loops and isolated vector databases in favor of the <b>Aura-Nexus</b>—a persistent, multimodal Knowledge Graph that weaves visual latent states, text intent, and auditory affect into dynamic Synaptic Links. By synthesizing Active Inference, Quantum Swarm Execution, Banana Pro GPU acceleration, and Recursive Mathematical Evolution, AuraOS operates as an invincible, self-healing digital companion.</i>
+    <i>AetherOS is a paradigm shift. It discards stateless loops and isolated vector databases in favor of the <b>Aether-Nexus</b>—a persistent, multimodal Knowledge Graph that weaves visual latent states, text intent, and auditory affect into dynamic Synaptic Links. By synthesizing Active Inference, Quantum Swarm Execution, Banana Pro GPU acceleration, and Recursive Mathematical Evolution, AetherOS operates as an invincible, self-healing digital companion.</i>
   </p>
 
   <p>
-    <i>نظام أورا هو نقلة نوعية. يتخلى عن قواعد البيانات الشعاعية المعزولة لصالح شبكة <b>أورا نكسوس (Aura-Nexus)</b> — شبكة معرفية متعددة الوسائط تربط الحالات البصرية، النوايا النصية، والتأثيرات الصوتية عبر روابط عصبية ديناميكية. من خلال دمج الاستدلال النشط، وتقنية التنفيذ الكمي، وتسريع معالجات الرسوميات السحابية من Banana Pro، يعمل AuraOS كرفيق رقمي حصين ذاتي التعافي.</i>
+    <i>نظام إيثر هو نقلة نوعية. يتخلى عن قواعد البيانات الشعاعية المعزولة لصالح شبكة <b>إيثر نكسوس (Aether-Nexus)</b> — شبكة معرفية متعددة الوسائط تربط الحالات البصرية، النوايا النصية، والتأثيرات الصوتية عبر روابط عصبية ديناميكية. من خلال دمج الاستدلال النشط، وتقنية التنفيذ الكمي، وتسريع معالجات الرسوميات السحابية من Banana Pro، يعمل AetherOS كرفيق رقمي حصين ذاتي التعافي.</i>
   </p>
 
 </div>
@@ -44,9 +44,9 @@
 
 ## 💓 System Telemetry | القياسات الحية للنظام
 
-![Aura Pulse Live Telemetry](https://aura-os-pulse.vercel.app/api/pulse)
+![Aether Pulse Live Telemetry](https://aether-os-pulse.vercel.app/api/pulse)
 
-> *The dashboard above reflects the real-time cognitive state of the AuraOS master branch. (Updates automatically upon refresh).*
+> *The dashboard above reflects the real-time cognitive state of the AetherOS master branch. (Updates automatically upon refresh).*
 
 ---
 
@@ -71,8 +71,8 @@
 ## 🎯 Executive Summary | الملخص التنفيذي
 
 - **🚀 System 1/2 Thinking (التفكير بالنظام 1 و 2):** Hyper-fast routine actions mixed with deep MCTS reasoning for complex hurdles.
-- **🧬 AuraEvolve (التطور الذاتي):** A recursive self-healing layer that repairs system logic in real-time.
-- **🔗 Aura-Nexus (الشبكة المعرفية):** A proprietary multimodal knowledge graph with synaptic weighting.
+- **🧬 AetherEvolve (التطور الذاتي):** A recursive self-healing layer that repairs system logic in real-time.
+- **🔗 Aether-Nexus (الشبكة المعرفية):** A proprietary multimodal knowledge graph with synaptic weighting.
 - **💓 Heartbeat Engine (محرك النبض):** Real-time health pulses drive synaptic strength updates.
 - **🍌 Banana Pro Integration (معالجة الرسوميات السحابية):** Ultra-low latency Serverless GPU processing for high-fidelity image inference and live spatial data pipelines.
 - **☁️ Quantum Swarm (السرب الكمي):** Parallel serverless execution "collapses" into the optimal UI trajectory.
@@ -81,29 +81,29 @@
 
 ---
 
-## 👁️ Pipeline of Multimodal Consciousness & Aura-Nexus (مسار الوعي المتعدد الوسائط)
+## 👁️ Pipeline of Multimodal Consciousness & Aether-Nexus (مسار الوعي المتعدد الوسائط)
 
-### What is AuraOS? | ما هو AuraOS؟
+### What is AetherOS? | ما هو AetherOS؟
 
-1. **Aura-Nexus Graph:** Instead of flat text retrieval, memory is stored as an interconnected Knowledge Graph in `NEXUS.md`. Nodes ("Essences") and Edges ("Synaptic Links") map relationships between what is seen, heard, and done.
+1. **Aether-Nexus Graph:** Instead of flat text retrieval, memory is stored as an interconnected Knowledge Graph in `NEXUS.md`. Nodes ("Essences") and Edges ("Synaptic Links") map relationships between what is seen, heard, and done.
 2. **Banana Pro Live Data Acceleration:** When massive bursts of visual data or complex image generation required for UI hallucination arise, the load is offloaded to **Banana Pro**'s serverless GPU infrastructure, ensuring zero-latency even under immense cognitive stress.
 3. **Acoustic Sentiment Tuning:** Real-time analysis of the user's vocal urgency dynamically adjusts the surprise threshold ($\tau$), linking emotional state to the synaptic pathways.
 4. **Dynamic Synaptic Weighting:** The strength of relationships in the Nexus matrix decodes and reinforces itself autonomously based on success signals from the `HEARTBEAT.md` lifecycle hook.
 
-**AuraOS** is a revolutionary "Zero-UI" Serverless Automaton designed to redefine the relationship between human intent and computer execution. Unlike traditional agents that follow a reactive "Observe-Reason-Act" loop, AuraOS operates on the principle of **Predictive Synthesis**.
+**AetherOS** is a revolutionary "Zero-UI" Serverless Automaton designed to redefine the relationship between human intent and computer execution. Unlike traditional agents that follow a reactive "Observe-Reason-Act" loop, AetherOS operates on the principle of **Predictive Synthesis**.
 
-**AuraOS** هو أتمتة "بدون واجهة مستخدم" ثورية مصممة لإعادة تعريف العلاقة بين النية البشرية والتنفيذ الحاسوبي. على عكس الوكلاء التقليديين الذين يتبعون حلقة تفاعلية "راقب-فكر-تصرف"، يعمل AuraOS على مبدأ **التوليد التنبؤي**.
+**AetherOS** هو أتمتة "بدون واجهة مستخدم" ثورية مصممة لإعادة تعريف العلاقة بين النية البشرية والتنفيذ الحاسوبي. على عكس الوكلاء التقليديين الذين يتبعون حلقة تفاعلية "راقب-فكر-تصرف"، يعمل AetherOS على مبدأ **التوليد التنبؤي**.
 
-By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generative "World Model" that allows it to "dream" and simulate potential UI outcomes in parallel before committing to a single, deterministic action on the user's screen.
+By leveraging **AetherCore Prometheus**, AetherOS maintains a persistent, generative "World Model" that allows it to "dream" and simulate potential UI outcomes in parallel before committing to a single, deterministic action on the user's screen.
 
-من خلال الاستفادة من **AetherCore Prometheus**، يحافظ AuraOS على "نموذج عالم" توليدي دائم يسمح له بـ "الحلم" ومحاكاة نتائج واجهة المستخدم المحتملة بالتوازي قبل الالتزام بإجراء محدد على شاشة المستخدم.
+من خلال الاستفادة من **AetherCore Prometheus**، يحافظ AetherOS على "نموذج عالم" توليدي دائم يسمح له بـ "الحلم" ومحاكاة نتائج واجهة المستخدم المحتملة بالتوازي قبل الالتزام بإجراء محدد على شاشة المستخدم.
 
 ### Key Differentiators | الفوارق الرئيسية
 
-| Feature | Traditional Agents | AuraOS |
+| Feature | Traditional Agents | AetherOS |
 | :--- | :--- | :--- |
-| **State Management** | Stateless loops, ephemeral memory | Persistent Aura-Nexus Knowledge Graph |
-| **إدارة الحالة** | حلقات عديمة الحالة، ذاكرة مؤقتة | مخطط معرفة Aura-Nexus الدائم |
+| **State Management** | Stateless loops, ephemeral memory | Persistent Aether-Nexus Knowledge Graph |
+| **إدارة الحالة** | حلقات عديمة الحالة، ذاكرة مؤقتة | مخطط معرفة Aether-Nexus الدائم |
 | **Inference** | Single-path reasoning | Quantum Swarm Parallel Simulation |
 | **الاستدلال** | التفكير بمسار واحد | محاكاة السرب الكمي المتوازية |
 | **Memory** | Flat vector databases | Multimodal Synaptic Links |
@@ -133,7 +133,7 @@ By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generati
 ## 🏗️ Architecture Overview | نظرة عامة على البنية
 
 <div align="center">
-  <img src="assets/architecture.png" alt="AuraOS High-Level Architecture | بنية AuraOS عالية المستوى" width="90%" style="border-radius: 8px; margin: 20px 0;">
+  <img src="assets/architecture.png" alt="AetherOS High-Level Architecture | بنية AetherOS عالية المستوى" width="90%" style="border-radius: 8px; margin: 20px 0;">
 </div>
 
 ### The 5 Pillars of AetherCore | أعمدة AetherCore الخمسة
@@ -146,9 +146,9 @@ By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generati
 
 ### 1. 🧠 بروميثيوس: الاستدلال النشط ونماذج العالم
 
-**The Brain** - Inspired by Karl Friston's Free Energy Principle, AuraOS possesses an internal "World Model". Instead of blindly clicking, it *imagines* (dreams) the consequences of its actions to minimize "Free Energy" (surprise).
+**The Brain** - Inspired by Karl Friston's Free Energy Principle, AetherOS possesses an internal "World Model". Instead of blindly clicking, it *imagines* (dreams) the consequences of its actions to minimize "Free Energy" (surprise).
 
-**العقل** - مستوحى من مبدأ الطاقة الحرة لكارل فريستون، يمتلك AuraOS "نموذج عالم" داخلي. بدلاً من النقر بشكل أعمى، فإنه *يتخيل* (يحلم) عواقب أفعاله لتقليل "الطاقة الحرة" (المفاجأة).
+**العقل** - مستوحى من مبدأ الطاقة الحرة لكارل فريستون، يمتلك AetherOS "نموذج عالم" داخلي. بدلاً من النقر بشكل أعمى، فإنه *يتخيل* (يحلم) عواقب أفعاله لتقليل "الطاقة الحرة" (المفاجأة).
 
 - **System 1 (Reflexive)**: Direct Gemini 3.1 Pro inference for low-entropy, routine UI tasks
   **النظام 1 (انعكاسي)**: استدلال Gemini 3.1 Pro المباشر لمهام واجهة المستخدم الروتينية منخفضة الإنتروبيا
@@ -161,9 +161,9 @@ By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generati
 
 ### 2. ⚡ QuantumWeaver: السرب الهجين الكمي الكلاسيكي
 
-**The Simulator (Cloud Run)** - How does it dream? When visualizing a complex UI trajectory, AuraOS dynamically spawns **parallel Serverless Cloud Run Jobs** (like independent quantum states). Each node attempts a different visual interpretation simultaneously. The first one to succeed "collapses the wave function," terminating the others for zero-latency execution.
+**The Simulator (Cloud Run)** - How does it dream? When visualizing a complex UI trajectory, AetherOS dynamically spawns **parallel Serverless Cloud Run Jobs** (like independent quantum states). Each node attempts a different visual interpretation simultaneously. The first one to succeed "collapses the wave function," terminating the others for zero-latency execution.
 
-**المحاكي (Cloud Run)** - كيف يحلم؟ عند تصور مسار واجهة مستخدم معقد، ينشئ AuraOS ديناميكياً **وظائف Cloud Run بدون خادم متوازية** (مثل الحالات الكم المستقلة). تحاول كل عقدة تفسيراً بصرياً مختلفاً في وقت واحد. أول من ينجح "يقلل دالة الموجة"، مما ينهي الآخرين لتنفيذ بزمن استجابة صفري.
+**المحاكي (Cloud Run)** - كيف يحلم؟ عند تصور مسار واجهة مستخدم معقد، ينشئ AetherOS ديناميكياً **وظائف Cloud Run بدون خادم متوازية** (مثل الحالات الكم المستقلة). تحاول كل عقدة تفسيراً بصرياً مختلفاً في وقت واحد. أول من ينجح "يقلل دالة الموجة"، مما ينهي الآخرين لتنفيذ بزمن استجابة صفري.
 
 - **Sovereignty Layer**: Shadow DOM Simulator
   **طبقة السيادة**: محاكي Shadow DOM
@@ -176,9 +176,9 @@ By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generati
 
 ### 3. 🕸️ HyperMind: طوبولوجيا الوكلاء المتعددين فائقة الرسم البياني
 
-**The Swarm Coordinator** - Instead of rigid hierarchical multi-agent structures, AuraOS uses a dynamic **Hypergraph**. Multiple specialized agents (Vision Expert, Logic Critic, Action Executor) collaborate simultaneously on a single UI task via shared "Hyperedges," massively reducing token consumption and latency.
+**The Swarm Coordinator** - Instead of rigid hierarchical multi-agent structures, AetherOS uses a dynamic **Hypergraph**. Multiple specialized agents (Vision Expert, Logic Critic, Action Executor) collaborate simultaneously on a single UI task via shared "Hyperedges," massively reducing token consumption and latency.
 
-**منسق السرب** - بدلاً من هياكل الوكلاء المتعددين الهرمية الصارمة، يستخدم AuraOS **رسماً بيانياً فائقاً** ديناميكياً. يتعاون وكلاء متخصصون متعددون (خبير الرؤية، ناقد المنطق، منفذ الإجراء) في وقت واحد على مهمة واجهة مستخدم واحدة عبر "حواف فائقة" مشتركة، مما يقلل بشكل كبير من استهلاك الرموز وزمن الاستجابة.
+**منسق السرب** - بدلاً من هياكل الوكلاء المتعددين الهرمية الصارمة، يستخدم AetherOS **رسماً بيانياً فائقاً** ديناميكياً. يتعاون وكلاء متخصصون متعددون (خبير الرؤية، ناقد المنطق، منفذ الإجراء) في وقت واحد على مهمة واجهة مستخدم واحدة عبر "حواف فائقة" مشتركة، مما يقلل بشكل كبير من استهلاك الرموز وزمن الاستجابة.
 
 - **Paradigm**: Hypergraph Multi-Agent Topology
   **النموذج**: طوبولوجيا الوكلاء المتعددين فائقة الرسم البياني
@@ -263,9 +263,9 @@ graph TD
 
 ### Active Inference (VFE Minimization) | الاستدلال النشط (تقليل VFE)
 
-**Variational Free Energy (VFE)** is the mathematical foundation of AuraOS cognition. The system continuously minimizes surprise by:
+**Variational Free Energy (VFE)** is the mathematical foundation of AetherOS cognition. The system continuously minimizes surprise by:
 
-**الطاقة الحرة المتغيرة (VFE)** هي الأساس الرياضي لإدراك AuraOS. يقلل النظام باستمرار المفاجأة من خلال:
+**الطاقة الحرة المتغيرة (VFE)** هي الأساس الرياضي لإدراك AetherOS. يقلل النظام باستمرار المفاجأة من خلال:
 
 1. **Predicting** the next UI state using its internal World Model
    **التنبؤ** بحالة واجهة المستخدم التالية باستخدام نموذج العالم الداخلي
@@ -281,9 +281,9 @@ When $F$ exceeds the threshold $\tau$, System 2 (Reflective) is engaged for deep
 
 ### System 1/2 Cognitive Gating | البوابة المعرفية للنظام 1/2
 
-**Dual-Process Theory** enables AuraOS to balance speed and accuracy:
+**Dual-Process Theory** enables AetherOS to balance speed and accuracy:
 
-**نظرية النظام المزدوج** تمكن AuraOS من الموازنة بين السرعة والدقة:
+**نظرية النظام المزدوج** تمكن AetherOS من الموازنة بين السرعة والدقة:
 
 | Aspect | System 1 (Reflexive) | System 2 (Reflective) |
 | :--- | :--- | :--- |
@@ -357,8 +357,8 @@ gcloud --version
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/Aura-OS.git
-cd Aura-OS
+git clone https://github.com/yourusername/Aether-OS.git
+cd Aether-OS
 
 # Install Python dependencies
 pip install -r agent/orchestrator/requirements.txt
@@ -393,7 +393,7 @@ npm run dev
 
 ```mermaid
 graph TD
-    Root[AuraOS/] --> AGENTS[AGENTS.md]
+    Root[AetherOS/] --> AGENTS[AGENTS.md]
     Root --> README[README.md]
     Root --> Docs[docs/]
     Root --> Agent[agent/]
@@ -537,7 +537,7 @@ We welcome contributions! Please see [`AGENTS.md`](AGENTS.md) for contribution g
 
 ```mermaid
 gantt
-    title AuraOS Development Roadmap | خارطة تطوير AuraOS
+    title AetherOS Development Roadmap | خارطة تطوير AetherOS
     dateFormat  YYYY-MM-DD
     section Phase 1 | المرحلة 1
     Core Architecture    :done,    p1, 2024-01-01, 2024-03-31
@@ -576,9 +576,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
   <h2>⭐ Star Us on GitHub! | ⭐ قمنا على GitHub</h2>
 
-  <p>If you find AuraOS interesting or useful, please consider giving us a star on GitHub.</p>
+  <p>If you find AetherOS interesting or useful, please consider giving us a star on GitHub.</p>
 
-  <p>إذا وجدت AuraOS مثيراً للاهتمام أو مفيداً، يرجى التفكير في إعطائنا نجمة على GitHub.</p>
+  <p>إذا وجدت AetherOS مثيراً للاهتمام أو مفيداً، يرجى التفكير في إعطائنا نجمة على GitHub.</p>
 
   <p>
     <b>Built with ❤️ for the Gemini Live Agents Challenge</b><br>

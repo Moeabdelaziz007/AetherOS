@@ -2,7 +2,7 @@
 
 ```yaml
 version: 0.3.0
-pillar: AuraEvolve (Evolution Engine)
+pillar: AetherEvolve (Evolution Engine)
 strategy: VerMCTS (Verified MCTS) + GIF-MCTS
 ```
 
@@ -40,7 +40,7 @@ When a "Pain Signal" (Error/Anomaly) triggers the circuit:
 
 ## 📈 Skill Promotion Criteria
 
-A skill is automatically promoted from **System 2** to **System 1** (Native-Aura-Skill) when:
+A skill is automatically promoted from **System 2** to **System 1** (Native-Aether-Skill) when:
 
 ```yaml
 promotion_criteria:
@@ -87,20 +87,20 @@ A mutation is only deployed if:
 
 ## 🧬 Skill Consolidation
 
-* **Aura-Discovery:** Successfully verified mutations are not just patched; they are distilled into a "Skill Template" and appended to [`SKILLS.md`](agent/memory/SKILLS.md).
+* **Aether-Discovery:** Successfully verified mutations are not just patched; they are distilled into a "Skill Template" and appended to [`SKILLS.md`](agent/memory/SKILLS.md).
 * **Weight Decay:** Old, unused skills lose proficiency over time to prevent "DNA Bloat".
 
-### Aura-Consolidation
+### Aether-Consolidation
 
 Ephemeral working memories that originate during a task are candidates for permanent
 synaptic links in [`NEXUS.md`](agent/memory/NEXUS.md) only after passing the **NeuroSage Causal Validation**.
 Each candidate trace is replayed against the SCM; if a counterfactual alternative
 yields a higher reward $R$, the trace is tagged `permanent` and merged into the
-Aura-Nexus graph with an initial `strength` value derived from success probability.
+Aether-Nexus graph with an initial `strength` value derived from success probability.
 
 *Skills used frequently during reflexive or swarm routines automatically undergo
 promotion.*  When a `skill` appears in the top 5 actions for more than 50 tasks,
-AuraEvolve renames it from a `Swarm-Simulation` entry to a `Native-Aura-Skill`
+AetherEvolve renames it from a `Swarm-Simulation` entry to a `Native-Aether-Skill`
 and moves it into the high‑priority section of [`SKILLS.md`](agent/memory/SKILLS.md). This reduces planning
 latency by enabling System 1 execution.
 
@@ -131,8 +131,8 @@ This history enables:
 - Reverting to previous stable states if needed
 
 ---
-*AuraOS: The first agent designed to survive its own mistakes.*
+*AetherOS: The first agent designed to survive its own mistakes.*
 ---
-*AuraOS is a living algorithm. It never makes the same mistake twice.*
+*AetherOS is a living algorithm. It never makes the same mistake twice.*
 ---
 *Evolution is not just repair; it is the art of crystallizing what works.*

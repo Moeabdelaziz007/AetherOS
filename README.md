@@ -110,7 +110,7 @@ pip install -r agent/orchestrator/requirements.txt
 pytest tests/
 # OR run the monolithic sanity checks:
 python3 agent/orchestrator/memory_parser.py
-python3 agent/orchestrator/test_router.py
+python3 -m agent.orchestrator.test_router
 ```
 
 ### 2. Peripheral Senses (Rust Edge Client)

@@ -2,6 +2,7 @@
 # Usage: python swarm_node.py --state <latent_z> --objective <goal>
 
 import os
+import pathlib
 import json
 import asyncio
 import argparse
@@ -38,10 +39,18 @@ class QuantumWeaverNode:
             # In production: This selects actions from SKILLS.md to minimize G
             try:
                 # rudimentary EFE approximation using SKILLS
-                skills_path = os.path.join(os.getcwd(), "agent/memory/SKILLS.md")
+                current_path = pathlib.Path(__file__).resolve()
+                # Handle both dev structure (nested in evolution_sandbox/) and prod structure (flat/root)
+                if current_path.parent.name == "evolution_sandbox":
+                    root = current_path.parent.parent
+                else:
+                    root = current_path.parent
+
+                skills_path = root / "agent" / "memory" / "SKILLS.md"
                 efe = 1.0
-                if os.path.exists(skills_path):
-                    with open(skills_path, "r") as f:
+
+                if skills_path.exists():
+                    with open(skills_path, "r", encoding="utf-8") as f:
                         text = f.read()
                     if "function_declaration" in text:
                         # reward more skills -> lower free energy

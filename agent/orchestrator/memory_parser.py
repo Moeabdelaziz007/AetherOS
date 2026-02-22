@@ -138,12 +138,32 @@ class AuraNavigator:
             results[filename] = merged_data
         return results
 
-    def close(self):
+    async def close(self):
         """Cleanup mmaps and file handles on system shutdown."""
-        for mm in self._mmaps.values():
-            mm.close()
-        for f in self._file_handles.values():
-            f.close()
+        # Close all memory-mapped files
+        for filename, mm in list(self._mmaps.items()):
+            try:
+                mm.close()
+                print(f"🧹 Closed mmap for {filename}")
+            except Exception as e:
+                print(f"⚠️ Error closing mmap for {filename}: {e}")
+        
+        # Close all file handles
+        for filename, f in list(self._file_handles.items()):
+            try:
+                f.close()
+                print(f"🧹 Closed file handle for {filename}")
+            except Exception as e:
+                print(f"⚠️ Error closing file handle for {filename}: {e}")
+        
+        # Clear dictionaries
+        self._mmaps.clear()
+        self._file_handles.clear()
+        self._hashes.clear()
+        self.dna_cache = None
+        self.nexus_cache = None
+        
+        print("✅ AuraNavigator: All resources released")
 
     # --- Nexus helpers --------------------------------------------------
     async def load_nexus_async(self, force: bool = False) -> list[Dict[str, Any]]:

@@ -33,6 +33,8 @@ class AetherCoreOrchestrator:
         self.router = HyperMindRouter(self.bridge)
         self.is_running = False
         self.api_key = os.getenv("GEMINI_API_KEY")
+        self._cleanup_tasks = set()  # Track cleanup tasks for graceful shutdown
+        self._max_retries = 3  # Max retry attempts for critical errors
 
     async def boot_sequence(self):
         """Initializes DNA and validates Persona logic."""
@@ -122,12 +124,73 @@ class AetherCoreOrchestrator:
                         # Intercept/Enrich here
                 except (json.JSONDecodeError, ValidationError, ValueError) as e:
                     print(f"⚠️ Neural Anomaly (Input Validation): {e}")
+                except ConnectionError as e:
+                    # Retry logic for critical connection errors
+                    print(f"⚠️ Critical Connection Error: {e}")
+                    await self._handle_critical_error(e, websocket)
                 except Exception as e:
                     print(f"⚠️ Neural Anomaly: {e}")
         
         finally:
             await gemini.close()
             print(f"💀 Synaptic Bridge: Connection severed for {remote_addr}")
+    
+    async def _handle_critical_error(self, error: Exception, websocket):
+        """
+        Handle critical errors with retry logic and recovery.
+        
+        Args:
+            error: The exception that occurred
+            websocket: The websocket connection to recover
+        """
+        print(f"🚨 Critical Error Handler: {type(error).__name__} - {error}")
+        
+        # Attempt recovery based on error type
+        for attempt in range(self._max_retries):
+            try:
+                # Wait before retry with exponential backoff
+                backoff = 2 ** attempt
+                print(f"🔄 Recovery attempt {attempt + 1}/{self._max_retries} (waiting {backoff}s)...")
+                await asyncio.sleep(backoff)
+                
+                # Check if websocket is still connected
+                if websocket.open:
+                    print("✅ WebSocket recovered, continuing...")
+                    return
+                else:
+                    print("⚠️ WebSocket closed, cannot recover connection")
+                    break
+                    
+            except Exception as recovery_error:
+                print(f"❌ Recovery attempt {attempt + 1} failed: {recovery_error}")
+        
+        print(f"💥 All recovery attempts exhausted for: {error}")
+    
+    async def shutdown(self):
+        """
+        Graceful shutdown with resource cleanup.
+        Closes all tracked cleanup tasks and releases resources.
+        """
+        print("🛑 AetherCoreOrchestrator: Initiating graceful shutdown...")
+        self.is_running = False
+        
+        # Cancel all tracked cleanup tasks
+        if self._cleanup_tasks:
+            print(f"🧹 Cleaning up {len(self._cleanup_tasks)} tasks...")
+            for task in self._cleanup_tasks:
+                if not task.done():
+                    task.cancel()
+                    try:
+                        await task
+                    except asyncio.CancelledError:
+                        pass
+            self._cleanup_tasks.clear()
+        
+        # Close bridge resources
+        if hasattr(self.bridge, 'close'):
+            await self.bridge.close()
+        
+        print("✅ AetherCoreOrchestrator: Shutdown complete")
 
     async def run_server(self):
         await self.boot_sequence()

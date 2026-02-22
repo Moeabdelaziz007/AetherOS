@@ -16,6 +16,12 @@ class HyperMindRouter:
         Variational Free Energy (F) = Complexity - Accuracy.
         Determines System 1 vs System 2 gating.
         """
+        # Validate required keys and provide safe defaults
+        required_keys = ["anomaly"]
+        for key in required_keys:
+            if key not in context:
+                print(f"⚠️ calculate_vfe: Missing required key '{key}', using default value")
+        
         dna = await self.bridge.load_dna_async()
         
         # Accuracy: How well our internal WORLD.md predicts current sensory anomaly
@@ -34,6 +40,12 @@ class HyperMindRouter:
         Expected Free Energy (G) = Epistemic Value + Pragmatic Value.
         Determines the 'Curiosity' vs 'Compliance' of the response.
         """
+        # Validate required keys and provide safe defaults
+        required_keys = ["novelty", "goal_alignment"]
+        for key in required_keys:
+            if key not in context:
+                print(f"⚠️ calculate_efe: Missing required key '{key}', using default value")
+        
         dna = await self.bridge.load_dna_async()
         weights = dna.inference.get("cognitive_weights", {})
         

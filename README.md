@@ -84,6 +84,7 @@ To secure a definitive victory in the **Live Agents** and **UI Navigator** track
 5. Added weight learning method `update_cognitive_weights` to router.
 6. Enhanced swarm node to compute basic Expected Free Energy using SKILLS.
 7. Expanded DNA specifications with detailed configuration tables across HEARTBEAT, INFERENCE, PULSE, SKILLS, WORLD and EVOLVE; bumped versions to 0.3.0/1.1.0.
+8. Added ADKRouter for flexible System1/System2 routing, robust connection backoff and graceful shutdown in orchestrator, plus comprehensive memory/resource cleanup and evolution executor.
 7. Bumped DNA versions for CAUSAL, TOPOLOGY, and EVOLVE to **0.2.0** for consistency.
 
 ---

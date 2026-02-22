@@ -16,6 +16,9 @@ class GeminiLiveClient:
     The Multimodal Soul of AuraOS.
     Handles real-time BidiGenerateContent streams with Gemini 3.1 Pro.
     """
+    MAX_RETRIES = 5
+    RETRY_DELAY = 5  # Base delay in seconds for exponential backoff
+    
     def __init__(self, bridge: AuraNavigator, api_key: str):
         self.bridge = bridge
         self.api_key = api_key
@@ -29,14 +32,25 @@ class GeminiLiveClient:
             raise ValueError("GeminiLiveClient requires GEMINI_API_KEY environment variable")
 
         print("🚀 Gemini Live: Connecting to Multimodal Webhook...")
-        # loop until connection succeeds (simple backoff)
-        while True:
+        
+        # Retry loop with exponential backoff
+        for attempt in range(self.MAX_RETRIES):
             try:
                 self.ws = await websockets.connect(self.url, ping_interval=20, ping_timeout=10)
+                print(f"✅ Gemini Live: Connection established on attempt {attempt + 1}")
                 break
             except Exception as e:
-                print(f"❌ Gemini Live: connection failed ({e}), retrying in 5s...")
-                await asyncio.sleep(5)
+                if attempt == self.MAX_RETRIES - 1:
+                    # Max retries exceeded
+                    error_msg = f"Gemini Live: Connection failed after {self.MAX_RETRIES} attempts. Last error: {e}"
+                    print(f"❌ {error_msg}")
+                    raise ConnectionError(error_msg) from e
+                
+                # Calculate exponential backoff delay
+                backoff_delay = self.RETRY_DELAY * (2 ** attempt)
+                print(f"❌ Gemini Live: Connection failed (attempt {attempt + 1}/{self.MAX_RETRIES}): {e}")
+                print(f"🔄 Retrying in {backoff_delay}s...")
+                await asyncio.sleep(backoff_delay)
         
         # 1. Load DNA and Skills for Setup
         dna = await self.bridge.load_dna_async()

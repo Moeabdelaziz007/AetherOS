@@ -39,14 +39,19 @@ class QuantumWeaverNode:
             # In production: This selects actions from SKILLS.md to minimize G
             try:
                 # rudimentary EFE approximation using SKILLS
-                current_path = pathlib.Path(__file__).resolve()
-                # Handle both dev structure (nested in evolution_sandbox/) and prod structure (flat/root)
-                if current_path.parent.name == "evolution_sandbox":
-                    root = current_path.parent.parent
-                else:
-                    root = current_path.parent
-
-                skills_path = root / "agent" / "memory" / "SKILLS.md"
+                # Use AURA_SKILLS_PATH environment variable if set, otherwise use relative path
+                skills_path = pathlib.Path(os.getenv("AURA_SKILLS_PATH", "agent/memory/SKILLS.md"))
+                
+                # If relative path doesn't exist, try to resolve from current file location
+                if not skills_path.exists():
+                    current_path = pathlib.Path(__file__).resolve()
+                    # Handle both dev structure (nested in evolution_sandbox/) and prod structure (flat/root)
+                    if current_path.parent.name == "evolution_sandbox":
+                        root = current_path.parent.parent
+                    else:
+                        root = current_path.parent
+                    skills_path = root / "agent" / "memory" / "SKILLS.md"
+                
                 efe = 1.0
 
                 if skills_path.exists():

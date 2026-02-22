@@ -112,27 +112,17 @@ class AuraNavigator:
     def _parse_single_block(self, content: str) -> Dict[str, Any]:
         """Synchronous YAML extractor for a single block."""
         if "```yaml" in content:
-            block = content.split("```yaml")[1].split("```")[0]
-            return yaml.safe_load(block) or {}
+            try:
+                block = content.split("```yaml")[1].split("```")[0]
+                return yaml.safe_load(block) or {}
+            except Exception:
+                return {}
         return {}
 
     def _parse_blocks(self, raw_data: Dict[str, str]) -> Dict[str, Dict[str, Any]]:
         """Synchronous YAML extractor. Merges all YAML blocks found in a file."""
         results = {}
         for filename, content in raw_data.items():
- improve-yaml-parsing-tests-10655427900937424656
-            if "```yaml" in content:
-                try:
-                    block = content.split("```yaml")[1].split("```")[0]
-                    results[filename] = yaml.safe_load(block) or {}
-                except Exception:
-                    results[filename] = {}
-            else:
-                results[filename] = {}
-=======
- optimize-yaml-parsing-16978240279472154414
-            results[filename] = self._parse_single_block(content)
-=======
             merged_data = {}
             parts = content.split("```yaml")
             # Skip the first part as it's before the first yaml block
@@ -146,8 +136,6 @@ class AuraNavigator:
                     except Exception:
                         pass
             results[filename] = merged_data
- main
- main
         return results
 
     def close(self):
@@ -170,18 +158,8 @@ class AuraNavigator:
             if force or current_hash != self._hashes.get(self.nexus_file):
                 self._hashes[self.nexus_file] = current_hash
                 raw = content_bytes.decode("utf-8")
- improve-yaml-parsing-tests-10655427900937424656
-                parsed = {}
-                if "```yaml" in raw:
-                    try:
-                        block = raw.split("```yaml")[1].split("```")[0]
-                        parsed = yaml.safe_load(block) or {}
-                    except Exception:
-                        parsed = {}
-=======
                 # Move blocking YAML parsing to a background thread
                 parsed = await asyncio.to_thread(self._parse_single_block, raw)
- main
                 self.nexus_cache = parsed.get("synapses", [])
                 needs_update = True
 

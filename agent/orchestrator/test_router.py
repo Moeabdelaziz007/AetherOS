@@ -1,12 +1,14 @@
+"""
+Test script for HyperMindRouter and AuraNavigator.
+
+Run this script as a module from the project root:
+    python -m agent.orchestrator.test_router
+"""
+
 import asyncio
-import sys
-import os
 
-# Add the project root to path
-sys.path.append(os.getcwd())
-
-from agent.orchestrator.memory_parser import AuraNavigator
-from agent.orchestrator.cognitive_router import HyperMindRouter
+from .memory_parser import AuraNavigator
+from .cognitive_router import HyperMindRouter
 
 class MockSwarmNode:
     """Deterministic mock for swarm node used in CI (Shadow Mode)."""

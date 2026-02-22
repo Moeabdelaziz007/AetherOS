@@ -112,8 +112,11 @@ class AuraNavigator:
     def _parse_single_block(self, content: str) -> Dict[str, Any]:
         """Synchronous YAML extractor for a single block."""
         if "```yaml" in content:
-            block = content.split("```yaml")[1].split("```")[0]
-            return yaml.safe_load(block) or {}
+            try:
+                block = content.split("```yaml")[1].split("```")[0]
+                return yaml.safe_load(block) or {}
+            except Exception:
+                return {}
         return {}
 
     def _parse_blocks(self, raw_data: Dict[str, str]) -> Dict[str, Dict[str, Any]]:

@@ -63,7 +63,39 @@ class AetherCoreOrchestrator:
 
         async def listen_to_gemini():
             async for response in gemini.listen():
-                # Route AI voice/text back to Edge
+                # AlphaMind Spatial Interceptor (Phase 3)
+                try:
+                    if "modelTurn" in response:
+                        parts = response["modelTurn"].get("parts", [])
+                        for part in parts:
+                            text = part.get("text", "")
+                            if text:
+                                import re
+                                # Gemini 2.0 Spatial API outputs JSON within the text stream
+                                match = re.search(r'\{.*\}', text, re.DOTALL)
+                                if match:
+                                    data = json.loads(match.group(0))
+                                    if "point" in data:
+                                        print(f"🎯 AlphaMind Spatial Match: {data['point']}")
+                                        y_rel, x_rel = data["point"]
+                                        # Assuming standard 1920x1080 display for relative mapping
+                                        abs_x = int((x_rel / 1000.0) * 1920)
+                                        abs_y = int((y_rel / 1000.0) * 1080)
+                                        action = {"action": "CLICK", "x": abs_x, "y": abs_y}
+                                        await websocket.send(json.dumps(action))
+                                        continue
+                                    elif "text" in data:
+                                        print(f"⌨️ AlphaMind Keyboard Action: {data['text']}")
+                                        action = {"action": "TYPE", "text": data["text"]}
+                                        await websocket.send(json.dumps(action))
+                                        # Add small delay before pressing enter for realism
+                                        await asyncio.sleep(0.5)
+                                        await websocket.send(json.dumps({"action": "PRESS_ENTER"}))
+                                        continue
+                except Exception as e:
+                    print(f"⚠️ AlphaMind parsing error: {e}")
+
+                # Route standard AI voice/text info back to Edge
                 await websocket.send(json.dumps(response))
 
         asyncio.create_task(listen_to_gemini())

@@ -58,9 +58,17 @@ class GeminiLiveClient:
         dna = await self.bridge.load_dna_async()
         
         # 2. Construct Setup Message
+        spatial_instruction = (
+            "You are AuraOS, an AI Agent controlling a user's computer. "
+            "You can see the screen. To click on an element, respond with the exact coordinates "
+            "in the JSON format: {\"point\": [y, x]} where y and x are integers between 0 and 1000 "
+            "representing relative screen coordinates (y is top-to-bottom, x is left-to-right). "
+            "To type text, respond with {\"text\": \"your_text_here\"}."
+        )
+
         setup_msg = {
             "setup": {
-                "model": "models/gemini-1.5-pro-002",
+                "model": "models/gemini-2.0-flash-exp",
                 "generation_config": {
                     "response_modalities": ["AUDIO", "TEXT"],
                     "speech_config": {
@@ -69,7 +77,10 @@ class GeminiLiveClient:
                 },
                 "system_instruction": {
                     "role": "system",
-                    "parts": [{"text": json.dumps(dna.soul)}]
+                    "parts": [
+                        {"text": json.dumps(dna.soul)},
+                        {"text": spatial_instruction}
+                    ]
                 }
             }
         }

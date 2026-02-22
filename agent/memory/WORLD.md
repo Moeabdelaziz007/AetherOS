@@ -1,11 +1,23 @@
 # 🌍 WORLD.md: Generative World Simulator (Latent POMDP)
 
 ```yaml
-version: 0.2.0
+version: 0.3.0
 pillar: Prometheus (World Model)
 math_model: Latent_POMDP
 compression: Variational_Autoencoder_Style
 ```
+
+## ⚙️ Adaptive Latent Configuration
+
+The latent space dimensions and parameters adapt dynamically based on UI complexity:
+
+| Parameter | Type | Default | Range | Purpose |
+|:---|:---|:---|:---|:---|
+| `latent_dim` | adaptive | 64-256 | Dynamic dimension of latent vector $z_t$ based on complexity |
+| `confidence_threshold` | float | 0.75 | [0, 1] Minimum confidence for prediction acceptance |
+| `anomaly_threshold` | float | 2.5 | Standard deviations for anomaly detection |
+| `temporal_window` | integer | 30 | Frames to track for temporal patterns |
+| `transition_history_size` | integer | 1000 | Number of successful transitions to store |
 
 ## 💎 Latent Space Compression ($z$)
 
@@ -13,6 +25,27 @@ To prevent **State Space Explosion**, mathematical inference does not operate on
 
 * **Encoder ($E_\phi$):** $z_t \approx q_\phi(z_t | o_t)$. Maps raw UI observations (pixels/text) to a deterministic low-dimensional manifold.
 * **Decoder ($D_\theta$):** $\hat{o}_{t:t+k} \approx p_\theta(o_{t:t+k} | z_t)$. Used by System 2 to "imagine" and visualize predicted **multi-frame video trajectories** (Spatio-Temporal Futures).
+
+### 🎯 Dynamic Dimension Adjustment
+
+The latent dimension $n$ adapts based on UI complexity:
+
+$$n = \min(256, \max(64, \lceil \alpha \cdot H(X) + \beta \rceil))$$
+
+Where:
+- $H(X)$ is the entropy of the current UI state
+- $\alpha = 100$ (entropy scaling factor)
+- $\beta = 64$ (minimum dimension baseline)
+
+This ensures efficient memory usage while preserving sufficient representational capacity.
+
+### 🔍 Anomaly Detection
+
+Anomalies are detected using Mahalanobis distance in latent space:
+
+$$D_M(z_t) = \sqrt{(z_t - \mu)^T \Sigma^{-1} (z_t - \mu)}$$
+
+If $D_M(z_t) > \text{anomaly\_threshold} \cdot \sigma$, the state is flagged as novel and triggers System 2 exploration.
 
 ## 📐 Latent-space Categorical Matrices
 
@@ -47,6 +80,26 @@ latent_contract:
 2. **Infer:** Update hidden state $q(s_t)$ by minimizing VFE (see INFERENCE.md).
 3. **Predict:** Use Matrix B to project $s_{t+1}$ based on proposed policy $\pi$.
 4. **Evaluate:** Calculate expected surprise in $s_{t+1}$.
+5. **Store:** If prediction confidence > threshold, store transition in history.
+
+### 📊 Transition History
+
+Successful transitions are stored for learning:
+
+```yaml
+transition_history:
+  - source_z: [0.12, 0.03, ...]
+    action: CLICK
+    target_z: [0.15, 0.04, ...]
+    confidence: 0.92
+    timestamp: 1707234567890
+  # ... more transitions ...
+```
+
+This history is used to:
+- Reinforce successful action patterns
+- Identify common UI transitions
+- Accelerate System 1 reflexive responses
 
 ---
 *WORLD.md is the probabilistic arena where AlphaMind plays its games.*

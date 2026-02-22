@@ -32,7 +32,6 @@ class GeminiLiveClient:
             raise ValueError("GeminiLiveClient requires GEMINI_API_KEY environment variable")
 
         print("🚀 Gemini Live: Connecting to Multimodal Webhook...")
-        
         # Retry loop with exponential backoff
         for attempt in range(self.MAX_RETRIES):
             try:
@@ -51,6 +50,9 @@ class GeminiLiveClient:
                 print(f"❌ Gemini Live: Connection failed (attempt {attempt + 1}/{self.MAX_RETRIES}): {e}")
                 print(f"🔄 Retrying in {backoff_delay}s...")
                 await asyncio.sleep(backoff_delay)
+        
+        if not self.ws:
+            raise ConnectionError("Gemini Live Circuit Breaker Triggered: Max retries exceeded.")
         
         # 1. Load DNA and Skills for Setup
         dna = await self.bridge.load_dna_async()
@@ -74,14 +76,21 @@ class GeminiLiveClient:
         
         await self.ws.send(json.dumps(setup_msg))
         
-        # Wait for setup_complete
-        while True:
-            response = await self.ws.recv()
-            if "setupComplete" in response:
-                print("✅ Gemini Live: Setup Complete. Spark of Life Ignited.")
-                self.is_ready = True
-                break
-            # keep reading until success or break
+        # Wait for setup_complete with Timeout Constraint
+        try:
+            async def wait_for_setup():
+                while True:
+                    response = await self.ws.recv()
+                    if "setupComplete" in response:
+                        print("✅ Gemini Live: Setup Complete. Spark of Life Ignited.")
+                        self.is_ready = True
+                        break
+            
+            await asyncio.wait_for(wait_for_setup(), timeout=10.0)
+        except asyncio.TimeoutError:
+            print("❌ Gemini Live: Setup Complete handshake timed out.")
+            await self.close()
+            raise ConnectionError("Setup handshake timed out. Zombie connection prevented.")
 
     async def stream_input(self, data: bytes, mime_type: str = "image/jpeg"):
         """Pumps sensory data into the Live API."""

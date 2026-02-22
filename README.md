@@ -1,16 +1,21 @@
 # 🌌 AuraOS: The Sovereign Agentic OS & Multimodal Knowledge Graph
 # 🌌 AuraOS: نظام التشغيل الذكي المستقل ومخطط المعرفة متعدد الوسائط
 
+## نظام أورا: نظام التشغيل السيادي للوكلاء وشبكة المعرفة متعددة الوسائط
+
 <div align="center">
   <img src="assets/aethercore_architecture.png" alt="AetherCore Architecture 5 Pillars Diagram | مخطط أعمدة AetherCore الخمسة" width="100%" height="auto" style="object-fit: contain; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 14px 0 rgba(0,118,255,0.39);">
 
   ## **The Autonomous Self-Healing OS for the Gemini Live Era**
   ## **نظام التشغيل المستقل ذاتياً لعصر Gemini Live**
 
+## **النظام الذاتي التعافي لحقبة جيميناي لايف**
+
   **Built for the [Gemini Live Agents Challenge](https://geminiliveagentchallenge.devpost.com/)**
   **تم بناؤه لتحدي [Gemini Live Agents](https://geminiliveagentchallenge.devpost.com/)**
 
   [![Google Cloud Run Jobs](https://img.shields.io/badge/Execution-Cloud_Run_Jobs-blue?style=flat-square&logo=google-cloud)](https://cloud.google.com/run)
+  [![Banana Pro](https://img.shields.io/badge/Serverless_GPU-Banana_Pro-FBB117?style=flat-square&logo=banana)](https://banana.dev/)
   [![Rust](https://img.shields.io/badge/Edge_Native-Rust_Tauri-FFC131?style=flat-square&logo=rust)](https://tauri.app/)
   [![Gemini 3.1 Pro](https://img.shields.io/badge/Brain-Gemini_3.1_Pro-9C27B0?style=flat-square&logo=google-gemini)](https://deepmind.google/technologies/gemini/)
   [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](https://opensource.org/licenses/MIT)
@@ -20,9 +25,10 @@
   [English](README.md) | [Architecture Report](docs/ARCHITECTURE.md) | [API Contract](docs/API_CONTRACT.md) | [Implementation Plan](docs/implementation_plan.md)
   [الإنجليزية](README.md) | [تقرير البنية](docs/ARCHITECTURE.md) | [عقد API](docs/API_CONTRACT.md) | [خطة التنفيذ](docs/implementation_plan.md)
 
-  *AuraOS is a paradigm shift. It discards stateless loops and isolated vector databases in favor of the **Aura-Nexus**—a persistent, multimodal Knowledge Graph that weaves visual latent states, text intent, and auditory affect into dynamic Synaptic Links. By synthesizing Active Inference, Quantum Swarm Execution, and Recursive Mathematical Evolution, AuraOS operates as an invincible, self-healing digital companion.*
+  *AuraOS is a paradigm shift. It discards stateless loops and isolated vector databases in favor of the **Aura-Nexus**—a persistent, multimodal Knowledge Graph that weaves visual latent states, text intent, and auditory affect into dynamic Synaptic Links. By synthesizing Active Inference, Quantum Swarm Execution, Banana Pro GPU acceleration, and Recursive Mathematical Evolution, AuraOS operates as an invincible, self-healing digital companion.*
 
-  *AuraOS يمثل تحولاً جذرياً. يتخلى عن الحلقات عديمة الحالة وقواعد البيانات المتجهة المعزولة لصالح **Aura-Nexus**—مخطط معرفة متعدد الوسائط دائم ينسج الحالات الكامنة البصرية والنية النصية والتأثير الصوتي في روابط تشابكية ديناميكية. من خلال دمج الاستدلال النشط وتنفيذ السرب الكمي والتطور الرياضي العودي، يعمل AuraOS كرفيق رقمي لا يقهر ومُشفَّى ذاتياً.*
+  *نظام أورا هو نقلة نوعية. يتخلى عن قواعد البيانات الشعاعية المعزولة لصالح شبكة **أورا نكسوس (Aura-Nexus)** — شبكة معرفية متعددة الوسائط تربط الحالات البصرية، النوايا النصية، والتأثيرات الصوتية عبر روابط عصبية ديناميكية. من خلال دمج الاستدلال النشط، وتقنية التنفيذ الكمي، وتسريع معالجات الرسوميات السحابية من Banana Pro، يعمل AuraOS كرفيق رقمي حصين ذاتي التعافي.*
+
 </div>
 
 ---
@@ -47,7 +53,27 @@
 
 ## 🎯 Executive Summary | الملخص التنفيذي
 
+- **🚀 System 1/2 Thinking (التفكير بالنظام 1 و 2):** Hyper-fast routine actions mixed with deep MCTS reasoning for complex hurdles.
+- **🧬 AuraEvolve (التطور الذاتي):** A recursive self-healing layer that repairs system logic in real-time.
+- **🔗 Aura-Nexus (الشبكة المعرفية):** A proprietary multimodal knowledge graph with synaptic weighting.
+- **💓 Heartbeat Engine (محرك النبض):** Real-time health pulses drive synaptic strength updates.
+- **🍌 Banana Pro Integration (معالجة الرسوميات السحابية):** Ultra-low latency Serverless GPU processing for high-fidelity image inference and live spatial data pipelines.
+- **☁️ Quantum Swarm (السرب الكمي):** Parallel serverless execution "collapses" into the optimal UI trajectory.
+- **⚖️ NeuroSage (المنطق السببي):** Causal logic validation to eliminate hallucinations and secure transactions.
+- **👁️ Multimodal Smart Brain (الدماغ المتعدد الوسائط):** Native processing of Video, Audio, and Text as a unified latent stream.
+
+---
+
+## 👁️ Pipeline of Multimodal Consciousness & Aura-Nexus (مسار الوعي المتعدد الوسائط)
+
+
 ### What is AuraOS? | ما هو AuraOS؟
+
+1. **Aura-Nexus Graph:** Instead of flat text retrieval, memory is stored as an interconnected Knowledge Graph in `NEXUS.md`. Nodes ("Essences") and Edges ("Synaptic Links") map relationships between what is seen, heard, and done.
+2. **Banana Pro Live Data Acceleration:** When massive bursts of visual data or complex image generation required for UI hallucination arise, the load is offloaded to **Banana Pro**'s serverless GPU infrastructure, ensuring zero-latency even under immense cognitive stress.
+3. **Acoustic Sentiment Tuning:** Real-time analysis of the user's vocal urgency dynamically adjusts the surprise threshold ($\tau$), linking emotional state to the synaptic pathways.
+4. **Dynamic Synaptic Weighting:** The strength of relationships in the Nexus matrix decodes and reinforces itself autonomously based on success signals from the `HEARTBEAT.md` lifecycle hook.
+
 
 **AuraOS** is a revolutionary "Zero-UI" Serverless Automaton designed to redefine the relationship between human intent and computer execution. Unlike traditional agents that follow a reactive "Observe-Reason-Act" loop, AuraOS operates on the principle of **Predictive Synthesis**.
 
@@ -86,6 +112,7 @@ By leveraging **AetherCore Prometheus**, AuraOS maintains a persistent, generati
   **الأنظمة المحسنة ذاتياً**: التعلم والتحسين تلقائياً من الخبرة
 - **Zero-Trust Security**: Validate all actions against causal logic before execution
   **الأمان الموثوق به**: التحقق من جميع الإجراءات مقابل المنطق السببي قبل التنفيذ
+
 
 ---
 
@@ -534,5 +561,6 @@ If you find AuraOS interesting or useful, please consider giving us a star on Gi
 **Built with ❤️ for the Gemini Live Agents Challenge**
 
 **تم بناؤه بـ ❤️ لتحدي Gemini Live Agents**
+
 
 </div>

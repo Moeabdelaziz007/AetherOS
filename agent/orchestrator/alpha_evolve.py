@@ -83,8 +83,10 @@ class HeuristicSandbox:
         try:
             os.makedirs(self.sandbox_path, exist_ok=True)
             # Sync core files (ignoring large binaries/git)
-            cmd = f"rsync -av --exclude '.git' --exclude 'target' --exclude '__pycache__' {self.workspace_root}/ {self.sandbox_path}/"
-            process = await asyncio.create_subprocess_shell(cmd)
+            process = await asyncio.create_subprocess_exec(
+                "rsync", "-av", "--exclude", ".git", "--exclude", "target", "--exclude", "__pycache__",
+                f"{self.workspace_root}/", f"{self.sandbox_path}/"
+            )
             await process.wait()
             return True
         except Exception as e:
@@ -98,7 +100,7 @@ class HeuristicSandbox:
             import shutil
             shutil.rmtree(self.sandbox_path)
 
-    async def run_validation(self, command: str, timeout: float = 60.0) -> Dict[str, Any]:
+    async def run_validation(self, command: List[str], timeout: float = 60.0) -> Dict[str, Any]:
         """
         Runs a command in the sandbox and captures exit code + output.
         """
@@ -106,8 +108,8 @@ class HeuristicSandbox:
         print(f"🧪 Sandbox: Executing '{command}' in {cwd}...")
 
         try:
-            process = await asyncio.create_subprocess_shell(
-                command,
+            process = await asyncio.create_subprocess_exec(
+                *command,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
                 cwd=cwd
@@ -268,9 +270,9 @@ class AlphaEvolve:
             
             # Run validation (Generic check for now)
             # In production, we'd run specific tests for the component
-            v_cmd = "python3 -c 'import compileall; compileall.compile_dir(\".\", quiet=1)'"
+            v_cmd = ["python3", "-c", "import compileall; compileall.compile_dir(\".\", quiet=1)"]
             if component_file.endswith(".py"):
-                v_cmd = f"python3 -m py_compile {sandbox_file}"
+                v_cmd = ["python3", "-m", "py_compile", sandbox_file]
             
             check = await self.sandbox.run_validation(v_cmd)
             

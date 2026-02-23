@@ -6,17 +6,23 @@
 
 ```text
 AetherOS/
-├── README.md               <-- The Manifesto
-├── AGENTS.md               <-- Neural Protocols (THIS FILE)
-├── docs/
-│   └── AETHER_FORGE_PROTOCOL.md <-- Core Synthesis Spec
+├── README.md                    <-- The Manifesto
+├── AGENTS.md                    <-- Neural Protocols (THIS FILE)
+├── .idx/                        <-- PERSISTENT MEMORY (Hippocampus)
+│   ├── memories.md              <-- Long-term context
+│   └── Skills.md                <-- Agentic skill registry
+├── AetherOS Plan FIles/         <-- STRATEGY DOCS (Arabic + English)
+├── AetherOS_Gemini_Submission/  <-- CHALLENGE ARTIFACTS
 ├── agent/
-│   ├── forge/              <-- THE FACTORY (Nano-Agent Synthesis)
-│   ├── archaeology/        <-- THE SCOUTS (API Discovery)
-│   ├── memory/             <-- THE DNA (AetherCore Patterns)
-│   └── orchestrator/       <-- THE KERNEL (Cognitive Routing)
-├── edge_client/            <-- PERCEPTION (Generative Micro-UI)
-└── swarm_infrastructure/   <-- EXECUTION (Cloud Forge)
+│   ├── core/                    <-- CORE PRIMITIVES (Intent, Lambda, Telemetry)
+│   ├── forge/                   <-- THE FACTORY (Nano-Agent Synthesis)
+│   │   └── archaeology.py       <-- THE SCOUTS (API Discovery)
+│   ├── memory/                  <-- THE DNA (AetherCore Patterns)
+│   └── orchestrator/            <-- THE KERNEL (Cognitive Routing)
+├── edge_client/                 <-- PERCEPTION (Generative Micro-UI / Tauri)
+├── swarm_infrastructure/        <-- EXECUTION (Cloud Forge)
+├── tests/                       <-- SECURITY & E2E MISSIONS
+└── plans/                       <-- IMPROVEMENT ROADMAPS
 ```
 
 ## 🧬 Neural Protocols (v2.0)

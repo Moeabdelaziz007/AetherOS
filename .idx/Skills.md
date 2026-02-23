@@ -21,6 +21,13 @@
 * **Capabilities:** Silent API enablement, Firestore provisioning, IAM service-account forgery.
 * **Logic:** Triggered for "The Global Nervous System" scaling and remote data sovereignty.
 
+## 🎭 Category 4: Sensory Skills (Multimodal Perception)
+
+* **Skill:** `sensory-orchestrator`
+* **Source:** AetherOS Native / Google GenAI Live
+* **Capabilities:** Real-time bi-directional audio streaming, frame-based vision ingestion, and interruption awareness.
+* **Logic:** Triggered for "The Breath of Life" interaction and screen-contextual reasoning.
+
 ---
 
 ## ⚖️ Execution Principles

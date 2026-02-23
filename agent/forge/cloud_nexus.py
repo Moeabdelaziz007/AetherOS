@@ -74,6 +74,24 @@ class CloudNexus:
             logger.error(f"❌ Global pattern discovery failed: {e}")
             return None
 
+    async def get_agent_context(self, agent_id: str) -> Optional[Dict[str, Any]]:
+        """Fetch persistent DNA for a specific NanoAgent."""
+        if not self._db: return None
+        try:
+            doc = self._db.collection("AgentDNA").document(agent_id).get()
+            return doc.to_dict() if doc.exists else None
+        except Exception as e:
+            logger.error(f"❌ Failed to fetch agent context: {e}")
+            return None
+
+    async def update_agent_context(self, agent_id: str, context: Dict[str, Any]):
+        """Persist final state changes for a NanoAgent."""
+        if not self._db: return
+        try:
+            self._db.collection("AgentDNA").document(agent_id).set(context, merge=True)
+        except Exception as e:
+            logger.error(f"❌ Failed to update agent context: {e}")
+
     def verify_connectivity(self) -> bool:
         """Deterministic connection test."""
         try:

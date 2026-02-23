@@ -9,17 +9,17 @@ import sys
 from typing import Dict, Any
 from agent.forge import AetherForge
 
-def print_slow(text: str, delay: float = 0.03):
+async def print_slow(text: str, delay: float = 0.03):
     """Bilingual typewriter effect."""
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
-        time.sleep(delay)
+        await asyncio.sleep(delay)
     print()
 
 async def simulate_manus(task: str):
     """Simulates the slow, fragile UI-agent path (The Legacy)."""
-    print_slow(f"\n[MANUS AGENT] Target: {task}")
+    await print_slow(f"\n[MANUS AGENT] Target: {task}")
     steps = [
         "🌐 Opening Browser...",
         "🔍 Navigating to URL...",
@@ -49,18 +49,18 @@ async def run_cinematic_demo():
     print("━"*64 + "\n")
 
     # Scene 1: The Problem (Legacy Systems)
-    print_slow("⚠️ SCENE 1: The UI Fragility (The Legacy Path)")
+    await print_slow("⚠️ SCENE 1: The UI Fragility (The Legacy Path)")
     manus_time = await simulate_manus("Bitcoin Price")
     print(f"\n❌ MANUS LATENCY: {manus_time:.2f} seconds")
     print("━"*64)
 
     # Scene 2: The Transformation
-    print_slow("\n⚡ SCENE 2: The Aether Dissolution (The Sovereign Path)")
-    print_slow("   \"AetherOS doesn't click. It communicates directly with the DNA of the web.\"")
+    await print_slow("\n⚡ SCENE 2: The Aether Dissolution (The Sovereign Path)")
+    await print_slow("   \"AetherOS doesn't click. It communicates directly with the DNA of the web.\"")
     
     async with AetherForge() as forge:
         # Simulate Voice Trigger
-        print_slow("\n🎙️ [GEMINI LIVE] \"Hey Aether, Check Bitcoin price for me.\"")
+        await print_slow("\n🎙️ [GEMINI LIVE] \"Hey Aether, Check Bitcoin price for me.\"")
         
         start_time = time.time()
         intent = {"service": "coingecko", "params": {"coins": ["bitcoin"], "currencies": ["usd"]}}
@@ -80,8 +80,8 @@ async def run_cinematic_demo():
     print(f"💰 Intelligence     : AetherNexus DNA Crystallized")
     print("━"*64)
     
-    print_slow("\n\"The future belongs to those who dissolve interfaces, not those who simulate them.\"")
-    print_slow("   — AetherOS Framework")
+    await print_slow("\n\"The future belongs to those who dissolve interfaces, not those who simulate them.\"")
+    await print_slow("   — AetherOS Framework")
 
 if __name__ == "__main__":
     try:

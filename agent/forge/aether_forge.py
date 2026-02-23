@@ -79,6 +79,9 @@ class TemporalMemoryTides:
         count = await self.nexus.tidal_prune()
         logger.info(f"🌊 Low Tide complete. {count} synapses dissolved.")
 
+from .archaeology import archaeologist
+from .circuit_breaker import get_circuit_breaker, CircuitOpenError
+
 # ─────────────────────────────────────────────
 # 🔮 AETHER FORGE — Core Orchestrator
 # ─────────────────────────────────────────────
@@ -92,9 +95,10 @@ class AetherForge:
         "weather": WeatherExecutor
     }
 
-    def __init__(self):
+    def __init__(self, automated_tides: bool = True):
         self.nexus = AetherNexus()
         self.parliament = AgentParliament()
+        self.archaeologist = archaeologist
         self.tides = TemporalMemoryTides(self.nexus)
         self.metrics = ForgeMetrics()
         self.visualizer = MicroVisualizer()
@@ -109,6 +113,14 @@ class AetherForge:
         )
         
         self.agents_forged = 0
+        if automated_tides:
+            asyncio.create_task(self._start_tide_daemon())
+
+    async def _start_tide_daemon(self):
+        """Background daemon for autonomous memory pruning."""
+        while True:
+            await asyncio.sleep(3600)  # Pulse every hour
+            await self.tides.sleep()
 
     async def __aenter__(self):
         return self
@@ -307,6 +319,10 @@ class AetherForge:
                 
                 # Phase 4: Harvest & Engrave
                 await self.nexus.engrave(service, intent_data.get("params", {}), True, ms)
+                
+                # Update Shadow Maps (Collective Intelligence)
+                if hasattr(executor, 'base_url'):
+                    await self.archaeologist.register_discovery(service, executor.base_url)
                 
                 # ASCII Visualizer
                 ascii_visual = self.visualizer.render(service, data)

@@ -30,11 +30,28 @@ class CloudNexus:
     def _initialize(self):
         try:
             if not firebase_admin._apps:
-                if not os.path.exists(self.key_path):
-                    logger.warning(f"⚠️ Service account file not found at {self.key_path}. Skipping Firebase init.")
-                    return
+                cred = None
+                # Method 1: File-based Service Account
+                if self.key_path and os.path.exists(self.key_path) and os.path.getsize(self.key_path) > 0:
+                    logger.info(f"🔑 CloudNexus: Initializing via Service Account File: {self.key_path}")
+                    cred = credentials.Certificate(self.key_path)
                 
-                cred = credentials.Certificate(self.key_path)
+                # Method 2: Fallback to Environment Variable (Production-Grade)
+                elif os.getenv("FIREBASE_CRED_JSON"):
+                    logger.info("🔑 CloudNexus: Initializing via FIREBASE_CRED_JSON environment variable.")
+                    import json
+                    cred_dict = json.loads(os.getenv("FIREBASE_CRED_JSON"))
+                    cred = credentials.Certificate(cred_dict)
+                
+                # Method 3: Fallback to Default Credentials (GCP Auth)
+                else:
+                    logger.warning("⚠️ No service account file or ENV found. Attempting Application Default Credentials...")
+                    try:
+                        cred = credentials.ApplicationDefault()
+                    except Exception:
+                        logger.error("❌ All credential methods failed. CloudNexus remains OFFLINE.")
+                        return
+
                 firebase_admin.initialize_app(cred, {
                     'projectId': self.project_id,
                 })
@@ -42,7 +59,8 @@ class CloudNexus:
             logger.info(f"🌌 CloudNexus initialized for project: {self.project_id}")
         except Exception as e:
             logger.error(f"❌ CloudNexus initialization failed: {e}")
-            raise
+            # Do NOT raise here, just stay offline to prevent orchestrator crash
+            self._db = None
 
     async def share_shadow_map(self, service: str, base_url: str, intent_action: str):
         """Register a shadow map in the global 'SharedShadowMaps' collection."""

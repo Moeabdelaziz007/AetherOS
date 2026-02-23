@@ -20,6 +20,7 @@ AetherOS exists to make traditional graphical interfaces obsolete. We bypass the
 - **Collective Intelligence:** Hive Mind Integration (AetherForge + CloudNexus) - **Live**.
 - **Senses:** Sensory Cortex (Gemini Live Bridge v2.0) - **Active**.
 - **Optimization:** System Indexing Hardened (v2.0 Performance Patch) - **Stable**.
+- **Execution:** Motor Cortex (Live Function Calling) - **Active**.
 
 ## 📜 Mandate
 

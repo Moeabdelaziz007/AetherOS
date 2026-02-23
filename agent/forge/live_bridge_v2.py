@@ -19,6 +19,7 @@ from .aether_forge import AetherForge
 from .constraint_solver import ConstraintSolver, build_time_context
 from .models import VoiceFeatures, ScreenContext
 from .stream_utils import AudioStreamer, VisionStreamer
+from .motor_cortex import MotorCortex, get_tool_declarations
 
 logger = logging.getLogger("aether.sensory")
 
@@ -27,9 +28,9 @@ class GeminiLiveBridgeV2:
 
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.getenv("GOOGLE_API_KEY")
-        self.client = genai.Client(api_key=self.api_key, http_options={'api_version': 'v1alpha'})
-        self.forge = AetherForge()
+        self.forge = forge or AetherForge()
         self.solver = ConstraintSolver()
+        self.motor = MotorCortex(forge=self.forge)
         self.session = None
         self._running = False
 
@@ -46,7 +47,8 @@ class GeminiLiveBridgeV2:
             generation_config=types.GenerationConfig(
                 temperature=0.7,
                 candidate_count=1
-            )
+            ),
+            tools=get_tool_declarations()
         )
 
         logger.info("🎭 sensory-orchestrator: Connecting to Gemini Live...")
@@ -85,8 +87,27 @@ class GeminiLiveBridgeV2:
                     # Local buffer flush logic here
 
             if response.tool_call:
-                # Potential for Native Tool Use in the Live session
-                pass
+                # Motor Cortex: Execute local action
+                for call in response.tool_call.function_calls:
+                    name = call.name
+                    args = call.args
+                    call_id = call.id
+                    
+                    result = await self.motor.dispatch(name, args)
+                    
+                    # Send response back to the stream
+                    await self.session.send(
+                        input=types.LiveClientToolResponse(
+                            function_responses=[
+                                types.LiveFunctionResponse(
+                                    name=name,
+                                    id=call_id,
+                                    response=result
+                                )
+                            ]
+                        )
+                    )
+                    logger.info(f"🦾 Motor Response sent for {name}")
 
     async def _audio_input_loop(self):
         """Streams real-time microphone data."""

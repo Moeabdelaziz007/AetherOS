@@ -6,6 +6,7 @@ Retryable vs fatal errors are explicit — no guessing.
 """
 
 from enum import Enum, auto
+from typing import Any, List
 
 
 class ForgeErrorType(Enum):

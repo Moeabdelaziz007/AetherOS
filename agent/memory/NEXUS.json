@@ -1,0 +1,15 @@
+{
+  "github": {
+    "service": "github",
+    "params_template": {
+      "query": "AetherOS",
+      "limit": 2
+    },
+    "avg_latency_ms": 515.362024307251,
+    "success_rate": 1.0,
+    "energy_credits": 10.0,
+    "use_count": 1,
+    "last_used": "2026-02-23T01:05:38.881033",
+    "created_at": "2026-02-23T01:05:38.881040"
+  }
+}

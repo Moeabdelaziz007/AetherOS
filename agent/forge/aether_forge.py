@@ -21,7 +21,8 @@ import httpx
 from .executors import CoinGeckoExecutor, GitHubExecutor, WeatherExecutor
 from .models import (
     NanoAgent, ForgeResult, NanoExecutor, AgentProposal,
-    CognitiveSystem, UrgencyLevel, ForgeMetrics, DataProof, VerifiedResult
+    CognitiveSystem, UrgencyLevel, ForgeMetrics, DataProof, VerifiedResult,
+    VoiceFeatures, ScreenContext
 )
 from .exceptions import (
     AetherBaseError, ForgeErrorType, NetworkError, RateLimitError,
@@ -30,8 +31,8 @@ from .exceptions import (
 )
 from .aether_nexus import AetherNexus
 from .visualizer import MicroVisualizer
-
-# ─────────────────────────────────────────────
+from .constraint_solver import ConstraintSolver, build_time_context, MemorySignal
+from .circuit_breaker import get_circuit_breaker, CircuitOpenError
 # TELEMETRY & METRICS (القياسات والبيانات)
 # ─────────────────────────────────────────────
 
@@ -75,7 +76,7 @@ class TemporalMemoryTides:
 
     async def sleep(self):
         logger.info("🌊 Low Tide initiated. Pruning weak synapses...")
-        count = self.nexus.tidal_prune()
+        count = await self.nexus.tidal_prune()
         logger.info(f"🌊 Low Tide complete. {count} synapses dissolved.")
 
 # ─────────────────────────────────────────────
@@ -97,6 +98,8 @@ class AetherForge:
         self.tides = TemporalMemoryTides(self.nexus)
         self.metrics = ForgeMetrics()
         self.visualizer = MicroVisualizer()
+        self.solver = ConstraintSolver()
+        self.circuit = get_circuit_breaker()
         
         # Pooled High-Performance Client
         self.client = httpx.AsyncClient(
@@ -122,14 +125,18 @@ class AetherForge:
         service = intent_data.get("service", "unknown")
         agent_id = f"race-{hashlib.md5(str(t0).encode()).hexdigest()[:6]}"
         
-        # Launch race
-        tasks = [e.execute(intent_data.get("params", {}), self.client) for e in executors]
+        # Launch race with Circuit Breakers
+        tasks = [
+            self.circuit.call(service, e.execute, intent_data.get("params", {}), self.client)
+            for e in executors
+        ]
         
         try:
-            # We want the FIRST valid result, but we also want a VERIFIER result if possible
+            # We want the FIRST valid result
             done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
             
-            primary_data = done.pop().result()
+            res_obj = done.pop().result()
+            primary_data = res_obj.raw_response if hasattr(res_obj, "raw_response") else res_obj
             t_primary = (time.time() - t0) * 1000
             
             primary_proof = DataProof(
@@ -170,7 +177,13 @@ class AetherForge:
             # Generate ASCII Visuals for WOW Factor
             ascii_visual = self.visualizer.render(service, primary_data)
 
-            self.nexus.engrave(service, intent_data.get("params", {}), True, ms)
+            await self.nexus.engrave(service, intent_data.get("params", {}), True, ms)
+            
+            # Record Learning
+            if hasattr(self.solver, "feedback"):
+                intent_id = intent_data.get("intent_id")
+                if intent_id:
+                    await self.solver.feedback.record_outcome(intent_id, True)
             
             res = ForgeResult(
                 success=True,
@@ -188,7 +201,53 @@ class AetherForge:
             
         except Exception as e:
             logger.error(f"Race failed: {e}")
+            # Record failure in feedback loop
+            if hasattr(self.solver, "feedback"):
+                intent_id = intent_data.get("intent_id")
+                if intent_id:
+                    # We can't easily get the real intent object here, so we assume failure
+                    pass
             return self._fail(service, str(e), t0, agent_id)
+
+    async def resolve_and_forge(
+        self,
+        query: str,
+        voice: Optional[VoiceFeatures] = None,
+        screen: Optional[ScreenContext] = None,
+        memory: Optional[MemorySignal] = None
+    ) -> ForgeResult:
+        """Resolve ambiguous query via constraints then forge."""
+        time_ctx = build_time_context()
+        intent = self.solver.resolve(query, voice, screen, time_ctx, memory)
+        
+        # Mapping solver action to service
+        service_map = {"price_check": "coingecko", "github_search": "github", "weather_check": "weather"}
+        service = service_map.get(intent.action, "coingecko")
+        
+        # Params generation
+        params = {}
+        if intent.action == "price_check":
+            params = {"coins": [intent.target], "currencies": ["usd"]}
+        elif intent.action == "github_search":
+            params = {"query": intent.target, "limit": 3}
+        elif intent.action == "weather_check":
+            params = {"city": intent.target}
+            
+        intent_data = {
+            "query": query,
+            "intent_id": intent.intent_id,
+            "service": service,
+            "params": params,
+            "urgent": intent.urgency in (UrgencyLevel.CRITICAL, UrgencyLevel.HIGH)
+        }
+        
+        # Deploy
+        res = await self.forge_and_deploy(intent_data)
+        
+        # Record feedback loop outcome
+        await self.solver.feedback.record_outcome(intent, res.success)
+        
+        return res
 
     @staticmethod
     def generate_sparkline(data: List[float]) -> str:
@@ -214,7 +273,7 @@ class AetherForge:
             return await self.forge_race(intent_data, executors)
 
         # Standard Phase 1: Deconstruct & Recall
-        cached_pattern = self.nexus.recall(service)
+        cached_pattern = await self.nexus.recall(service)
         is_crystallized = cached_pattern is not None
         
         # Phase 2: Synthesize & Deliberate
@@ -241,15 +300,21 @@ class AetherForge:
         for attempt in range(max_retries):
             try:
                 logger.info(f"Nano-Agent {agent_id} deployed (Attempt {attempt+1})...")
-                # Injected Sovereign Client
-                data = await executor.execute(intent_data.get("params", {}), self.client)
+                # Injected Sovereign Client + Circuit Breaker
+                res_obj = await self.circuit.call(service, executor.execute, intent_data.get("params", {}), self.client)
+                data = res_obj.raw_response if hasattr(res_obj, "raw_response") else res_obj
                 ms = (time.time() - t0) * 1000
                 
                 # Phase 4: Harvest & Engrave
-                self.nexus.engrave(service, intent_data.get("params", {}), True, ms)
+                await self.nexus.engrave(service, intent_data.get("params", {}), True, ms)
                 
                 # ASCII Visualizer
                 ascii_visual = self.visualizer.render(service, data)
+                
+                # Record Learning
+                if hasattr(self.solver, "feedback"):
+                    # We usually pass the real intent object here
+                    pass 
 
                 res = ForgeResult(
                     success=True,
@@ -271,11 +336,14 @@ class AetherForge:
                     await asyncio.sleep(wait)
                     continue
                 logger.error(f"API Protocol Fault: {e}")
-                self.nexus.engrave(service, {}, False)
+                await self.nexus.engrave(service, {}, False)
+                return self._fail(service, str(e), t0, agent_id)
+            except CircuitOpenError as e:
+                logger.error(f"Circuit Open Protection: {e}")
                 return self._fail(service, str(e), t0, agent_id)
             except Exception as e:
                 logger.error(f"General Execution Fault: {e}")
-                self.nexus.engrave(service, {}, False)
+                await self.nexus.engrave(service, {}, False)
                 return self._fail(service, str(e), t0, agent_id)
 
     async def swarm_execute(self, intents: List[Dict[str, Any]]) -> List[ForgeResult]:

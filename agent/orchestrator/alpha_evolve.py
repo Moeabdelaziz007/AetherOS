@@ -2,12 +2,16 @@ import json
 import os
 import re
 import asyncio
+from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Dynamically determine the project root (3 levels up from agent/orchestrator/alpha_evolve.py)
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 class NeuralMonitor:
     """
@@ -73,8 +77,8 @@ class HeuristicSandbox:
     Beta-Test: AlphaMind Heuristic Sandbox (Phase 6.3).
     Executes isolated code validation (Build/Test) with process isolation.
     """
-    def __init__(self, workspace_root: str = "/Users/cryptojoker710/Desktop/AetherOS"):
-        self.workspace_root = workspace_root
+    def __init__(self, workspace_root: Optional[str] = None):
+        self.workspace_root = workspace_root or str(PROJECT_ROOT)
         self.sandbox_path = "/tmp/aether_sandbox"
 
     async def create_snapshot(self):
@@ -199,8 +203,8 @@ class DnaCommitter:
     Beta-Test: Autonomous DNA Consolidation (Phase 6.5).
     Safely commits verified patches to the production codebase.
     """
-    def __init__(self, workspace_root: str = "/Users/cryptojoker710/Desktop/AetherOS"):
-        self.workspace_root = workspace_root
+    def __init__(self, workspace_root: Optional[str] = None):
+        self.workspace_root = workspace_root or str(PROJECT_ROOT)
 
     def commit(self, relative_path: str, new_content: str) -> bool:
         """Atomic write to the target file with backup creation."""

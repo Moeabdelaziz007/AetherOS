@@ -1,3 +1,24 @@
 {
   "coingecko": {
     "endpoints": [
+      "/simple/price",
+      "/coins/list"
+    ],
+    "confidence": 0.99
+  },
+  "github": {
+    "base_url": "https://api.github.com",
+    "endpoints": [
+      "/search/repositories",
+      "/repos/{owner}/{repo}"
+    ],
+    "confidence": 0.95
+  },
+  "weather": {
+    "base_url": "https://api.open-meteo.com/v1",
+    "endpoints": [
+      "/forecast"
+    ],
+    "confidence": 0.9
+  }
+}

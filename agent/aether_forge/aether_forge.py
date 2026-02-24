@@ -54,7 +54,7 @@ from typing import Any, Dict, List, Optional, Tuple, Callable, Awaitable, Type, 
 from pathlib import Path
 
 import httpx
-from .executors import CoinGeckoExecutor, GitHubExecutor, WeatherExecutor
+# Legacy executors removed for Registry-driven architecture
 from .models import (
     NanoAgent, ForgeResult, NanoExecutor, AgentProposal,
     CognitiveSystem, UrgencyLevel, ForgeMetrics, DataProof, VerifiedResult,
@@ -148,6 +148,8 @@ from .circuit_breaker import get_circuit_breaker, CircuitOpenError
 from .compiler import AetherNanoAgentCompiler, CompiledAgent
 from .sandbox import AetherNanoSandbox
 
+from .registry import AetherSuperpowerRegistry
+
 # ─────────────────────────────────────────────
 # 🔮 AETHER FORGE — Core Orchestrator
 # ─────────────────────────────────────────────
@@ -155,9 +157,6 @@ from .sandbox import AetherNanoSandbox
 class AetherForge:
     """The main orchestration hub for Aether Forge Protocol."""
     
-    # Static executors for initial discovery, will be dynamically built in __init__
-    STATIC_EXECUTORS = [CoinGeckoExecutor, GitHubExecutor, WeatherExecutor]
-
     def __init__(self, automated_tides: bool = True):
         self.nexus = AetherNexus()
         self.parliament = AetherAgentParliament()
@@ -173,11 +172,10 @@ class AetherForge:
         self.sandbox = AetherNanoSandbox()
 
         # ─────────────────────────────────────────────────────────────────────────────
-        # Registry and Service Map Initialization
+        # Superpower Registry (The Modular Skill Engine)
         # ─────────────────────────────────────────────────────────────────────────────
-        self.REGISTRY: Dict[str, Type[NanoExecutor]] = {}
-        self.SERVICE_MAP: Dict[str, str] = {}
-        self._build_registry()
+        self.superpowers = AetherSuperpowerRegistry()
+        logger.info("🧬 Superpower Registry integrated into Forge Core.")
 
         # ─────────────────────────────────────────────────────────────────────────────
         # Cloud Nexus Initialization (The Global Nervous System)
@@ -262,10 +260,21 @@ class AetherForge:
         service = intent_data.get("service", "unknown")
         agent_id = f"race-{hashlib.md5(str(t0).encode()).hexdigest()[:6]}"
         
+        # 1. Acquire Executors from Registry (Simulating Swarm Race)
+        # In the new registry, we instantiate multiple executors if needed
+        executor_instances = []
+        for _ in range(2): # Dual-agent race
+            instance = self.superpowers.get_executor(service, context={"client": self.client})
+            if instance:
+                executor_instances.append(instance)
+
+        if not executor_instances:
+            return self._fail(service, f"Registry fault: No executors available for '{service}'", t0, agent_id)
+
         # Launch race with Circuit Breakers
         tasks = [
-            asyncio.create_task(self.circuit.call(service, e.execute, intent_data.get("params", {}), self.client))
-            for e in executors
+            asyncio.create_task(self.circuit.call(service, e.execute, intent_data.get("params", {})))
+            for e in executor_instances
         ]
         
         try:
@@ -444,41 +453,11 @@ class AetherForge:
             # Return a failure result with the error
             return self._fail("intent_resolution", f"Intent resolution failed: {e}", time.time(), "resolve_error")
         
-        # Use dynamic service map
-        if intent.action in self.SERVICE_MAP:
-            service = self.SERVICE_MAP[intent.action]
-            executor_cls = self.REGISTRY.get(service)
-            
-            # Dynamic Params Generation
-            # If the executor has a specialized map, use it. Otherwise, pass target as generic.
-            params = {}
-            try:
-                if hasattr(executor_cls, "generate_params"):
-                    params = executor_cls.generate_params(intent.target)
-                else:
-                    # Fallback to standard mapping if not specialized
-                    if intent.action == "price_check":
-                        params = {"coins": [intent.target], "currencies": ["usd"]}
-                    elif intent.action == "github_search":
-                        params = {"query": intent.target, "limit": 3}
-                    elif intent.action == "weather_check":
-                        params = {"city": intent.target}
-                    else:
-                        params = {"query": intent.target}
-            except Exception as e:
-                logger.warning(f"⚠️ Params generation failed: {e}. Using default params.")
-                params = {"query": intent.target}
-        else:
-            # Dynamic Intent!
-            service = intent.target if intent.target != "unknown" else intent.action
-            params = {"query": query, "context": intent.reasoning}
-            logger.info(f"✨ Unmapped Intent '{intent.action}': Routing to Dynamic Forge.")
-
         intent_data = {
             "query": query,
             "intent_id": intent.intent_id,
-            "service": service,
-            "params": params,
+            "service": intent.action if intent.target == "unknown" else intent.target,
+            "params": {"target": intent.target} if intent.target != "unknown" else {"query": query},
             "urgent": intent.urgency in (UrgencyLevel.CRITICAL, UrgencyLevel.HIGH)
         }
         
@@ -519,12 +498,10 @@ class AetherForge:
         
         # Constraint Solver Logic (Basic structure)
         # In a real scenario, this would involve Vision/Audio context
-        if intent_data.get("urgent") and service in self.REGISTRY:
+        if intent_data.get("urgent"):
             # TRIGGER SWARM RACE for urgent requests
             logger.info(f"⚡ URGENT: Launching Swarm Race for [{service}]")
-            # Simulating multiple agents by instantiating twice
-            executors = [self.REGISTRY[service](), self.REGISTRY[service]()]
-            return await self.aether_forge_race(intent_data, executors, intent_obj=intent_obj)
+            return await self.aether_forge_race(intent_data, [], intent_obj=intent_obj)
 
         # Phase 0: Swarm Cache Check (Collective Intelligence)
         if self.cloud:
@@ -562,11 +539,10 @@ class AetherForge:
         self.agents_forged += 1
         
         # Phase 3: Deploy & Execution
-        executor_cls = self.REGISTRY.get(service)
+        executor = self.superpowers.get_executor(service, context={"client": self.client})
         
-        # If static executor exists, use it. Otherwise, go DYNAMIC.
-        if executor_cls:
-            executor = executor_cls()
+        # If static executor exists in registry, use it. Otherwise, go DYNAMIC.
+        if executor:
             return await self._execute_static_agent(executor, service, intent_data, t0, agent_id, is_crystallized, max_retries)
         else:
             return await self._compile_and_execute_dynamic(service, intent_data, t0, agent_id)
@@ -575,8 +551,8 @@ class AetherForge:
         """Helper to run pre-defined static agents."""
         for attempt in range(max_retries):
             try:
-                logger.info(f"Nano-Agent {agent_id} (Static) deployed...")
-                res_obj = await self.circuit.call(service, executor.execute, intent_data.get("params", {}), self.client)
+                logger.info(f"Nano-Agent {agent_id} (Modular) deployed...")
+                res_obj = await self.circuit.call(service, executor.execute, intent_data.get("params", {}))
                 data = res_obj.raw_response if hasattr(res_obj, "raw_response") else res_obj
                 ms = (time.time() - t0) * 1000
                 

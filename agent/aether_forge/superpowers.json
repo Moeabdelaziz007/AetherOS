@@ -1,0 +1,44 @@
+[
+    {
+        "id": "crypto.coingecko",
+        "name": "Aether Crypto Intelligence",
+        "description": "Fetch real-time cryptocurrency prices, market caps, and trends from CoinGecko.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "coin_id": {
+                    "type": "string",
+                    "description": "ID of the coin (e.g., 'bitcoin', 'ethereum')"
+                },
+                "vs_currency": {
+                    "type": "string",
+                    "default": "usd"
+                }
+            },
+            "required": [
+                "coin_id"
+            ]
+        },
+        "executor_path": "agent.aether_forge.executors.crypto_executor.AetherCoinGeckoExecutor",
+        "auth_required": false
+    },
+    {
+        "id": "os.terminal",
+        "name": "Aether Terminal Sovereign",
+        "description": "Execute safe local terminal commands for environment introspection or file management.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "type": "string",
+                    "description": "The bash command to execute."
+                }
+            },
+            "required": [
+                "command"
+            ]
+        },
+        "executor_path": "agent.aether_forge.executors.terminal_executor.AetherTerminalExecutor",
+        "auth_required": true
+    }
+]

@@ -22,6 +22,9 @@ from .constraint_solver import AetherConstraintSolver, build_time_context
 from .models import VoiceFeatures, ScreenContext
 from .stream_utils import AetherAudioStreamer, AetherVisionStreamer
 from .motor_cortex import AetherMotorCortex, get_tool_declarations
+from .memory_orchestrator import AetherMemoryOrchestrator
+from .personality_engine import AetherPersonalityEngine
+
 
 logger = logging.getLogger("aether.sensory")
 
@@ -86,11 +89,14 @@ class AetherGeminiLiveBridgeV2:
         self.forge = forge or AetherForge()
         self.solver = AetherConstraintSolver()
         self.motor = AetherMotorCortex(forge=self.forge)
+        self.memory = AetherMemoryOrchestrator()
+        self.personality = AetherPersonalityEngine()
 
         # Session state
         self.session = None
         self._running = False
         self._hot_intent_cache: Dict[str, Any] = {}
+
 
         # Queues for audio I/O (official Google pattern)
         self._audio_out_queue: asyncio.Queue = asyncio.Queue()
@@ -112,23 +118,37 @@ class AetherGeminiLiveBridgeV2:
     # Session Lifecycle
     # ─────────────────────────────────────────────
 
-    async def start_session(self):
+    async def start_session(self, user_sentiment: str = "neutral", acoustic_urgency: float = 0.5):
         """
         Initialize the bi-directional Gemini Live session.
-
-        Uses the official google-genai API surface:
-        - Config is a plain dict (not types.LiveConfig)
-        - client.aio.live.connect(model=..., config=...) 
-        - session.send_realtime_input(audio=msg)
-        - session.receive() returns async turn iterator
-
-        Ref: https://ai.google.dev/gemini-api/docs/live
         """
+        # 1. Initialize Memory Tiers & Tier-0 Sentinel
+        await self.memory.initialize()
+        self.memory.briefing.setup_sentinel()
+        
+        # 2. Build Dynamic Context & Persona
+        context = await self.memory.get_comprehensive_context("recent interactions and primary goals")
+        persona_instr = self.personality.adjust_instruction(
+            user_sentiment=user_sentiment, 
+            acoustic_urgency=acoustic_urgency
+        )
+        
+        # Extract Tier-0 specifically for direct awareness
+        tier0 = context.get("tier0_briefing", "Identity: AetherOS - Sovereign OS.")
+
+        dynamic_instruction = (
+            f"{self.SYSTEM_INSTRUCTION}\n\n"
+            f"--- IDENTITY UPDATE (Tier-0) ---\n{tier0}\n\n"
+            f"--- BEHAVIORAL PROTOCOL ---\n{persona_instr}\n\n"
+            f"--- MEMORY CONTEXT ---\n{context}\n"
+        )
+
         config = {
             "response_modalities": ["AUDIO", "TEXT"],
-            "system_instruction": self.SYSTEM_INSTRUCTION,
+            "system_instruction": dynamic_instruction,
             "tools": get_tool_declarations(),
         }
+
 
         logger.info("🎭 Sensory Cortex: Connecting to Gemini Live...")
         try:
@@ -209,10 +229,17 @@ class AetherGeminiLiveBridgeV2:
                         # Text response
                         if part.text:
                             print(f"[🤖 AetherOS]: {part.text}")
+                            # Record memory asynchronously
+                            asyncio.create_task(self.memory.remember(
+                                "agent_response", 
+                                part.text, 
+                                self.personality.craft_response_metadata(part.text)
+                            ))
 
                         # Audio response → queue for playback
                         if part.inline_data and isinstance(part.inline_data.data, bytes):
                             self._audio_out_queue.put_nowait(part.inline_data.data)
+
 
                 # ── Interruption Handling ──
                 # Official pattern: empty the output queue to stop playback

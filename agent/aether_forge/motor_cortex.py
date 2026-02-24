@@ -196,85 +196,71 @@ class AetherMotorCortex:
 def get_tool_declarations() -> List[Dict]:
     """
     Returns OpenAPI-compliant function declarations for Gemini Live API.
-    These tell Gemini what tools are available and how to call them.
-
-    Ref: https://ai.google.dev/gemini-api/docs/function-calling
+    Merges static System Tools (UI, DOM) with Registry-managed Superpowers.
     """
-    return [{
-        "function_declarations": [
-            {
-                "name": "execute_api_request",
-                "description": (
-                    "Executes a data retrieval request through AetherForge. "
-                    "Use for: crypto prices (coingecko), weather data (weather), "
-                    "GitHub repository info (github). Returns structured data."
-                ),
-                "parameters": {
-                    "type": "OBJECT",
-                    "properties": {
-                        "service": {
-                            "type": "STRING",
-                            "description": "Service name: 'coingecko', 'github', or 'weather'"
-                        },
-                        "params": {
-                            "type": "OBJECT",
-                            "description": "Parameters for the service (e.g., {'coins': ['bitcoin']})"
-                        }
+    # 1. Static Action Protocol (Motor Cortex Internal)
+    system_tools = [
+        {
+            "name": "generate_ui",
+            "description": (
+                "Materializes a visual UI component on the user's screen. "
+                "Use when the user asks to SEE something (charts, cards, lists, dashboards). "
+                "The UI appears from nothing with a particle animation effect. "
+                "Types: task_list, crypto, weather, news, calendar, code, chart, table, info."
+            ),
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "type": {
+                        "type": "STRING",
+                        "description": "UI type: 'task_list', 'crypto', 'weather', 'news', 'calendar', 'code', 'chart', 'table', 'info'"
                     },
-                    "required": ["service"]
-                }
-            },
-            {
-                "name": "generate_ui",
-                "description": (
-                    "Materializes a visual UI component on the user's screen. "
-                    "Use when the user asks to SEE something (charts, cards, lists, dashboards). "
-                    "The UI appears from nothing with a particle animation effect. "
-                    "Types: task_list, crypto, weather, news, calendar, code, chart, table, info."
-                ),
-                "parameters": {
-                    "type": "OBJECT",
-                    "properties": {
-                        "type": {
-                            "type": "STRING",
-                            "description": "UI type: 'task_list', 'crypto', 'weather', 'news', 'calendar', 'code', 'chart', 'table', 'info'"
-                        },
-                        "title": {
-                            "type": "STRING",
-                            "description": "Title displayed on the UI card"
-                        },
-                        "data": {
-                            "type": "OBJECT",
-                            "description": "Data to display in the component (varies by type)"
-                        },
-                        "layout": {
-                            "type": "STRING",
-                            "description": "Layout mode: 'card' (default), 'fullscreen', 'sidebar'"
-                        }
+                    "title": {
+                        "type": "STRING",
+                        "description": "Title displayed on the UI card"
                     },
-                    "required": ["type", "title"]
-                }
-            },
-            {
-                "name": "manipulate_dom",
-                "description": (
-                    "Interacts with a UI element visible on the user's screen. "
-                    "Use when the user asks to click, scroll, or interact with something they see."
-                ),
-                "parameters": {
-                    "type": "OBJECT",
-                    "properties": {
-                        "element_id": {
-                            "type": "STRING",
-                            "description": "The logical ID or description of the UI element"
-                        },
-                        "action": {
-                            "type": "STRING",
-                            "description": "Action: 'click', 'scroll', 'input', 'hover'"
-                        }
+                    "data": {
+                        "type": "OBJECT",
+                        "description": "Data to display in the component (varies by type)"
                     },
-                    "required": ["element_id", "action"]
-                }
+                    "layout": {
+                        "type": "STRING",
+                        "description": "Layout mode: 'card' (default), 'fullscreen', 'sidebar'"
+                    }
+                },
+                "required": ["type", "title"]
             }
-        ]
+        },
+        {
+            "name": "manipulate_dom",
+            "description": (
+                "Interacts with a UI element visible on the user's screen. "
+                "Use when the user asks to click, scroll, or interact with something they see."
+            ),
+            "parameters": {
+                "type": "OBJECT",
+                "properties": {
+                    "element_id": {
+                        "type": "STRING",
+                        "description": "The logical ID or description of the UI element"
+                    },
+                    "action": {
+                        "type": "STRING",
+                        "description": "Action: 'click', 'scroll', 'input', 'hover'"
+                    }
+                },
+                "required": ["element_id", "action"]
+            }
+        }
+    ]
+
+    # 2. Dynamic Superpowers (from Registry)
+    from .registry import AetherSuperpowerRegistry
+    registry = AetherSuperpowerRegistry()
+    superpowers = registry.get_tool_declarations()
+
+    # Convert Registry declarations to valid Gemini Tool format
+    # Note: Gemini expects a list of function_declarations objects
+    return [{
+        "function_declarations": system_tools + superpowers
     }]

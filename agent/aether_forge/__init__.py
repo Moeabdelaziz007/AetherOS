@@ -4,7 +4,6 @@
 
 from .aether_forge import AetherForge
 from .aether_nexus import AetherNexus
-from .executors import CoinGeckoExecutor, GitHubExecutor, WeatherExecutor
 from .models import ForgeResult, NanoAgent, NanoExecutor
 from .exceptions import AetherBaseError, ForgeErrorType
 from .circuit_breaker import AetherCircuitBreaker, get_circuit_breaker
@@ -16,9 +15,6 @@ from .motor_cortex import AetherMotorCortex
 __all__ = [
     "AetherForge",
     "AetherNexus",
-    "CoinGeckoExecutor",
-    "GitHubExecutor",
-    "WeatherExecutor",
     "ForgeResult",
     "NanoAgent",
     "NanoExecutor",

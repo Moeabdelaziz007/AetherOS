@@ -10,10 +10,13 @@ AetherOS exists to make traditional graphical interfaces obsolete. We bypass the
 
 ## 📍 Current Project State (V2.0 Hardened)
 
-- **Engine:** Aether Forge (Swarm Consensus + VerMCTS Parliament) - **Active**.
-- **Evolution:** Alpha Sovereign (Security Hardened & Self-Healing Loop) - **Active**.
-- **Collective Intelligence:** Hive Mind Integration (Dynamic Service Mapping) - **Live**.
-- **Optimization:** Lazy-Loading Senses (Cold Start Optimization) - **Stable**.
+- **Engine:** Aether Forge (Swarm Consensus) - **Active**.
+- **Soul Layer:** Dynamic Persona & Bilingual Protocol - **Integrated**.
+- **Memory Trident:** 3-Tier Storage (Working, Episodic, Semantic) - **Live**.
+- **Semantic Evolutions:**
+  - **Compressor:** Strategy Pattern summarization (Gemini 2.0 Flash) - **Live**.
+  - **Briefing Node:** Atomic Tier-0 Persistence (`MEMORY.md`) - **Active**.
+- **Evolution:** Alpha Sovereign (Security Hardened) - **Active**.
 
 ## 📜 Mandate
 

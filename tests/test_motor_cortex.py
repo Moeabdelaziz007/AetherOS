@@ -6,10 +6,6 @@ import json
 from agent.aether_forge.motor_cortex import AetherMotorCortex
 from agent.aether_forge.aether_forge import AetherForge
 
-# Monkeypatch the broken class
-AetherMotorCortex._execute_api_request = AetherMotorCortex.aether_execute_api_request
-AetherMotorCortex._manipulate_dom = AetherMotorCortex.aether_manipulate_dom
-
 @pytest.fixture
 def mock_forge():
     # Mock AetherForge to avoid async init issues
@@ -45,12 +41,12 @@ async def test_dispatch_unknown_tool(mock_forge):
 async def test_execute_api_missing_service(mock_forge):
     cortex = AetherMotorCortex(forge=mock_forge)
 
-    result = await cortex.aether_execute_api_request({})
-    assert result == {"error": "Missing 'service' parameter."}
+    result = await cortex._execute_api_request({})
+    assert result == {"error": "Missing 'service' parameter. Use: coingecko, github, weather"}
 
 @pytest.mark.asyncio
 async def test_manipulate_dom(mock_forge):
     cortex = AetherMotorCortex(forge=mock_forge)
-    result = await cortex.aether_manipulate_dom({"element_id": "btn-1", "action": "click"})
+    result = await cortex._manipulate_dom({"element_id": "btn-1", "action": "click"})
     assert result["success"] is True
-    assert "Successfully executed 'click'" in result["message"]
+    assert "Executed 'click' on element 'btn-1'." in result["message"]

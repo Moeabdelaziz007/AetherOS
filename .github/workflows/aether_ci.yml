@@ -250,7 +250,7 @@ jobs:
             -f screen \
             -ll \
             --exit-zero \
-            --ignore B101,B601
+            --skip B101,B601
 
       - name: Upload Bandit report
         uses: actions/upload-artifact@v4

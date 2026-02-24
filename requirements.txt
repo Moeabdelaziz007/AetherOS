@@ -4,3 +4,11 @@ pytest-asyncio
 python-dotenv
 cryptography
 psutil
+numpy
+google-auth
+google-generativeai
+google-cloud-firestore
+firebase-admin
+websockets
+pydantic
+PyYAML

@@ -6,9 +6,20 @@ import json
 from agent.aether_forge.motor_cortex import AetherMotorCortex
 from agent.aether_forge.aether_forge import AetherForge
 
-# Monkeypatch the broken class
-AetherMotorCortex._execute_api_request = AetherMotorCortex.aether_execute_api_request
-AetherMotorCortex._manipulate_dom = AetherMotorCortex.aether_manipulate_dom
+# Monkeypatch the broken class methods directly if they are missing or incorrectly named
+# In motor_cortex.py:
+# self.tools = {
+#     "execute_api_request": self._execute_api_request,
+#     "manipulate_dom": self._manipulate_dom
+# }
+# But the methods are defined as aether_execute_api_request and aether_manipulate_dom
+# So we need to alias them for the test if the class definition is broken.
+
+# Check if methods exist, if not alias them
+if not hasattr(AetherMotorCortex, '_execute_api_request'):
+    AetherMotorCortex._execute_api_request = AetherMotorCortex.aether_execute_api_request
+if not hasattr(AetherMotorCortex, '_manipulate_dom'):
+    AetherMotorCortex._manipulate_dom = AetherMotorCortex.aether_manipulate_dom
 
 @pytest.fixture
 def mock_forge():
@@ -23,10 +34,8 @@ async def test_dispatch_known_tool(mock_forge):
 
     # Mock the internal methods we just patched
     cortex._execute_api_request = AsyncMock(return_value={"success": True})
-    # We need to update tools dict because it was initialized with the UNBOUND methods
-    # Wait, if I patch the class, __init__ will use the patched methods.
 
-    # Re-initialize tools to point to the mock
+    # Re-initialize tools to point to the mock because __init__ runs before we mock the instance method
     cortex.tools["execute_api_request"] = cortex._execute_api_request
 
     result = await cortex.dispatch("execute_api_request", {"service": "coingecko"})

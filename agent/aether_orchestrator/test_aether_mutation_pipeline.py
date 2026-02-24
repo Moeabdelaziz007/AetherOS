@@ -7,11 +7,17 @@ import asyncio
 import json
 import os
 import sys
+from unittest.mock import MagicMock
 from pathlib import Path
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
+
+# Mock dependencies before importing alpha_evolve
+sys.modules["google"] = MagicMock()
+sys.modules["google.generativeai"] = MagicMock()
+sys.modules["dotenv"] = MagicMock()
 
 from agent.aether_orchestrator.aether_evolve import (
     AetherEvolve,
@@ -291,6 +297,45 @@ async def test_telemetry_integration():
         return True
 
 
+async def test_secret_redaction():
+    """Test secret redaction in MutationGenerator."""
+    print("\n🧪 Testing Secret Redaction...")
+
+    # We need to mock genai for this test
+    # Since we can't easily patch sys.modules inside a function for a module already imported,
+    # we will rely on checking the _redact_secrets and _restore_secrets methods directly.
+
+    generator = MutationGenerator(use_gemini=False)
+
+    secret_code = """
+def connect():
+    api_key = "sk-1234567890abcdef"
+    password = 'SuperSecretPassword'
+    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    regular_var = "not_a_secret"
+    short_secret = "pass"
+"""
+
+    # Test Redaction
+    redacted, secret_map = generator._redact_secrets(secret_code)
+
+    assert "sk-1234567890abcdef" not in redacted
+    assert "SuperSecretPassword" not in redacted
+    assert "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" not in redacted
+    assert "not_a_secret" in redacted # Should not redact normal strings
+    assert 'short_secret = "pass"' not in redacted # Should redact short strings (len >= 4)
+
+    assert len(secret_map) == 4
+    assert any("sk-1234567890abcdef" == v for v in secret_map.values())
+
+    # Test Restoration
+    restored = generator._restore_secrets(redacted, secret_map)
+    assert restored == secret_code
+
+    print("✅ Secret Redaction tests passed")
+    return True
+
+
 async def run_all_tests():
     """Run all mutation pipeline tests."""
     print("=" * 60)
@@ -305,7 +350,8 @@ async def run_all_tests():
         test_anomaly_analyzer,
         test_pipeline_activation,
         test_template_mutation_generation,
-        test_telemetry_integration
+        test_telemetry_integration,
+        test_secret_redaction
     ]
     
     passed = 0

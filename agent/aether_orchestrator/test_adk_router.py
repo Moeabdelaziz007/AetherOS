@@ -139,19 +139,20 @@ class TestADKRouter(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result["output"], "OK")
 
     async def test_invalid_params_type(self):
-        """Test robustness when params is None (which causes **None TypeError)."""
+        """Test robustness when params is None - should now handle gracefully."""
         context = {
             "system": "SYSTEM_1_REFLEX",
             "action": "bad_params",
             "params": None
         }
-        # This will raise TypeError: argument after ** must be a mapping, not NoneType
-        # The router should catch this and return an error result
+        # After fix: params=None is converted to {} defensively
+        self.mock_bridge.execute_tool.return_value = "OK"
 
         result = await self.router.route_action(context)
 
-        self.assertEqual(result["status"], "error")
-        self.assertIn("argument after ** must be a mapping", str(result["error"]))
+        # Should succeed now with empty params
+        self.assertEqual(result["status"], "success")
+        self.mock_bridge.execute_tool.assert_awaited_once_with("bad_params")
 
 if __name__ == "__main__":
     unittest.main()

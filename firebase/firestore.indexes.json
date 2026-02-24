@@ -1,0 +1,29 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "swarm_executions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "startTime", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "swarm_patterns",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "patternType", "order": "ASCENDING" },
+        { "fieldPath": "successRate", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "telemetry",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "metricType", "order": "ASCENDING" },
+        { "fieldPath": "timestamp", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

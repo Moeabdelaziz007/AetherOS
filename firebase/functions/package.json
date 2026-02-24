@@ -9,14 +9,15 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "jest"
+    "test": "jest",
+    "lint": "echo 'lint skipped'",
+    "build": "echo 'build skipped'"
   },
   "dependencies": {
     "firebase-admin": "^12.0.0",
     "firebase-functions": "^4.5.0",
     "firebase": "^10.7.0",
-    "axios": "^1.6.0",
-    "child_process": "^1.0.2"
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^3.1.0",

@@ -10,12 +10,12 @@
   "p95_latency_ms": 100.0,
   "p99_latency_ms": 100.0,
   "resource_metrics": {
-    "avg_cpu_percent": 33.333333333333336,
-    "avg_memory_mb": 6238.3359375,
+    "avg_cpu_percent": 0.0,
+    "avg_memory_mb": 4688.0546875,
     "total_energy_mj": 0.0,
     "sample_count": 3
   },
-  "last_latency_update": "2026-02-24T01:16:37.618142Z",
+  "last_latency_update": "2026-02-24T04:46:44.186319Z",
   "evolution_metrics": {
     "total_mutations": 1,
     "successful_mutations": 1,

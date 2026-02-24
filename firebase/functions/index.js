@@ -43,6 +43,8 @@ exports.quantumSwarmNode = functions
       timeout = 60 
     } = data;
 
+    let executionRef;
+    const startTs = Date.now();
     try {
       console.log(`🚀 Executing Quantum Swarm Node: ${agentId}`);
       
@@ -61,7 +63,7 @@ exports.quantumSwarmNode = functions
       };
 
       // Store execution start
-      const executionRef = await db.collection('swarm_executions').add(executionLog);
+      executionRef = await db.collection('swarm_executions').add(executionLog);
 
       // Execute the task based on type
       let result;
@@ -84,7 +86,7 @@ exports.quantumSwarmNode = functions
         status: 'completed',
         endTime: admin.firestore.FieldValue.serverTimestamp(),
         result: result,
-        executionTime: Date.now() - executionLog.startTime,
+        executionTime: Date.now() - startTs,
         memoryUsage: process.memoryUsage(),
         cpuUsage: process.cpuUsage()
       });
@@ -94,7 +96,7 @@ exports.quantumSwarmNode = functions
         executionId: executionRef.id,
         result: result,
         metrics: {
-          executionTime: Date.now() - executionLog.startTime,
+          executionTime: Date.now() - startTs,
           memoryUsage: process.memoryUsage(),
           cpuUsage: process.cpuUsage()
         }

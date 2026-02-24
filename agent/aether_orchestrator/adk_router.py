@@ -93,7 +93,7 @@ class ADKRouter:
         """
         system = context.get("system", "SYSTEM_1_REFLEX")
         action = context.get("action", "")
-        params = context.get("params", {})
+        params = context.get("params", {}) or {}  # Defensive: handle None values
         
         result = {
             "status": "success",

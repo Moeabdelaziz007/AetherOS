@@ -1,6 +1,9 @@
 /**
  * 🧠 AetherOS Google ADK Integration Module
  * Google Agents Developer Kit Integration for Firebase
+ * 
+ * IMPORTANT: Use getADKIntegration() to get a lazily-initialized instance.
+ * Do NOT directly import the singleton export.
  */
 
 import * as admin from 'firebase-admin';
@@ -356,7 +359,7 @@ export class AetherADKIntegration {
    * 🆔 Generate unique message ID
    */
   private generateMessageId(): string {
-    return `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `msg_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
   }
 
   /**
@@ -374,5 +377,27 @@ export class AetherADKIntegration {
   }
 }
 
-// Export singleton instance
-export const adkIntegration = new AetherADKIntegration();
+// Export factory function for lazy initialization
+export function getADKIntegration(projectId?: string, location?: string): AetherADKIntegration {
+  if (!admin.apps.length) {
+    throw new Error('Firebase Admin must be initialized before ADK integration. Call getADKIntegration after admin.initializeApp().');
+  }
+  return new AetherADKIntegration(projectId, location);
+}
+
+/**
+ * @deprecated Use getADKIntegration() instead. This singleton will be removed in a future version.
+ * Direct import will throw if Firebase Admin is not initialized.
+ */
+let _deprecatedInstance: AetherADKIntegration | null = null;
+export const adkIntegration = new Proxy<AetherADKIntegration>({} as AetherADKIntegration, {
+  get(target, prop) {
+    if (!_deprecatedInstance) {
+      if (!admin.apps.length) {
+        throw new Error('Firebase Admin must be initialized before ADK integration. Use getADKIntegration() instead.');
+      }
+      _deprecatedInstance = new AetherADKIntegration();
+    }
+    return _deprecatedInstance[prop as keyof AetherADKIntegration];
+  }
+});

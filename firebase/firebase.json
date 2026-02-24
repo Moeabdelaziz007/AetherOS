@@ -28,6 +28,12 @@
     "firestore": {
       "port": 8080
     },
+    "auth": {
+      "port": 9099
+    },
+    "hosting": {
+      "port": 5000
+    },
     "storage": {
       "port": 9199
     },
@@ -36,5 +42,14 @@
       "port": 4000
     },
     "singleProjectMode": true
+  },
+  "hosting": {
+    "public": "client",
+    "ignore": [
+      "node_modules",
+      "firebase.json",
+      ".firebase",
+      "**/.*"
+    ]
   }
 }

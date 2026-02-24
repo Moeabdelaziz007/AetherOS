@@ -15,6 +15,7 @@ import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
+from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, List, Optional
 from contextlib import contextmanager
 

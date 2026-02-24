@@ -142,6 +142,9 @@ CMD ["python", "-m", "agent.aether_orchestrator.main"]
 # ============================================================================
 FROM runtime AS development
 
+# Switch to root for development tools installation
+USER root
+
 # Install development tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -162,9 +165,6 @@ RUN pip install --no-cache-dir \
     mypy \
     ipython \
     ipdb
-
-# Switch to root for development
-USER root
 
 # Set development environment
 ENV AETHER_ENV="development" \

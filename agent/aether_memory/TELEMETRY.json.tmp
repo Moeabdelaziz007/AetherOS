@@ -1,0 +1,13 @@
+{
+  "total_requests": 1,
+  "successful_forges": 1,
+  "failed_forges": 0,
+  "avg_latency_ms": 75.0,
+  "last_active": "2026-02-23T11:08:10.720693",
+  "current_state": "Reflexive (System 1)",
+  "latency_sample_count": 3,
+  "p50_latency_ms": 75.0,
+  "p95_latency_ms": 100.0,
+  "p99_latency_ms": 100.0,
+  "resource_metrics": {
+    "avg_cpu_percent":

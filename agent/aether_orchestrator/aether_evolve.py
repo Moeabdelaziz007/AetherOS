@@ -294,7 +294,7 @@ class MutationGenerator:
         # Regex to capture sensitive variable assignments
         # Handles single and double quotes, looks for key terms like password, secret, api_key, token
         # Also handles basic type hints: var: str = "value"
-        secret_pattern = r'(?i)((?:[a-z0-9_]*(?:api_?key|secret|password|token|auth(?:_?token)?)[a-z0-9_]*)(?:\s*:\s*[^=]+?)?\s*=\s*)([\'"])(.*?)\2'
+        secret_pattern = r'(?i)((?:[a-z0-9_]*(?:api_?key|secret|password|token|auth(?:_?token)?)[a-z0-9_]*)(?:\s*:\s*[^=]+?)?\s*=\s*)([\'"])(.*?)\2'  # nosec
 
         redacted_code = source_code
         secret_map = {}

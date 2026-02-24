@@ -5,3 +5,8 @@ python-dotenv
 cryptography
 psutil
 numpy
+websockets
+google-generativeai
+google-cloud-aiplatform
+pydantic
+PyYAML

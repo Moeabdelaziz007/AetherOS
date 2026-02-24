@@ -1,7 +1,4 @@
 """
-⚠️ DEPRECATED: This module (v1.0) is deprecated.
-Please use `live_bridge_v2.py` for the official Gemini Live API implementation.
-
 🌌 AetherOS — Gemini Live Bridge
 ================================
 The final sensory bridge. Connects the multimodal voice stream to the Aether Forge.
@@ -131,7 +128,8 @@ class AetherGeminiLiveBridge:
 
 async def run_bridge_demo():
     """Testing the Bridge logic."""
-    bridge = GeminiLiveBridge(api_key="SIMULATED_KEY")
+    # Use the correct class name
+    bridge = AetherGeminiLiveBridge(api_key="SIMULATED_KEY")
     
     print("\n[🎙️ User]: 'سعر البيتكوين وفصل لي التشارت'")
     response = await bridge.process_voice_command("سعر البيتكوين وفصل لي التشارت", "TradingView visible on screen")

@@ -12,11 +12,13 @@ import json
 import logging
 import threading
 import time
+from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 from contextlib import contextmanager
+import traceback
 
 from .types import TelemetryCallback, AsyncTelemetryCallback, TelemetryEvent
 
@@ -420,7 +422,3 @@ class AetherTelemetryHandler:
     def add_telemetry_sink(self, sink: TelemetrySink):
         """Add a custom telemetry sink."""
         self._telemetry_sinks.append(sink)
-
-
-# Import traceback for error logging
-import traceback

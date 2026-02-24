@@ -1,15 +1,18 @@
 import sys
 from unittest.mock import MagicMock
 
-# Mock firebase_admin and google.auth BEFORE any imports
-sys.modules["firebase_admin"] = MagicMock()
-sys.modules["firebase_admin.credentials"] = MagicMock()
+# Mock ALL google and firebase dependencies aggressively BEFORE any other imports
+sys.modules["google"] = MagicMock()
 sys.modules["google.auth"] = MagicMock()
+sys.modules["google.auth.credentials"] = MagicMock()
+sys.modules["google.oauth2"] = MagicMock()
 sys.modules["google.cloud"] = MagicMock()
 sys.modules["google.cloud.firestore"] = MagicMock()
 sys.modules["google.generativeai"] = MagicMock()
-# Also mock google.genai as it's used in live_bridge_v2
 sys.modules["google.genai"] = MagicMock()
+sys.modules["firebase_admin"] = MagicMock()
+sys.modules["firebase_admin.credentials"] = MagicMock()
+sys.modules["firebase_admin.firestore"] = MagicMock()
 
 import pytest
 import asyncio

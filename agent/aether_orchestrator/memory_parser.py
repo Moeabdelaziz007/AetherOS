@@ -1,3 +1,41 @@
+"""AetherOS Memory Parser Module.
+
+This module provides the AetherNavigator class, which serves as the primary
+interface for navigating and managing AetherOS's persistent memory structures,
+including the DNA belief system and the Aether-Nexus graph.
+
+The module implements zero-latency memory access through memory-mapped files,
+semantic search capabilities through vector encoding, and graceful handling
+of optional dependencies for zero-friction startup.
+
+Key Features:
+    - Memory-mapped file access for zero-latency DNA and Nexus reading
+    - Vector encoding with SentenceTransformer for semantic memory
+    - FAISS index for fast similarity search
+    - Hash-based change detection for efficient cache invalidation
+    - Lazy loading of heavy ML dependencies
+    - Graceful fallback for missing optional dependencies
+
+Key Classes:
+    DNABelief: Dataclass representing the complete AetherOS DNA belief system,
+        containing all memory modules.
+    VectorEncoder: Encodes text into 384-dimensional latent space using
+        all-MiniLM-L6-v2 for semantic search.
+    AetherNavigator: Navigates DNA and Aether-Nexus graph with zero-latency
+        memory access and semantic search capabilities.
+
+Key Methods:
+    AetherNavigator.load_dna_async: Loads DNA from memory with async file I/O.
+    AetherNavigator.load_nexus_async: Loads Nexus graph from memory.
+    AetherNavigator.semantic_search: Performs semantic search across memory nodes.
+    AetherNavigator.update_dna_field: Updates specific DNA fields with persistence.
+
+Example:
+    >>> navigator = AetherNavigator(memory_path="agent/aether_memory/")
+    >>> dna = await navigator.load_dna_async()
+    >>> results = await navigator.semantic_search("how to book flights")
+"""
+
 import mmap
 import os
 import hashlib

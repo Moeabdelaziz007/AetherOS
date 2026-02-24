@@ -1,7 +1,41 @@
-"""
-AetherOS - AetherTelemetry System
-Manages real-time state persistence for the Pulse API.
-Includes P95/P99 latency tracking and resource monitoring.
+"""AetherOS Telemetry System Module.
+
+This module provides comprehensive telemetry and monitoring capabilities for the
+AetherOS system, enabling real-time state persistence, latency tracking, and
+resource monitoring for the Pulse API.
+
+The module implements two core classes:
+    - AetherLatencyTracker: Tracks latency measurements and calculates percentile
+      metrics using a rolling window for memory efficiency.
+    - AetherTelemetryManager: Manages telemetry state persistence and provides
+      thread-safe access to latency tracking.
+
+Key Features:
+    - P50/P95/P99 latency percentile calculations
+    - CPU, memory, and energy resource monitoring
+    - Rolling window sample collection for memory efficiency
+    - Thread-safe latency tracking with async support
+    - Real-time telemetry file persistence
+    - Integration with psutil for system resource monitoring
+
+Key Classes:
+    AetherLatencyTracker: Tracks latency measurements and calculates percentile
+        metrics using a rolling window.
+    AetherTelemetryManager: Manages telemetry state persistence and provides
+        thread-safe access to latency tracking.
+
+Key Methods:
+    AetherLatencyTracker.aether_record_latency: Records a latency measurement.
+    AetherLatencyTracker.aether_calculate_p95_latency: Calculates P95 latency.
+    AetherLatencyTracker.aether_calculate_p99_latency: Calculates P99 latency.
+    AetherTelemetryManager.aether_record_request_latency: Records request latency.
+    AetherTelemetryManager.aether_update: Updates telemetry file.
+
+Example:
+    >>> await AetherTelemetryManager.aether_record_request_latency(150.5)
+    >>> tracker = await AetherTelemetryManager.aether_get_latency_tracker()
+    >>> p95 = tracker.aether_calculate_p95_latency()
+    >>> print(f"P95 Latency: {p95}ms")
 """
 
 import json

@@ -1,3 +1,45 @@
+"""AetherOS Cognitive Router Module.
+
+This module implements the HyperMindRouter, which provides active inference
+cognitive gating based on Variational Free Energy (VFE) and Expected Free Energy
+(EFE) calculations as part of the Prometheus Pillar.
+
+The router implements the Active Inference framework to make intelligent
+decisions about when to use System 1 (Reflexive) vs System 2 (Reflective)
+execution paths, balancing curiosity (epistemic value) with utility
+(pragmatic value).
+
+Key Concepts:
+    - Variational Free Energy (F): Complexity - Accuracy, determines System 1/2 gating
+    - Expected Free Energy (G): Epistemic Value + Pragmatic Value, determines
+      curiosity vs compliance
+    - Cognitive Weights: Learned parameters that adapt based on feedback
+    - Cognitive Sleep: Cooldown period to prevent catastrophic identity drift
+
+Key Features:
+    - Active inference cognitive gating
+    - VFE and EFE calculation for decision making
+    - Adaptive cognitive weights with bounded gradient updates
+    - Cooldown mechanism for stability
+    - Baseline tracking from SOUL.md defaults
+
+Key Classes:
+    HyperMindRouter: Implements active inference cognitive gating with VFE
+        and EFE calculations.
+
+Key Methods:
+    calculate_vfe: Calculates Variational Free Energy to determine System 1/2 gating.
+    calculate_efe: Calculates Expected Free Energy to determine curiosity vs compliance.
+    update_cognitive_weights: Adjusts cognitive weights based on feedback with
+        bounded updates and cooldown.
+
+Example:
+    >>> router = HyperMindRouter(bridge)
+    >>> vfe = await router.calculate_vfe({"anomaly": 0.5})
+    >>> efe = await router.calculate_efe({"novelty": 0.8, "goal_alignment": 0.9})
+    >>> await router.update_cognitive_weights(feedback=0.1)
+"""
+
 import asyncio
 import logging
 from typing import Any, Dict, List
@@ -10,13 +52,42 @@ class HyperMindRouter:
     Priority 1 Refactor: Active Inference Cognitive Gating.
     Implements VFE and EFE (G) logic (Prometheus Pillar).
     """
-    def __init__(self, bridge: AetherNavigator):
+    def __init__(self, bridge: AetherNavigator) -> None:
+        """Initialize the HyperMindRouter with a bridge reference.
+        
+        Args:
+            bridge: Reference to AetherNavigator for accessing DNA and
+                cognitive weights.
+        
+        Attributes:
+            bridge: The bridge object for accessing DNA and cognitive weights.
+        """
         self.bridge = bridge
 
     async def calculate_vfe(self, context: Dict[str, Any], dna: Any = None) -> float:
-        """
+        """Calculate Variational Free Energy (VFE) for cognitive gating.
+        
         Variational Free Energy (F) = Complexity - Accuracy.
-        Determines System 1 vs System 2 gating.
+        This metric determines whether to use System 1 (Reflexive) or
+        System 2 (Reflective) execution paths based on the current
+        sensory anomaly and complexity bias.
+        
+        Args:
+            context: Dictionary containing:
+                - anomaly: Float representing current sensory anomaly level.
+            dna: Optional DNA object containing inference configuration.
+                If not provided, will be loaded from the bridge.
+        
+        Returns:
+            A float representing the Variational Free Energy score.
+            Lower values indicate better fit between internal model
+            and current sensory input.
+        
+        Example:
+            >>> router = HyperMindRouter(bridge)
+            >>> vfe = await router.calculate_vfe({"anomaly": 0.5})
+            >>> vfe > 0.5
+            True
         """
         # Validate required keys and provide safe defaults
         required_keys = ["anomaly"]
@@ -38,9 +109,30 @@ class HyperMindRouter:
         return vfe
 
     async def calculate_efe(self, context: Dict[str, Any]) -> float:
-        """
+        """Calculate Expected Free Energy (EFE) for curiosity vs compliance.
+        
         Expected Free Energy (G) = Epistemic Value + Pragmatic Value.
-        Determines the 'Curiosity' vs 'Compliance' of the response.
+        This metric determines the balance between curiosity (epistemic value)
+        and compliance (pragmatic value) in the response.
+        
+        Args:
+            context: Dictionary containing:
+                - novelty: Float representing novelty of the situation.
+                - goal_alignment: Float representing alignment with goals.
+        
+        Returns:
+            A float representing the Expected Free Energy score.
+            Lower values indicate more optimal policies balancing
+            curiosity and utility.
+        
+        Example:
+            >>> router = HyperMindRouter(bridge)
+            >>> efe = await router.calculate_efe({
+            ...     "novelty": 0.8,
+            ...     "goal_alignment": 0.9
+            ... })
+            >>> efe < 1.0
+            True
         """
         # Validate required keys and provide safe defaults
         required_keys = ["novelty", "goal_alignment"]
@@ -62,13 +154,28 @@ class HyperMindRouter:
         g_score = 1.0 - (epistemic + pragmatic)
         return g_score
     
-    async def update_cognitive_weights(self, feedback: float, lr: float = 0.01):
-        """Adjusts the cognitive weights by a bounded gradient step based on feedback.
-
-        `feedback` is a reward signal (positive for good policies, negative for bad).
-        Updates are clamped to a maximum percentage change relative to the
-        original baseline stored in SOUL.md to avoid catastrophic identity drift.
-        A cooldown period (default 60s) prevents continuous violent updates.
+    async def update_cognitive_weights(self, feedback: float, lr: float = 0.01) -> None:
+        """Adjust cognitive weights based on feedback with bounded updates.
+        
+        This method implements a bounded gradient step for updating cognitive
+        weights based on reward signals. Updates are clamped to prevent
+        catastrophic identity drift and a cooldown period prevents
+        continuous violent updates.
+        
+        Args:
+            feedback: A reward signal (positive for good policies, negative
+                for bad policies). Typically in range [-1.0, 1.0].
+            lr: Learning rate for the gradient step. Defaults to 0.01.
+        
+        Note:
+            - Updates are clamped to a maximum percentage change relative
+              to the original baseline stored in SOUL.md.
+            - A cooldown period (default 60s) prevents continuous updates.
+            - Cognitive sleep ensures stability by preventing rapid weight changes.
+        
+        Example:
+            >>> router = HyperMindRouter(bridge)
+            >>> await router.update_cognitive_weights(feedback=0.1, lr=0.01)
         """
         dna = await self.bridge.load_dna_async(force=False)
         weights = dna.inference.setdefault("cognitive_weights", {})

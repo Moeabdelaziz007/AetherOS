@@ -23,6 +23,7 @@ from .models import (
 )
 import json
 from .feedback_loop import AetherFeedbackLoop
+from .dynamic_threshold import DynamicThreshold, get_dynamic_threshold
 
 logger = logging.getLogger("aether.constraint")
 
@@ -163,13 +164,19 @@ class MemorySignal:
 class AetherConstraintSolver:
     """
     Wave Function Collapse for user intent.
-    Calibrated by Bayesian Feedback.
+    Calibrated by Bayesian Feedback with Dynamic Learned Threshold.
     """
 
+    # Legacy static threshold (deprecated - use dynamic_threshold instead)
     CONFIDENCE_THRESHOLD = 0.35 
 
-    def __init__(self):
+    def __init__(self, use_dynamic_threshold: bool = True):
         self.feedback = AetherFeedbackLoop()
+        self.use_dynamic_threshold = use_dynamic_threshold
+        if use_dynamic_threshold:
+            self.dynamic_threshold = get_dynamic_threshold()
+        else:
+            self.dynamic_threshold = None
 
     def resolve(
         self,
@@ -188,6 +195,25 @@ class AetherConstraintSolver:
         urgency_score = voice.urgency_score if voice else 0.3
         tau, cognitive_system = compute_tau(urgency_score)
         urgency_level = classify_urgency(urgency_score)
+
+        # Step 1b: Compute dynamic threshold if enabled
+        if self.use_dynamic_threshold and self.dynamic_threshold:
+            # Calculate available context score
+            context_score = 0.5
+            if screen:
+                context_score = 0.7 if screen.detected_assets else 0.5
+            if voice and voice.transcript:
+                context_score = min(1.0, context_score + 0.2)
+            
+            # Get dynamic threshold
+            dynamic_threshold = self.dynamic_threshold.compute_threshold(
+                urgency_score=urgency_score,
+                time_of_day=time_ctx.hour if time_ctx else None,
+                intent_type=None,  # Will be set after resolution
+                available_context=context_score,
+            )
+        else:
+            dynamic_threshold = self.CONFIDENCE_THRESHOLD
 
         # Step 2: Score all intent templates
         scores: List[Tuple[float, IntentTemplate]] = []
@@ -223,6 +249,10 @@ class AetherConstraintSolver:
         reasoning = self._build_reasoning(
             best_template, best_score, voice, screen, memory
         )
+        
+        # Add threshold info to reasoning
+        if self.use_dynamic_threshold:
+            reasoning += f" | threshold={dynamic_threshold:.2f}"
 
         intent = ResolvedIntent(
             raw_query=query,
@@ -238,7 +268,7 @@ class AetherConstraintSolver:
         logger.info(
             f"✅ Intent resolved: {intent.action}({intent.target}) "
             f"| τ={tau:.2f} | sys={cognitive_system.name} "
-            f"| conf={intent.confidence:.0%}"
+            f"| conf={intent.confidence:.0%} | thresh={dynamic_threshold:.2f}"
         )
         return intent
 

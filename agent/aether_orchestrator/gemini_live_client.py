@@ -1,3 +1,40 @@
+"""AetherOS Gemini Live Client Module.
+
+This module implements the GeminiLiveClient, which serves as the multimodal
+soul of AetherOS, handling real-time bidirectional content generation streams
+with Google Gemini 3.1 Pro.
+
+The client provides WebSocket-based communication with the Gemini Live API,
+enabling real-time audio and text interactions with the AI model. It includes
+robust connection handling with exponential backoff retry logic, setup protocol
+configuration, and support for screen context and spatial instructions.
+
+Key Features:
+    - Real-time bidirectional WebSocket communication with Gemini Live API
+    - Exponential backoff retry logic for connection resilience
+    - Setup protocol with system instruction and spatial configuration
+    - Support for audio and text response modalities
+    - Screen context integration for visual understanding
+    - Graceful handling of missing websockets dependency
+
+Key Classes:
+    GeminiLiveClient: The multimodal client that handles real-time BidiGenerateContent
+        streams with Gemini 3.1 Pro.
+
+Key Methods:
+    connect: Establishes WebSocket connection with retry logic and setup protocol.
+    send_screen_context: Sends screen image data to the Gemini Live API.
+    send_text: Sends text messages to the Gemini Live API.
+    listen: Async generator that yields responses from the Gemini Live API.
+
+Example:
+    >>> client = GeminiLiveClient(bridge, api_key="your-key")
+    >>> await client.connect()
+    >>> await client.send_text("Hello, AetherOS!")
+    >>> async for response in client.listen():
+    ...     print(response)
+"""
+
 import asyncio
 import json
 import base64

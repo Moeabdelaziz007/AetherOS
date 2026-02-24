@@ -11,11 +11,11 @@
   "p99_latency_ms": 100.0,
   "resource_metrics": {
     "avg_cpu_percent": 33.333333333333336,
-    "avg_memory_mb": 6559.24609375,
+    "avg_memory_mb": 6238.3359375,
     "total_energy_mj": 0.0,
     "sample_count": 3
   },
-  "last_latency_update": "2026-02-24T00:28:21.617917Z",
+  "last_latency_update": "2026-02-24T01:16:37.618142Z",
   "evolution_metrics": {
     "total_mutations": 1,
     "successful_mutations": 1,
@@ -30,7 +30,7 @@
     "recent_mutations": [
       {
         "mutation_id": "test_mut_001",
-        "timestamp": "2026-02-23T16:46:37.712995",
+        "timestamp": "2026-02-24T00:59:11.551738",
         "mutation_type": "ZeroDivisionError",
         "component": "Orchestrator",
         "success": true
@@ -38,5 +38,5 @@
     ]
   },
   "mutation_pipeline_active": true,
-  "last_mutation_cycle": "2026-02-23T16:46:37.734443"
+  "last_mutation_cycle": "2026-02-24T00:59:11.551757"
 }

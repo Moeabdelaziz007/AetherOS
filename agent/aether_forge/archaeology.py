@@ -1,8 +1,34 @@
-"""
-AetherOS — API Archaeology Engine
-===================================
-Discovers and maps the 'Shadow APIs' of the web. 
-Bypasses UIs by finding the underlying data contracts.
+"""AetherOS API Archaeology Engine Module.
+
+This module provides API discovery and mapping capabilities for the AetherOS
+system, enabling the discovery and documentation of "Shadow APIs" - the
+underlying data contracts that power web services.
+
+The archaeology engine serves as a passive reconnaissance system that builds
+collective knowledge of API endpoints, their structures, and confidence levels.
+This knowledge is stored in Shadow Maps that can be shared across the entire
+AetherOS ecosystem, allowing agents to bypass UIs and directly interact with
+data contracts.
+
+Key Features:
+    - Passive API discovery and mapping
+    - Shadow Maps for persistent API knowledge storage
+    - Confidence scoring for discovered endpoints
+    - Collective knowledge sharing across the ecosystem
+    - Support for dynamic endpoint registration
+
+Key Classes:
+    AetherAPIArchaeologist: Passive reconnaissance engine for API discovery
+        that builds and maintains Shadow Maps.
+
+Key Methods:
+    aether_excavate: Retrieves the shadow map for a target service.
+    aether_register_discovery: Adds a newly discovered endpoint to the
+        collective knowledge.
+
+Example:
+    >>> await archaeologist.aether_excavate("coingecko")
+    >>> await archaeologist.aether_register_discovery("github", "/repos/{owner}/{repo}")
 """
 
 import logging

@@ -16,20 +16,20 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from agent.aether_orchestrator.aether_evolve import (
     AetherEvolve,
     AetherNeuralMonitor,
-    AetherMutationGenerator,
-    AetherMutationValidator,
-    AetherMutationTracker,
-    AetherAnomalyAnalyzer,
+    MutationGenerator,
+    MutationValidator,
+    MutationTracker,
+    AnomalyAnalyzer,
     MUTATION_TEMPLATES,
     DANGEROUS_PATTERNS
 )
 
 
 async def test_mutation_tracker():
-    """Test the AetherMutationTracker class."""
-    print("\n🧪 Testing AetherMutationTracker...")
+    """Test the MutationTracker class."""
+    print("\n🧪 Testing MutationTracker...")
     
-    tracker = AetherMutationTracker()
+    tracker = MutationTracker()
     
     # Record some mutations
     tracker.record_mutation("ZeroDivisionError", "Orchestrator", True, "mut_001")
@@ -44,15 +44,15 @@ async def test_mutation_tracker():
     assert metrics["mutations_by_type"]["ZeroDivisionError"] == 2
     assert metrics["mutations_by_component"]["Orchestrator"] == 2
     
-    print("✅ AetherMutationTracker tests passed")
+    print("✅ MutationTracker tests passed")
     return True
 
 
 def test_mutation_validator():
-    """Test the AetherMutationValidator class."""
-    print("\n🧪 Testing AetherMutationValidator...")
+    """Test the MutationValidator class."""
+    print("\n🧪 Testing MutationValidator...")
     
-    validator = AetherMutationValidator()
+    validator = MutationValidator()
     
     # Test safe mutation
     safe_code = "def foo():\n    return 42"
@@ -82,7 +82,7 @@ def test_mutation_validator():
     assert validator.validate_mutation_template("ZeroDivisionError", "x = 1/0")
     assert not validator.validate_mutation_template("UnknownError", "x = 1/0")
     
-    print("✅ AetherMutationValidator tests passed")
+    print("✅ MutationValidator tests passed")
     return True
 
 
@@ -137,8 +137,8 @@ def test_dangerous_patterns():
 
 
 async def test_anomaly_analyzer():
-    """Test the AetherAnomalyAnalyzer class."""
-    print("\n🧪 Testing AetherAnomalyAnalyzer...")
+    """Test the AnomalyAnalyzer class."""
+    print("\n🧪 Testing AnomalyAnalyzer...")
     
     # Create a temporary test anomaly log
     test_log_path = "/tmp/test_anomaly_log.json"
@@ -177,7 +177,7 @@ async def test_anomaly_analyzer():
         json.dump(test_anomalies, f)
     
     try:
-        analyzer = AetherAnomalyAnalyzer(test_log_path)
+        analyzer = AnomalyAnalyzer(test_log_path)
         
         # Test loading
         anomalies = analyzer.load_anomalies()
@@ -194,7 +194,7 @@ async def test_anomaly_analyzer():
         # ZeroDivisionError should be first (higher frequency)
         assert "ZeroDivisionError" in prioritized[0][0]
         
-        print("✅ AetherAnomalyAnalyzer tests passed")
+        print("✅ AnomalyAnalyzer tests passed")
         return True
     finally:
         # Clean up
@@ -237,7 +237,7 @@ async def test_template_mutation_generation():
     """Test template-based mutation generation."""
     print("\n🧪 Testing Template Mutation Generation...")
     
-    generator = AetherMutationGenerator(use_gemini=False)  # Disable Gemini for this test
+    generator = MutationGenerator(use_gemini=False)  # Disable Gemini for this test
     
     anomaly = {
         "component": "TestComponent",

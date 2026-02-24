@@ -1,9 +1,44 @@
-"""
-🌌 AetherOS — Aether Forge Core (v2.0 - Hardened)
-The Ephemeral Agent Compiler & Quantum Swarm Executor
+"""AetherOS Forge Core Module.
 
-This module implements the 4-phase Aether Forge Protocol:
-Deconstruct -> Synthesize -> Deploy -> Harvest.
+This module implements the Aether Forge Protocol, the core orchestration system
+for ephemeral agent compilation and quantum swarm execution in AetherOS.
+
+The module implements the 4-phase Aether Forge Protocol:
+    1. Deconstruct: Analyze intent and identify required capabilities
+    2. Synthesize: Compile and generate Nano-Agent code dynamically
+    3. Deploy: Execute agents in parallel with circuit breaker protection
+    4. Harvest: Collect results, update memory, and dissolve agents
+
+Key Features:
+    - Dynamic agent compilation and execution
+    - Parliamentary consensus for dispute resolution
+    - Temporal memory tides for autonomous pruning
+    - Circuit breaker pattern for fault tolerance
+    - Cloud Nexus integration for global state persistence
+    - High-performance HTTP client pooling
+    - Telemetry and metrics collection
+    - Visual feedback through micro-visualization
+
+Key Classes:
+    AetherAgentParliament: Handles disputes between multiple Nano-Agents and
+        implements consensus through deliberation.
+    AetherTemporalMemoryTides: Manages sleep cycles for memory consolidation
+        and pruning weak synapses.
+    AetherForge: The main orchestration hub for the Aether Forge Protocol,
+        coordinating all forge operations.
+
+Key Methods:
+    AetherAgentParliament.aether_deliberate: Resolves disputes by selecting
+        the highest confidence proposal.
+    AetherForge.aether_forge_agent: Main entry point for agent synthesis
+        and execution.
+    AetherForge.aether_deconstruct_intent: Analyzes intent and identifies
+        required capabilities.
+
+Example:
+    >>> forge = AetherForge(automated_tides=True)
+    >>> result = await forge.aether_forge_agent("get bitcoin price", {})
+    >>> print(result.data)
 """
 
 import asyncio
@@ -137,12 +172,16 @@ class AetherForge:
         self.compiler = AetherNanoAgentCompiler()
         self.sandbox = AetherNanoSandbox()
 
-        # Build Registry and Service Map dynamically
+        # ─────────────────────────────────────────────────────────────────────────────
+        # Registry and Service Map Initialization
+        # ─────────────────────────────────────────────────────────────────────────────
         self.REGISTRY: Dict[str, Type[NanoExecutor]] = {}
         self.SERVICE_MAP: Dict[str, str] = {}
         self._build_registry()
 
-        # Cloud Nexus (The Global Nervous System)
+        # ─────────────────────────────────────────────────────────────────────────────
+        # Cloud Nexus Initialization (The Global Nervous System)
+        # ─────────────────────────────────────────────────────────────────────────────
         project_id = os.getenv("GOOGLE_CLOUD_PROJECT", "notional-armor-456623-e8")
         key_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", ".idx/aether-key.json")
         self.cloud = None
@@ -159,7 +198,9 @@ class AetherForge:
             except Exception as e:
                 logger.warning(f"⚠️ CloudNexus offline: {e}. Degrading to Local Sovereignty.")
         
-        # Pooled High-Performance Client
+        # ─────────────────────────────────────────────────────────────────────────────
+        # HTTP Client Initialization (Pooled High-Performance Client)
+        # ─────────────────────────────────────────────────────────────────────────────
         try:
             self.client = httpx.AsyncClient(
                 timeout=10.0,
@@ -171,6 +212,9 @@ class AetherForge:
             logger.error(f"❌ Failed to initialize HTTP client: {e}")
             raise RuntimeError(f"HTTP client initialization failed: {e}")
         
+        # ─────────────────────────────────────────────────────────────────────────────
+        # Automated Tides Daemon Initialization
+        # ─────────────────────────────────────────────────────────────────────────────
         self.agents_forged = 0
         if automated_tides:
             asyncio.create_task(self._start_tide_daemon())

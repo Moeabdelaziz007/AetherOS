@@ -242,15 +242,14 @@ jobs:
             -f json \
             -o bandit-report.json \
             -ll \
-            --ignore B101,B601 || true
+            -s B101,B601 || true
 
       - name: Run Bandit with severity check
         run: |
           bandit -r agent/ tests/ \
             -f screen \
-            -ll \
-            --fail-on-severity high \
-            --ignore B101,B601
+            -lll \
+            -s B101,B601
 
       - name: Upload Bandit report
         uses: actions/upload-artifact@v4

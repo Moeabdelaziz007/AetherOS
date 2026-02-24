@@ -1,6 +1,14 @@
 import pytest
 import asyncio
+import sys
 from unittest.mock import AsyncMock, Mock, patch, MagicMock
+
+# Mock firebase_admin and google.auth before ANY local imports that might trigger them
+sys.modules["firebase_admin"] = MagicMock()
+sys.modules["firebase_admin.credentials"] = MagicMock()
+sys.modules["google"] = MagicMock()
+sys.modules["google.auth"] = MagicMock()
+
 from agent.aether_forge.aether_forge import AetherForge
 from agent.aether_forge.models import ForgeResult, CognitiveSystem
 from agent.aether_forge.compiler import CompiledAgent

@@ -4,3 +4,6 @@ pytest-asyncio
 python-dotenv
 cryptography
 psutil
+firebase-admin
+numpy
+pytest-cov

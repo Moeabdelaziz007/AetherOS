@@ -42,28 +42,19 @@ Example:
 """
 
 import asyncio
-import json
 import time
 import hashlib
 import os
 import logging
 import re
-from dataclasses import dataclass, field, asdict
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Tuple, Callable, Awaitable, Type, Protocol
-from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 import httpx
 # Legacy executors removed for Registry-driven architecture
 from .models import (
-    NanoAgent, ForgeResult, NanoExecutor, AgentProposal,
+    ForgeResult, NanoExecutor, AgentProposal,
     CognitiveSystem, UrgencyLevel, ForgeMetrics, DataProof, VerifiedResult,
     VoiceFeatures, ScreenContext, ResolvedIntent
-)
-from .exceptions import (
-    AetherBaseError, ForgeErrorType, NetworkError, RateLimitError,
-    APISchemaChangedError, VetoBlockedError, SwarmExhaustedError,
-    IntentUnresolvedError, ProofDisputedError
 )
 from .aether_nexus import AetherNexus
 from .cloud_nexus import AetherCloudNexus
